@@ -19,12 +19,14 @@ public class MybatisUtil {
 		Reader reader = null;
 		
 		try{
+			// 读取配置文件的信息
 			reader = Resources.getResourceAsReader(resource);
 			
 		}catch(IOException e){
 			e.printStackTrace();
 		}
 		
+		// 通过使用配置文件的信息构造一个sqlSessionFactory
 		sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 	}
 	

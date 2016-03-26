@@ -1,9 +1,10 @@
 package cfw.test.utils.test;
 
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
+import static org.junit.Assert.*;
 import cfw.test.utils.MybatisUtil;
 
 /**
@@ -18,5 +19,8 @@ public class TestMybatisUtil {
 		
 		assertNotEquals(null, sqlSessionFactory);
 		
+		sqlSessionFactory.openSession();
+		
+		//assertNotEquals(null,sqlSession);
 	}
 }

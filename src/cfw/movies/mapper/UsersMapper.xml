@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cfw.movies.mapper.UsersMapper">
+<mapper namespace="cfw.movies.mapper.UsersMapper">
 	
 	<insert id="insertOne" parameterType="Users">
 		INSERT INTO 
@@ -11,9 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				password
 			) 
 		VALUES(
-			NULL,
-			'#{username}',
-			'#{password}'
+			#{username},
+			#{password}
 		)
 	</insert>
 </mapper>
