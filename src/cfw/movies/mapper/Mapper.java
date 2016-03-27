@@ -11,8 +11,14 @@ package cfw.movies.mapper;
  * @DATE 2015年8月6日 下午3:10:18
  */
 public interface Mapper<Template> {
-	public int insertOne(Template t);
+	public Long insertOne(Template t);
 	public int deleteOne(Template t);
 	public int updateOne(Template t);
-	public Template findOne(Template t);
+	
+	/**
+	 * Count the records.
+	 * @author Fangwei_Cai
+	 * @time since 2016年3月26日 下午4:59:00
+	 */
+	public Long findOne(Template t);
 }

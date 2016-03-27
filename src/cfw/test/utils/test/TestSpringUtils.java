@@ -32,8 +32,8 @@ public class TestSpringUtils {
 		user.setUsername("cfwasdfdsa");
 		user.setPassword("123");
 		
-		int result = userMapper.insertOne(user);
-		assertThat(result, not(0));
+		Long result = userMapper.insertOne(user);
+		assertThat(result, not(0L));
 		sqlSession.commit();
 		
 	}

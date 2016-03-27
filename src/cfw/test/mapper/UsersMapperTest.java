@@ -26,6 +26,7 @@ import cfw.test.utils.SpringUtils;
 public class UsersMapperTest {
 	private SqlSessionFactory sqlSessionFactory;
 	private SqlSession sqlSession;
+	private UsersMapper userMapper;
 	
 	
 	@Before
@@ -36,7 +37,7 @@ public class UsersMapperTest {
 		
 		sqlSession = sqlSessionFactory.openSession();
 		
-		
+		userMapper = sqlSession.getMapper(UsersMapper.class);
 	}
 	
 	@After
@@ -44,16 +45,27 @@ public class UsersMapperTest {
 		sqlSession.close();
 	}
 	
-	@Test
+	//@Test
 	public void testInsertOne() throws SQLException{
 		
-		UsersMapper userMapper = sqlSession.getMapper(UsersMapper.class);
 		Users user = new Users();
 		user.setUsername("CaiFagnwei44");
 		user.setPassword("123");
 		
-		int result = userMapper.insertOne(user);
-		assertThat(result, not(0));
+		Long result = userMapper.insertOne(user);
+		assertThat(result, not(0L));
 		
 	}
+	
+	@Test
+	public void testFindOne() throws SQLException {
+		Users user = new Users();
+		user.setUsername("CaiFagnwei44");
+		user.setPassword("123");
+		
+		Long result = userMapper.findOne(user);
+		System.out.println(result);
+		assertThat(result, is(0L));
+	}
+	
 }
