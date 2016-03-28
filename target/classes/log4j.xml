@@ -41,7 +41,7 @@
 	</logger>
 
 	<!-- 下面是打印mybatis语句的配置      start-->
-	<logger name="com.cfw.mapper" additivity="true">
+	<logger name="cfw.movies.mapper" additivity="true">
 		<level value="DEBUG" />
 	</logger>
 	<logger name="java.sql" additivity="true">
