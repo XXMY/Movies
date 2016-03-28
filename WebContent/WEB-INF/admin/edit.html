@@ -9,6 +9,7 @@
 	<link href="/plugins/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="/css/sidebarPrev.css">
 	
+	<!-- 编辑器 -->
 	<link rel="stylesheet" href="/plugins/froala_editor_2.2.1/css/froala_editor.css">
 	<link rel="stylesheet" href="/plugins/froala_editor_2.2.1/css/froala_style.css">
 	<link rel="stylesheet" href="/plugins/froala_editor_2.2.1/css/plugins/code_view.css">
@@ -24,6 +25,10 @@
 	<link rel="stylesheet" href="/plugins/froala_editor_2.2.1/css/plugins/quick_insert.css">
 	<link rel="stylesheet" href="/plugins/froala_editor_2.2.1/css/plugins/file.css">
 	<link rel="stylesheet" href="/plugins/froala_editor_2.2.1/css/codemirror.css">
+	
+	<!-- 图片上传 -->
+	<script type="text/javascript" src="/js/upload/fileupload.js"></script>
+	<script type="text/javascript" src="/js/upload/jquery.upload.js"></script>
 	
 	<style>
 
@@ -53,7 +58,22 @@
 									</div>
 									<div class="content">
 										<div id="editor">
+											<div class="text-center">
+												<input id="tempFilePath" style="display:none;"/>
+												<button id="chooseFile" class="btn btn-default">选择图片</button><br/>
+												<img id="fileImg" class="img-rounded" style="width:50%" src="/images/1.jpg"><br/>
+											</div><br/>
 											<input class="form-control" placeholder="影片名称..."/><br/>
+											<ul class="nav nav-tabs nav-justified">
+												<li ng-repeat="type in movieType">
+													<label>
+														<input type="radio" ng-click="selectType()" />
+														{{type.typeName}}
+													</label>
+												</li>
+											</ul><br />
+											
+											
 										    <textarea id='edit' style="margin-top: 30px;"></textarea>
 										    <button id="sub" onclick="show()" class="btn btn-default" type="submit">提交</button>
 									  	</div>
@@ -66,7 +86,7 @@
 			</div>
 		</div>
 	</div>
-  <script type="text/javascript" src="/plugins/jquery-2.1.1/jquery.min.js"></script><!-- 
+  <!-- 
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/codemirror.min.js"></script>
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js//xml.min.js"></script> -->
 
@@ -99,6 +119,9 @@
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/quick_insert.min.js"></script>
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/languages/zh_cn.js"></script>
 
+<script type="text/javascript">
+
+</script>
   <script>
   $('#edit').froalaEditor({placeholderText: "影片简介内容...", height:"400px",language:"zh_cn"});
   
@@ -107,8 +130,21 @@
   }
   </script>
 	<script type="text/javascript">
-		var moviesApp = angular.module("moviesApp",[]);
-		moviesApp.controller("moviesController", function($scope){});
+	uploadFiles.ajaxAutoUpload("#chooseFile","#fileImg");
+	var moviesApp = angular.module("moviesApp",[]);
+	moviesApp.controller("moviesController", function($scope){
+		$scope.movieType = [{typeName : "动作片"},{typeName : "剧情片"},{typeName : "爱情片"},{typeName : "喜剧片"},{typeName : "科幻片"},{typeName : "恐怖片"}];
+		
+		$scope.selectType = function(){
+			
+		};
+		
+		$scope.chooseFile = function(){
+			$("#fileInput").click();
+		};
+		
+		
+	});
 	</script>
 </body>
 </html>
