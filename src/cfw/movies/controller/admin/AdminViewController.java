@@ -63,4 +63,14 @@ public class AdminViewController {
 	public String movieEditView(){
 		return "/edit";
 	}
+	
+	/**
+	 * Show the movies types page.
+	 * @author Fangwei_Cai
+	 * @time since 2016年3月29日 上午9:53:08
+	 */
+	@RequestMapping("/types")
+	public String moviesTypeView(){
+		return "/types";
+	}
 }

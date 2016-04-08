@@ -1,7 +1,7 @@
 package cfw.movies.controller.upload;
 
-import java.io.File; 
-import java.io.IOException; 
+import java.io.File;   
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import static cfw.util.Constants.*;
 import cfw.exception.ServiceException;
 import cfw.movies.common.UploadService;
 import cfw.movies.dto.UploadResult;
+import cfw.util.Folder;
 
 /**
  * @author Fangwei_Cai
@@ -25,23 +27,22 @@ import cfw.movies.dto.UploadResult;
 public class FileUploadController {
 	
 	@Autowired
-	protected UploadService uploadServiceImpl;
+	private UploadService uploadServiceImpl;
 	
-	
-	@RequestMapping("/temp")
+	/*@RequestMapping("/temp")
 	@ResponseBody
-	public UploadResult uploadTempFiles(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+	public UploadResult uploadTempFiles(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
 		UploadResult uploadResult = new UploadResult();
 		
-		String tempPath = "E:/MyCode/Java/MovieSource/upload/temp/";
-		String tempLinkPath = "http://cfw.movies.com/upload/temp/";
+		String tempPath = Folder.tempUploadDir();
 		
 		String tempFilePathName = tempPath + file.getOriginalFilename();
+		
 		System.out.println(tempFilePathName);
 		try{
 			file.transferTo(new File(tempFilePathName));
 			uploadResult.setFilePath(tempFilePathName);
-			uploadResult.setLink(tempLinkPath + file.getOriginalFilename());
+			uploadResult.setLink(Folder.templinkPath() + file.getOriginalFilename());
 			uploadResult.setStatus((short)1);
 			uploadResult.setMessage("文件上传成功");
 		}catch(Exception e){
@@ -51,9 +52,11 @@ public class FileUploadController {
 		
 		
 		return uploadResult;
-	}
+	}*/
 	
-	/*@RequestMapping("/temp")
+	
+	
+	@RequestMapping("/temp2")
 	@ResponseBody
 	public UploadResult uploadTempFiles(@RequestParam("file") MultipartFile file, HttpServletRequest request){
 		UploadResult uploadResult = new UploadResult();
@@ -71,7 +74,7 @@ public class FileUploadController {
 		}
 		
 		return uploadResult;
-	}*/
+	}
 	
 	private void uploadException(UploadResult uploadResult){
 		uploadResult.setStatus((short)0);

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>MANAGE | DEALS</title>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="/plugins/angular-1.4.9/angular.min.js"></script>
+<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+<link href="http://libs.baidu.com/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/css/sidebarPrev.css">
+</head>
+<body ng-app="typesApp" controller="typesController" class="ly-bg">
+	<div id="cl-wrapper" class="animate-collapse">
+
+		<div id="pcont" class="cl-main">
+			<div class="main">
+				<div class="container-row" style="width:80%">
+					<div class="padding-ex">
+						<ul class="breadcrumb">
+							<li><a href="/UserCenter">影片管理</a></li>
+							<li class="active">类型</li>
+						</ul>
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="block-flat">
+									<div>
+									
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	var typesApp = angular.module("typesApp",[]);
+	typesApp.controller("typesController",function($scope){
+		$http.get(
+			"",
+			{}
+		).success(function(data, status, headers, config){
+			
+		});
+	});
+	</script>
+</body>
+
+</html>

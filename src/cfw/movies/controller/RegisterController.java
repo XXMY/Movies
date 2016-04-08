@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cfw.movies.model.Users;
 import cfw.movies.service.RegisterService;
-import cfw.util.CodeHelper;
-
 
 /**
  * @author Fangwei_Cai
@@ -43,8 +41,8 @@ public class RegisterController {
 	 */
 	@RequestMapping("/registerUser")
 	@ResponseBody
-	public boolean userRegister(Users user){
-		if(CodeHelper.isEmpty(user.getUsername()) || CodeHelper.isEmpty(user.getPassword()))
+	public boolean userRegister(Users user){		
+		if(user.getUsername().isEmpty() || user.getPassword().isEmpty())
 			return false;
 		
 		boolean result = registerServiceImpl.register(user);

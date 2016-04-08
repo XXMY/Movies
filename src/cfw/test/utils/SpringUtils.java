@@ -12,7 +12,7 @@ public class SpringUtils {
 	private static ApplicationContext applicationContext;
 	
 	static {
-		applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext-dao.xml");
+		applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext-*.xml");
 		
 	}
 	

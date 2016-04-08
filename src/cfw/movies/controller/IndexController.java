@@ -1,7 +1,9 @@
 package cfw.movies.controller;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,31 +39,37 @@ public class IndexController {
 	}
 	
 	@RequestMapping("/test")
-	//@ResponseBody
+	@ResponseBody
 	public String test(HttpServletResponse response,HttpServletRequest request) throws IOException{
 		System.out.println("get in");
-		//response.setHeader("Access-Control-Allow-Origin", "*");
-		//response.setHeader("Access-Control-Allow-Headers", "Msg,V,uuid,Content-Type");
-	//	response.addHeader("Access-Control-Allow-Credentials", "true");
-		//response.addHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With");
-		//response.addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
 		
-		/*String name = request.getParameter("name");
-		
-		System.out.println("name:"+name);*/
-		
-		StringBuilder stb = new StringBuilder();
+		/*StringBuilder stb = new StringBuilder();
 		BufferedReader bufferedReader = request.getReader();
 		char [] buff = new char[1024];
 		int len;
 		while((len = bufferedReader.read(buff)) != -1){
 			stb.append(buff, 0 ,len);
 		System.out.println(stb.toString());
-		}
+		}*/
 		
-		String name1 = request.getParameter("name");
+		InputStream inputStream = request.getInputStream();
+		DataInputStream dataInputStream = new DataInputStream(inputStream);
+		byte [] bytes = new byte[1024 * 1024];
 		
-		System.out.println("name1:"+name1);
-		return name1;
+		int nRead = 1;  
+        int nTotalRead = 0;  
+        while (nRead > 0) {  
+            nRead = inputStream.read(bytes, nTotalRead, bytes.length - nTotalRead);  
+            if (nRead > 0)  
+                nTotalRead = nTotalRead + nRead;  
+        }
+        String str = new String(bytes, 0, nTotalRead, "utf-8");  
+        System.out.println("Str:" + str);  
+		
+        /*
+		String deviceId = request.getParameter("deviceId");
+		
+		System.out.println("deviceId:"+deviceId);*/
+		return "alalla";
 	}
 }

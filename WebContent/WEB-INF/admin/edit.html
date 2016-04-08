@@ -58,17 +58,19 @@
 									</div>
 									<div class="content">
 										<div id="editor">
+											<input id="tempFilePath" value="" style="display:none;"/>
+											<div class="text-right">
+												<button id="chooseFile" class="btn btn-info">选择图片</button>
+											</div><br/>
 											<div class="text-center">
-												<input id="tempFilePath" style="display:none;"/>
-												<button id="chooseFile" class="btn btn-default">选择图片</button><br/>
-												<img id="fileImg" class="img-rounded" style="width:50%" src="/images/1.jpg"><br/>
+												<img id="fileImg" class="img-rounded" style="width:80%" src="/images/1.jpg"><br/>
 											</div><br/>
 											<input class="form-control" placeholder="影片名称..."/><br/>
 											<ul class="nav nav-tabs nav-justified">
 												<li ng-repeat="type in movieType">
 													<label>
-														<input type="radio" ng-click="selectType()" />
-														{{type.typeName}}
+														<input id="movieType{{type.id}}" value="{{type.id}}" type="radio" ng-click="selectType()" />
+														{{type.type_name}}
 													</label>
 												</li>
 											</ul><br />
@@ -131,9 +133,16 @@
   </script>
 	<script type="text/javascript">
 	uploadFiles.ajaxAutoUpload("#chooseFile","#fileImg");
+	
 	var moviesApp = angular.module("moviesApp",[]);
-	moviesApp.controller("moviesController", function($scope){
-		$scope.movieType = [{typeName : "动作片"},{typeName : "剧情片"},{typeName : "爱情片"},{typeName : "喜剧片"},{typeName : "科幻片"},{typeName : "恐怖片"}];
+	moviesApp.controller("moviesController", function($scope,$http){
+		
+		$http({
+			url : "/admin/movieTypes",
+			method : "get"
+		}).success(function(result){
+			$scope.movieType = result;
+		});
 		
 		$scope.selectType = function(){
 			
@@ -142,6 +151,7 @@
 		$scope.chooseFile = function(){
 			$("#fileInput").click();
 		};
+		
 		
 		
 	});
