@@ -20,13 +20,13 @@ import cfw.movies.service.MovieService;
 public class TypesManageController {
 	
 	@Autowired
-	private MovieService movieService;
+	private MovieService movieServiceImpl;
 
 	
 	@RequestMapping(value="/movieTypes",method=RequestMethod.GET)
 	@ResponseBody
 	public List<Types> movieTypes(){
-		List<Types> movieTypes = movieService.getAllTypes();
+		List<Types> movieTypes = movieServiceImpl.getAllTypes();
 		
 		return movieTypes;
 	}
@@ -35,7 +35,7 @@ public class TypesManageController {
 	 * Setters and Getters
 	 */
 	public void setMovieService(MovieService movieService) {
-		this.movieService = movieService;
+		this.movieServiceImpl = movieService;
 	}
 	
 }

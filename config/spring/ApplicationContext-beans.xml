@@ -9,16 +9,10 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- MovieServiceImpl -->
-	<!-- <bean id="movieServiceImpl" class="cfw.movies.service.impl.MovieServiceImpl">
-		<property name="typesDao" ref="typesDaoImpl" />
-	</bean> -->
-		
-	<!-- Controllers -->
-	<!-- <bean id="typesManageController" class="cfw.movies.controller.admin.TypesManageController" >
-		<property name="movieService" ref="movieServiceImpl"></property>
-	</bean> -->
-
-
 	
+	<!-- <bean id="tempDirectoryManager" class="cfw.common.impl.DefaultTempDirectoryManager">
+		<constructor-arg>
+			<
+		</constructor-arg>
+	</bean> -->
 </beans>

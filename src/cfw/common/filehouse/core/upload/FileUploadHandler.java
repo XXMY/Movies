@@ -1,10 +1,10 @@
-package cfw.movies.common.filehouse.core.upload;
+package cfw.common.filehouse.core.upload;
 
 import java.io.File; 
 import java.io.InputStream;
 
+import cfw.common.filehouse.core.FileHouseHandler;
 import cfw.exception.filehouse.FileHouseException;
-import cfw.movies.common.filehouse.core.FileHouseHandler;
 
 public interface FileUploadHandler extends FileHouseHandler {
 

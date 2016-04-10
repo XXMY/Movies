@@ -23,7 +23,7 @@ public class RegisterServiceImpl implements RegisterService {
 	 */
 	@Override
 	public boolean userExists(Users user) {
-		Long result = usersDaoImpl.checkUser(user);
+		int result = usersDaoImpl.checkUser(user);
 		
 		if(result>0)
 			return true;
@@ -53,7 +53,7 @@ public class RegisterServiceImpl implements RegisterService {
 	public boolean register(Users user) {
 		boolean userExists = userExists(user);
 		if(!userExists){
-			Long result = usersDaoImpl.addUser(user);
+			int result = usersDaoImpl.addUser(user);
 			if(result > 0)
 				return true;
 		}

@@ -10,7 +10,8 @@
         http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<bean class="cfw.util.Constants">
+		<!-- TEMP_PATH might be deprecated. -->
 		<property name="TEMP_PATH" value="E:/MyCode/Java/MovieSource/upload/temp/"></property>
-		<property name="TEMP_LINK_PATH" value="http://cfw.movies.com/upload/temp/"></property>
+		<property name="TEMP_LINK_PATH" value="http://cfw.movies.com/temp/"></property>
 	</bean>
 </beans>

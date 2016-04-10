@@ -8,6 +8,7 @@
 	<link href="/plugins/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="/plugins/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="/css/sidebarPrev.css">
+	<script type="text/javascript" src="/js/upload/mananger.js"></script>
 	
 	<!-- 编辑器 -->
 	<link rel="stylesheet" href="/plugins/froala_editor_2.2.1/css/froala_editor.css">
@@ -58,26 +59,26 @@
 									</div>
 									<div class="content">
 										<div id="editor">
-											<input id="tempFilePath" value="" style="display:none;"/>
+											<input id="tempFilePath" style="display:none;"/>
 											<div class="text-right">
 												<button id="chooseFile" class="btn btn-info">选择图片</button>
 											</div><br/>
 											<div class="text-center">
 												<img id="fileImg" class="img-rounded" style="width:80%" src="/images/1.jpg"><br/>
 											</div><br/>
-											<input class="form-control" placeholder="影片名称..."/><br/>
+											<input id="movieName" class="form-control" placeholder="影片名称..."/><br/>
 											<ul class="nav nav-tabs nav-justified">
 												<li ng-repeat="type in movieType">
 													<label>
-														<input id="movieType{{type.id}}" value="{{type.id}}" type="radio" ng-click="selectType()" />
+														<input id="movieType{{type.id}}" value="{{type.id}}" type="checkbox" ng-click="selectType()" />
 														{{type.type_name}}
 													</label>
 												</li>
 											</ul><br />
 											
 											
-										    <textarea id='edit' style="margin-top: 30px;"></textarea>
-										    <button id="sub" onclick="show()" class="btn btn-default" type="submit">提交</button>
+										    <textarea id="edit" style="margin-top: 30px;"></textarea>
+										    <button id="sub" ng-click="submit()" class="btn btn-default" type="submit">提交</button>
 									  	</div>
 									</div>
 								</div>
@@ -121,17 +122,15 @@
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/quick_insert.min.js"></script>
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/languages/zh_cn.js"></script>
 
-<script type="text/javascript">
-
-</script>
-  <script>
-  $('#edit').froalaEditor({placeholderText: "影片简介内容...", height:"400px",language:"zh_cn"});
-  
-  function show(){
-	  alert("外部alert"+$('#edit').val());
-  }
-  </script>
+	<script>
+	$('#edit').froalaEditor({placeholderText: "影片简介内容...", height:"400px",language:"zh_cn"});
+	
+	function show(){
+	 alert("外部alert"+$('#edit').val());
+	}
+	</script>
 	<script type="text/javascript">
+	// 初始化图片上传组件
 	uploadFiles.ajaxAutoUpload("#chooseFile","#fileImg");
 	
 	var moviesApp = angular.module("moviesApp",[]);
@@ -152,6 +151,14 @@
 			$("#fileInput").click();
 		};
 		
+		// Upload Movies Informations. 
+		$scope.submit = function(){
+			var checkBoxType = {paramName:"typesArray",type:0}
+			var paramNames = ["tempFilePath","name","description"];
+			var paramValues = [$("#tempFilePath").val(),$("#movieName").val(),$('#edit').val()];
+			var parameterString = commFun.packParametersWithCheckBox(checkBoxType,commFun.buildParameter(paramNames,paramValues));
+			console.log(parameterString);
+		};
 		
 		
 	});

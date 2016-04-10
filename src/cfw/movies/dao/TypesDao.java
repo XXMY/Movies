@@ -10,5 +10,9 @@ import cfw.movies.model.Types;
  */
 public interface TypesDao {
 	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月2日 下午5:50:04
+	 */
 	List<Types> findAll();
 }

@@ -15,7 +15,7 @@ public interface UsersDao {
 	 * @author Fangwei_Cai
 	 * @time since 2016年3月26日 下午4:48:41
 	 */
-	Long checkUser(Users user);
+	int checkUser(Users user);
 	
 	/**
 	 * @author Fangwei_Cai
@@ -27,6 +27,6 @@ public interface UsersDao {
 	 * @author Fangwei_Cai
 	 * @time since 2016年3月27日 上午10:07:00
 	 */
-	Long addUser(Users user);
+	int addUser(Users user);
 	
 }

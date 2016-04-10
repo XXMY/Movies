@@ -1,16 +1,16 @@
-package cfw.movies.common.impl;
+package cfw.common.impl;
 
 import java.io.InputStream; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cfw.common.PersistenceDirectoryManager;
+import cfw.common.TempDirectoryManager;
+import cfw.common.UploadService;
+import cfw.common.filehouse.core.upload.FileUploadHandler;
 import cfw.exception.ServiceException;
 import cfw.exception.filehouse.FileHouseException;
-import cfw.movies.common.PersistenceDirectoryManager;
-import cfw.movies.common.TempDirectoryManager;
-import cfw.movies.common.UploadService;
-import cfw.movies.common.filehouse.core.upload.FileUploadHandler;
 import cfw.util.FileUtils;
 
 

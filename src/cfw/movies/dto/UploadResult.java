@@ -8,7 +8,7 @@ package cfw.movies.dto;
 public class UploadResult {
 	private short status;
 	private String message;
-	private String filePath; // Temparory file path 
+	private String tempFileName; // Temparory file path 
 	private String link;
 	public String getLink() {
 		return link;
@@ -28,11 +28,11 @@ public class UploadResult {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public String getFilePath() {
-		return filePath;
+	public String getTempFileName() {
+		return tempFileName;
 	}
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public void setTempFileName(String tempFileName) {
+		this.tempFileName = tempFileName;
 	}
 	
 }

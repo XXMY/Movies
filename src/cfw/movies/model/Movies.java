@@ -8,45 +8,63 @@ import java.util.Date;
  */
 public class Movies {
 	
-	private int id;
+	private Long id;
+	
 	private String name;
-	private int type;
+	
+	private Types type;
+	
 	private Date time;
-	private int abstract_;
+	
+	private Descriptions description;
+	
+	// Main picture.
 	private String pic;
-	public int getId() {
+	
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getType() {
+	
+	public Types getType() {
 		return type;
 	}
-	public void setType(int type) {
+	
+	public void setType(Types type) {
 		this.type = type;
 	}
+	
 	public Date getTime() {
 		return time;
 	}
+	
 	public void setTime(Date time) {
 		this.time = time;
 	}
-	public int getAbstract_() {
-		return abstract_;
+	
+	public Descriptions getDescription() {
+		return description;
 	}
-	public void setAbstract_(int abstract_) {
-		this.abstract_ = abstract_;
+	
+	public void setDescription(Descriptions description) {
+		this.description = description;
 	}
+	
 	public String getPic() {
 		return pic;
 	}
+	
 	public void setPic(String pic) {
 		this.pic = pic;
 	}

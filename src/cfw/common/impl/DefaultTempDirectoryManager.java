@@ -1,6 +1,6 @@
-package cfw.movies.common.impl;
+package cfw.common.impl;
 
-import java.io.File;   
+import java.io.File;  
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
@@ -16,9 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import cfw.common.TempDirectoryManager;
 import cfw.exception.ServiceException;
-import cfw.movies.common.TempDirectoryManager;
 import cfw.util.CodeHelper;
+import cfw.util.Constants;
 import cfw.util.FileUtils;
 import cfw.util.upload.FileTypes;
 
@@ -43,6 +44,7 @@ public class DefaultTempDirectoryManager implements TempDirectoryManager {
 		Assert.notNull(servletContext);
 		
 		root = servletContext.getRealPath("/") + TEMP_DIRECTORY_NAME;
+		//root = Constants.TEMP_PATH;
 		
 		FileUtils.createDirectory(root);
 	}

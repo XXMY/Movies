@@ -1,4 +1,4 @@
-package cfw.movies.common.filehouse.core.upload;
+package cfw.common.filehouse.core.upload;
 
 import java.io.File; 
 import java.io.FileInputStream;

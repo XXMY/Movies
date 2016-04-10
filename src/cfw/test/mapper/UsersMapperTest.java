@@ -52,8 +52,8 @@ public class UsersMapperTest {
 		user.setUsername("CaiFagnwei44");
 		user.setPassword("123");
 		
-		Long result = userMapper.insertOne(user);
-		assertThat(result, not(0L));
+		int result = userMapper.insertOne(user);
+		assertThat(result, not(0));
 		
 	}
 	
@@ -63,9 +63,9 @@ public class UsersMapperTest {
 		user.setUsername("CaiFagnwei44");
 		user.setPassword("123");
 		
-		Long result = userMapper.findOne(user);
+		int result = userMapper.findOne(user);
 		System.out.println(result);
-		assertThat(result, is(0L));
+		assertThat(result, is(0));
 	}
 	
 }

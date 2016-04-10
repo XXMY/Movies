@@ -19,6 +19,11 @@ public class TypesDaoImpl implements TypesDao {
 	@Autowired
 	private TypesMapper typesMapper;
 	
+	/**
+	 * @see cfw.movies.dao.TypesDao#findAll()
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月2日 下午5:52:09
+	 */
 	@Override
 	public List<Types> findAll() {
 		List<Types> result = typesMapper.selectAll();

@@ -22,9 +22,9 @@ public class UsersDaoImpl implements UsersDao {
 	 * @since 2016.03.26 17:00
 	 */
 	@Override
-	public Long checkUser(Users user) {
+	public int checkUser(Users user) {
 		
-		Long count = usersMapper.findOne(user);
+		int count = usersMapper.findOne(user);
 		
 		return count;
 	}
@@ -46,9 +46,9 @@ public class UsersDaoImpl implements UsersDao {
 	 * @since 2016.03.27 10:08
 	 */
 	@Override
-	public Long addUser(Users user) {
+	public int addUser(Users user) {
 		
-		Long result = usersMapper.insertOne(user);
+		int result = usersMapper.insertOne(user);
 		
 		return result;
 	}

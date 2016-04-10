@@ -1,4 +1,4 @@
-package cfw.movies.common;
+package cfw.common;
 
 import cfw.exception.ServiceException;
 

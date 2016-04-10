@@ -79,10 +79,8 @@ public class Folder {
 	 */
 	public static String templinkPath() {
 		String tempLinkPath = TEMP_LINK_PATH;
-		int [] array = todayDir();
-		for(int dir : array){
-			tempLinkPath += dir + "/";
-		}
+		String timestamp = CodeHelper.dateToString(new Date(), "yyyyMMdd");
+		tempLinkPath += timestamp +"/";
 		
 		return tempLinkPath;
 		

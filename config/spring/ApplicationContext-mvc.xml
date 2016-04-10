@@ -13,8 +13,12 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         ">
 
-	<!-- 使用注解的包，包括子集 -->
-    <context:component-scan base-package="cfw.movies"/>
+	<!-- 使用注解的包，包括子集 -->    
+    <context:component-scan base-package="cfw.movies,cfw.common"  />
+    
+    <!-- 当使用 JUnit 测试时，只扫描下面包 -->
+    <!-- <context:component-scan base-package="cfw.movies"  /> -->
+    
 	
 	<!-- it seems useless -->
 	<!-- <mvc:default-servlet-handler/> -->

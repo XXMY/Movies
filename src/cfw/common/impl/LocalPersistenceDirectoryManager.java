@@ -1,4 +1,4 @@
-package cfw.movies.common.impl;
+package cfw.common.impl;
 
 import java.io.IOException; 
 import java.util.Date;
@@ -13,8 +13,8 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import cfw.common.PersistenceDirectoryManager;
 import cfw.exception.ServiceException;
-import cfw.movies.common.PersistenceDirectoryManager;
 import cfw.util.CodeHelper;
 import cfw.util.Constant;
 import cfw.util.upload.FileTypes;

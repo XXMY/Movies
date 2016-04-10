@@ -9,6 +9,7 @@ public class Constants {
 	/**
 	 * template picture path.
 	 */
+	@Deprecated
 	public static String TEMP_PATH;
 	
 	/**
