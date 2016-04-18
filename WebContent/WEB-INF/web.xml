@@ -64,6 +64,20 @@
 	</servlet-mapping>
 	
 	<!-- FILTER -->
+	
+	<!-- 2016.04.11 14:10 -CaiFangwei -->
+	<filter>
+		<filter-name>moiveSubmit</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>movieUploadFilter</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>moiveSubmit</filter-name>
+		<url-pattern>/admin/movies/submit</url-pattern>
+	</filter-mapping>
 	<!-- 2015.08.14 17:12 -CaiFangwei -->
 	<!-- <filter>
 		<filter-name>userAuthenticateFilter</filter-name>

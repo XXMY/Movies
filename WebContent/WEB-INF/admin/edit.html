@@ -59,25 +59,25 @@
 									</div>
 									<div class="content">
 										<div id="editor">
-											<input id="tempFilePath" style="display:none;"/>
+											<input id="tempFilePath" name="tempFilePath" style="display:none;"/>
 											<div class="text-right">
 												<button id="chooseFile" class="btn btn-info">选择图片</button>
 											</div><br/>
 											<div class="text-center">
 												<img id="fileImg" class="img-rounded" style="width:80%" src="/images/1.jpg"><br/>
 											</div><br/>
-											<input id="movieName" class="form-control" placeholder="影片名称..."/><br/>
+											<input id="movieName" name="name" class="form-control" placeholder="影片名称..."/><br/>
 											<ul class="nav nav-tabs nav-justified">
 												<li ng-repeat="type in movieType">
 													<label>
-														<input id="movieType{{type.id}}" value="{{type.id}}" type="checkbox" ng-click="selectType()" />
+														<input id="movieType{{type.id}}" name="checkBox" value="{{type.id}}" type="checkbox" ng-click="selectType()" />
 														{{type.type_name}}
 													</label>
 												</li>
 											</ul><br />
 											
 											
-										    <textarea id="edit" style="margin-top: 30px;"></textarea>
+										    <textarea id="edit" name="description" style="margin-top: 30px;"></textarea>
 										    <button id="sub" ng-click="submit()" class="btn btn-default" type="submit">提交</button>
 									  	</div>
 									</div>
@@ -156,8 +156,27 @@
 			var checkBoxType = {paramName:"typesArray",type:0}
 			var paramNames = ["tempFilePath","name","description"];
 			var paramValues = [$("#tempFilePath").val(),$("#movieName").val(),$('#edit').val()];
-			var parameterString = commFun.packParametersWithCheckBox(checkBoxType,commFun.buildParameter(paramNames,paramValues));
-			console.log(parameterString);
+			
+			var checkBoxParam = commFun.packCheckBoxParameters({name:"type",type:0});
+			var nameParam = commFun.packNameParameters(["tempFilePath","movieName","edit"]);
+			var parameterStr = commFun.packParameters([checkBoxParam,nameParam]);
+			console.log(parameterStr);
+			var parameter = JSON.parse(parameterStr);
+			
+			 commFun.sendAjaxRequest({
+				method:"post",
+				url:"/admin/movies/submit",
+				data:parameter
+			},function(result){
+				console.log(result);
+			});
+			 /* $http({
+				url:"/admin/movie/submit",
+				method:"post",
+				data:parameter
+			}).success(function(result){
+				console.log(result);
+			}); */
 		};
 		
 		

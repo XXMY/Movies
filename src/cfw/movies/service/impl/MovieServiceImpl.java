@@ -42,21 +42,33 @@ public class MovieServiceImpl implements MovieService {
 	}
 	
 	/**
+	 * @see cfw.movies.service.MovieService#addType(cfw.movies.model.Types)
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月11日 上午11:44:49
+	 */
+	@Override
+	public boolean addType(Types type) {
+		int insertTypeResult = typesDaoImpl.insertType(type);
+		return insertTypeResult>0 ? true : false;
+	}
+	
+	/**
 	 * @see cfw.movies.service.MovieService#addMovie(cfw.movies.model.Movies)
 	 * @author Fangwei_Cai
 	 * @time since 2016年4月8日 下午4:36:06
 	 */
 	@Override
-	public int addMovie(Movies movies) {
+	public boolean addMovie(Movies movies) {
 		// Persist movie's abstract first.
-		int result = addAbstract(movies.getDescription());
+		boolean addAbstractResult = addAbstract(movies.getDescription());
 		
 		// Movie's abstract persist succeed then persist the movie.
-		if(result > 0){
-			result = moviesDaoImpl.insertMovie(movies);
+		int insertMovieResult = 0;
+		if(addAbstractResult){
+			insertMovieResult = moviesDaoImpl.insertMovie(movies);
 		}
 		
-		return result;
+		return insertMovieResult>0 ? true : false;
 	}
 	
 	/**
@@ -65,10 +77,10 @@ public class MovieServiceImpl implements MovieService {
 	 * @time since 2016年4月8日 下午4:45:40
 	 */
 	@Override
-	public int addAbstract(Descriptions abstracts) {
-		int result = abstractsDaoImpl.insertAbstract(abstracts);
+	public boolean addAbstract(Descriptions abstracts) {
+		int insertAbstractResult = abstractsDaoImpl.insertAbstract(abstracts);
 		
-		return result;
+		return insertAbstractResult>0 ? true : false;
 	}
 
 	/*
@@ -77,6 +89,5 @@ public class MovieServiceImpl implements MovieService {
 	public void setTypesDao(TypesDao typesDao) {
 		this.typesDaoImpl = typesDao;
 	}
-
 
 }

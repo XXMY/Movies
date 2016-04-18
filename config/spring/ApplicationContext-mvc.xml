@@ -38,7 +38,7 @@
 	<!-- <bean class="com.cfw.exception.ExceptionCapturer"></bean> -->
 	
 	<!-- 支持对象与json的转换。 -->
-	<mvc:annotation-driven/>
+	<mvc:annotation-driven></mvc:annotation-driven>
 	
 	<!-- 文件上传bean -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

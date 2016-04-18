@@ -9,10 +9,8 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<bean id="movieUploadFilter" class="cfw.movies.filter.MovieUploadFilter">
+		<property name="uploadService" ref="uploadServiceImpl"></property>
+	</bean>
 	
-	<!-- <bean id="tempDirectoryManager" class="cfw.common.impl.DefaultTempDirectoryManager">
-		<constructor-arg>
-			<
-		</constructor-arg>
-	</bean> -->
 </beans>

@@ -17,7 +17,7 @@ public class MovieSubmit {
 	private int[] typesArray;
 	
 	//Abstracts of moives.
-	private String abstracts;
+	private String description;
 
 	public String getMainPicture() {
 		return mainPicture;
@@ -43,12 +43,12 @@ public class MovieSubmit {
 		this.typesArray = typesArray;
 	}
 
-	public String getAbstracts() {
-		return abstracts;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setAbstracts(String abstracts) {
-		this.abstracts = abstracts;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	

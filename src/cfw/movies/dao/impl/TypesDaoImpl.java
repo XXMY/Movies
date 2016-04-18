@@ -30,4 +30,16 @@ public class TypesDaoImpl implements TypesDao {
 		return result;
 	}
 
+	/**
+	 * @see cfw.movies.dao.TypesDao#insertType(cfw.movies.model.Types)
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月11日 上午11:46:33
+	 */
+	@Override
+	public int insertType(Types type) {
+		int result = this.typesMapper.insertOne(type);
+		
+		return result;
+	}
+
 }

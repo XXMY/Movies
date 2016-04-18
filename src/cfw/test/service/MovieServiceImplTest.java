@@ -41,15 +41,12 @@ public class MovieServiceImplTest extends AbstractTest {
 		Descriptions abstracts = new Descriptions();
 		abstracts.setDescription("<p>123</p>");
 		
-		Types type = new Types();
-		
 		Movies movies = new Movies();
 		movies.setDescription(abstracts);
 		movies.setName("叶问2");
 		movies.setPic("http://www.baidu.com");
-		movies.setType(type);
 		
-		int result = movieServiceImpl.addMovie(movies);
+		boolean result = movieServiceImpl.addMovie(movies);
 		
 	}
 }

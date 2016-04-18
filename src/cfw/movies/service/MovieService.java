@@ -20,13 +20,19 @@ public interface MovieService {
 	
 	/**
 	 * @author Fangwei_Cai
+	 * @time since 2016年4月11日 上午11:44:22
+	 */
+	boolean addType(Types type);
+	
+	/**
+	 * @author Fangwei_Cai
 	 * @time since 2016年4月8日 下午4:35:24
 	 */
-	int addMovie(Movies movies);
+	boolean addMovie(Movies movies);
 	
 	/**
 	 * @author Fangwei_Cai
 	 * @time since 2016年4月8日 下午4:44:47
 	 */
-	int addAbstract(Descriptions abstracts);
+	boolean addAbstract(Descriptions abstracts);
 }

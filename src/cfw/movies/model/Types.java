@@ -9,6 +9,14 @@ public class Types {
 	private int id;
 	private String type_name;
 	
+	public Types() {
+		super();
+	}
+
+	public Types(String type_name){
+		this.type_name = type_name;
+	}
+	
 	public int getId() {
 		return id;
 	}

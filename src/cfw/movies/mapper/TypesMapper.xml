@@ -9,4 +9,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM 
 			types
 	</select>
+	
+	<insert id="insertOne" parameterType="Types">
+		<selectKey keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+			types (
+				type_name
+			)
+		VALUES (
+			#{type_name}
+		)
+	</insert>
 </mapper>

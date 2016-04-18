@@ -12,12 +12,24 @@ public class Movies {
 	
 	private String name;
 	
-	private Types type;
+	private String type;
 	
 	private Date time;
 	
 	private Descriptions description;
 	
+	public Movies() {
+		super();
+	}
+
+	public Movies(String name, String type, Descriptions description, String pic) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.description = description;
+		this.pic = pic;
+	}
+
 	// Main picture.
 	private String pic;
 	
@@ -37,11 +49,11 @@ public class Movies {
 		this.name = name;
 	}
 	
-	public Types getType() {
+	public String getType() {
 		return type;
 	}
 	
-	public void setType(Types type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	

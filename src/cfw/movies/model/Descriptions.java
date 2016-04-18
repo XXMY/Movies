@@ -13,7 +13,12 @@ public class Descriptions {
 	
 	private boolean isdeleted;
 	
-	public Descriptions(){
+	public Descriptions() {
+		super();
+	}
+
+	public Descriptions(String description){
+		this.description = description;
 		this.isdeleted = false;
 	}
 	

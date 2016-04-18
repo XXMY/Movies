@@ -41,7 +41,7 @@ public class LocalPersistenceDirectoryManager implements PersistenceDirectoryMan
 		
 		props = PropertiesLoaderUtils.loadProperties(resource);
 		
-		root = props.getProperty(Constant.ART_ROOT_PATH_CONSTANT);
+		root = props.getProperty(Constant.MOVIE_UPLOAD_ROOT_PATH_CONSTANT);
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public class LocalPersistenceDirectoryManager implements PersistenceDirectoryMan
 		
 		try
 		{
-			String basePath = (String) props.get(pathProperties);
+			String basePath = (String) props.getProperty(pathProperties);
 			
 			String persistenceDirectory = generatePersistenceDirectory(basePath);
 			

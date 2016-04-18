@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			) 
 		VALUES(
 			#{name},
-			#{type.id},
+			#{type},
 			NOW(),
 			#{description.id},
 			#{pic}

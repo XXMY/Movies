@@ -1,6 +1,10 @@
 package cfw.movies.filter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,18 +18,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cfw.common.UploadService;
+import cfw.exception.ServiceException;
+import cfw.movies.dto.MovieSubmit;
 
 /**
  * Movie upload filter to pack the template file name to persistent.
  * @author Fangwei_Cai
  * @time since 2016年4月10日 上午11:06:18
  */
-@Component
 public class MovieUploadFilter implements Filter {
-
-	@Autowired
+	
 	private UploadService uploadService;
 	
+	public void setUploadService(UploadService uploadService) {
+		this.uploadService = uploadService;
+	}
+
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -45,15 +53,60 @@ public class MovieUploadFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) arg0;
-		String mainPicTempName = request.getParameter("tempFilePath");
+		String[] result = this.persistAndReplace(request);
+		String name = request.getParameter("name");
 		
+		MovieSubmit movieSubmit = new MovieSubmit();
+		movieSubmit.setMainPicture(result[0]);
+		movieSubmit.setDescription(result[1]);
+		movieSubmit.setName(name);
 		
+		request.setAttribute("movieSubmit", movieSubmit);
+		
+		arg2.doFilter(arg0, arg1);
 	}
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		// TODO Auto-generated method stub
 
+	}
+	
+	/**
+	 * This function to get template file URI and persistent the 
+	 * template file in it.
+	 * @return {String []}, Persisted URI of main picture and those
+	 * in description.
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月11日 上午10:19:52
+	 */
+	private String [] persistAndReplace(HttpServletRequest request){
+		
+		String mainPicTempName = request.getParameter("tempFilePath");
+		String description = request.getParameter("description");
+		
+		String regex = "http://cfw.movies.com/temp/.{54}\\.((jpg)|(png))";
+		
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(description);
+		
+		String tempFileName = mainPicTempName;
+		
+		String mainPicture = "";
+		try{
+			mainPicture = uploadService.persistTempFile(tempFileName, "movie.upload.movie.path");
+			
+			while(matcher.find()){
+				tempFileName = matcher.group().substring(36);
+				String persistentFilePath = uploadService.persistTempFile(tempFileName, "movie.upload.movie.path");
+				description = matcher.replaceFirst(persistentFilePath);
+				matcher = pattern.matcher(description);
+			}
+		}catch(ServiceException e){
+			e.printStackTrace();
+		}
+		
+		return new String[]{mainPicture,description};
 	}
 
 }

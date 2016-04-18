@@ -1,5 +1,9 @@
 package cfw.movies.controller;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.InputStream;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -40,9 +44,28 @@ public class IndexController {
 	
 	@RequestMapping("/test")
 	@ResponseBody
-	public String test(HttpServletResponse response,HttpServletRequest request) {
+	public String test(HttpServletResponse response,HttpServletRequest request) throws Exception {
+		/*StringBuilder stb = new StringBuilder();
+		BufferedReader bufferedReader = request.getReader();
+		char [] buff = new char[1024];
+		int len;
+		while((len = bufferedReader.read(buff)) != -1){
+			stb.append(buff, 0 ,len);
+			System.out.println(stb.toString());
+		}*/
+		InputStream inputStream = request.getInputStream();
+		DataInputStream dataInputStream = new DataInputStream(inputStream);
+		byte [] bytes = new byte[1024 * 1024];
 		
-		
+		int nRead = 1;  
+        int nTotalRead = 0;  
+        while (nRead > 0) {  
+            nRead = inputStream.read(bytes, nTotalRead, bytes.length - nTotalRead);  
+            if (nRead > 0)  
+                nTotalRead = nTotalRead + nRead;  
+        }
+        String str = new String(bytes, 0, nTotalRead, "utf-8");  
+        System.out.println("Str:" + str);  
 		return null;
 	}
 }
