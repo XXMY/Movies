@@ -13,8 +13,12 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         ">
 
-	<!-- 使用注解的包，包括子集 -->
-    <context:component-scan base-package="cfw.movies"/>
+	<!-- 使用注解的包，包括子集 -->    
+    <context:component-scan base-package="cfw.movies,cfw.common"  />
+    
+    <!-- 当使用 JUnit 测试时，只扫描下面包 -->
+    <!-- <context:component-scan base-package="cfw.movies"  /> -->
+    
 	
 	<!-- it seems useless -->
 	<!-- <mvc:default-servlet-handler/> -->
@@ -34,11 +38,13 @@
 	<!-- <bean class="com.cfw.exception.ExceptionCapturer"></bean> -->
 	
 	<!-- 支持对象与json的转换。 -->
-	<mvc:annotation-driven/>  
+	<mvc:annotation-driven></mvc:annotation-driven>
 	
 	<!-- 文件上传bean -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="UTF-8"/>  
 	    <property name="maxUploadSize" value="10485760"/> <!-- 10M -->
 	</bean>
+	
+	<!-- <import resource="ApplicationContext-beans.xml"/> -->
 </beans>
