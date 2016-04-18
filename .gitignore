@@ -46,3 +46,4 @@ Temporary Items
 *.svn-base
 *.class
 /target/
+/.svn/
