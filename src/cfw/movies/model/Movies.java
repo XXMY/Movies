@@ -18,6 +18,8 @@ public class Movies {
 	
 	private Descriptions description;
 	
+	private float score;
+	
 	public Movies() {
 		super();
 	}
@@ -80,6 +82,21 @@ public class Movies {
 	public void setPic(String pic) {
 		this.pic = pic;
 	}
-	
-	
+
+	public float getScore() {
+		return score;
+	}
+
+	public void setScore(float score) {
+		this.score = score;
+	}
+
+	@Override
+	public String toString() {
+		return "Movies [id=" + id + ", name=" + name + ", type=" + type
+				+ ", time=" + time + ", description=" + description
+				+ ", score=" + score + ", pic=" + pic + "]";
+	}
+
+
 }

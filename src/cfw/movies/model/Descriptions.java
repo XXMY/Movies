@@ -40,6 +40,12 @@ public class Descriptions {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	@Override
+	public String toString() {
+		return "Descriptions [id=" + id + ", description=" + description
+				+ ", isdeleted=" + isdeleted + "]";
+	}
 	
 	
 	
