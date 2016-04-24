@@ -129,6 +129,10 @@ public class HttpRequest {
     		URL realUrl = new URL(url);
     		URLConnection connection = realUrl.openConnection();
     		connection.connect();
+    		String contentType = connection.getContentType();
+    		System.out.println(contentType);
+    		if(contentType == null) 
+    			return false;
     	}catch(IOException e){
     		return false;
     	}

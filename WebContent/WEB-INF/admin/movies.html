@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>MANAGE | DEALS</title>
+<script src="/plugins/jquery-2.1.1/jquery.min.js"></script>
+<script src="/plugins/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="/plugins/angular-1.4.9/angular.min.js"></script>
+<link href="/plugins/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/plugins/bootstrap-3.3.5/css/bootstrap-theme.css" rel="stylesheet" />
+<link href="/plugins/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/css/sidebarPrev.css">
+</head>
+<body ng-app="typesApp" ng-controller="typesController" class="ly-bg">
+	<div id="cl-wrapper" class="animate-collapse">
+
+		<div id="pcont" class="cl-main">
+			<div class="main">
+				<div class="container-row" style="width:80%">
+					<div class="padding-ex">
+						<ul class="breadcrumb">
+							<li><a href="/UserCenter">影片管理</a></li>
+							<li class="active">影片</li>
+						</ul>
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="block-flat">
+									<div>
+										<div class="input-group has-success">
+											<input type="text" class="form-control" placeholder="Search for...">
+											<span class="input-group-btn">
+												<button class="btn btn-success" type="button">
+												<i class="fa fa-search" aria-hidden="true"></i>
+												搜索
+												</button>
+											</span>
+									    </div>
+										<table class="table table-hover">
+											<tr>
+												<td style="width:10%">编号</td>
+												<td style="width:20%" >类型</td>
+												<td>名称</td>
+												<td style="width:10%">评分</td>
+												<td style="width:20%">操作</td>
+											</tr>
+											<tr ng-repeat="movie in movies">
+												<td>{{movie.id}}</td>
+												<td>{{movie.type}}</td>
+												<td>
+													<a href="">{{movie.name}}</a>
+												</td>
+												<td>{{movie.score}}</td>
+												<td>
+													<a role="button" class="btn btn-default btn-xs" href="">编辑</a>
+													&nbsp;&nbsp;&nbsp;
+													<a role="button" class="btn btn-danger btn-xs" href="">删除</a>
+												</td>
+											</tr>
+										</table>
+										<nav class="text-right">
+											<ul class="pagination">
+												<li>
+													<a href="" aria-label="Previous">
+														<span aria-hidden="true">上一页</span>
+													</a>
+												</li>
+												<li ng-repeat="num in pageList">
+													<span>{{num}}</span>
+												</li>
+												<li>
+													<a href="" aria-label="Next">
+														<span aria-hidden="true">下一页</span>
+													</a>
+												</li>
+											</ul>
+										</nav>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	var typesApp = angular.module("typesApp",[]);
+	typesApp.controller("typesController",function($scope,$http){
+		$scope.currentPage = 0;
+		$scope.moviesCount = 0;
+		$scope.movies;
+		$scope.pageList = new Array();
+		
+		$scope.page = {
+				start : 1,
+				length : 20,
+				flag : 1
+		};
+		
+		$scope.getMovies = function(){
+			$scope.currentPage ++;
+			/* $http({
+				url : "/admin/movies_count",
+				method : "GET"
+			}).success(function(count){
+				$scope.moviesCount = count;
+				var pages = count / $scope.page.length;
+				// 页数减一
+				var　pagesCutOne = pages>parseInt(pages) ? parseInt(pages) : pages;
+				if(pagesCutOne > $scope.currentPage){
+					for(var i=0;i<)
+				}
+			}); */
+			
+			var url = "/admin/movies?flag="+$scope.page.flag+"&start="+$scope.page.start+"&length="+$scope.page.length;
+			
+			$http({
+				url : url,
+				method : "GET",
+				data : {
+					start : $scope.page.start,
+					length : $scope.page.length,
+					flag : $scope.page.flag
+				}
+				
+			}).success(function(data){
+				$scope.movies = data;
+				for(var i=0;i<(data.length/2);i++){
+					$scope.pageList.push(i+1);
+				}
+			});
+		};
+		$scope.getMovies();
+	});
+	
+	</script>
+</body>
+
+</html>

@@ -24,6 +24,15 @@ public class Movies {
 		super();
 	}
 
+	public Movies(Long id,String name,String type, String pic,Float score){
+		super();
+		this.id = id;
+		this.name = name;
+		this.type = type;
+		this.pic = pic;
+		this.score = score;
+	}
+	
 	public Movies(String name, String type, Descriptions description, String pic) {
 		super();
 		this.name = name;

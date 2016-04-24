@@ -1,5 +1,8 @@
 package cfw.movies.dao.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,5 +31,44 @@ public class MoviesDaoImpl implements MoviesDao {
 		
 		return result;
 	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.MoviesDao#selectMovies(java.util.Map)
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月24日 下午4:35:59
+	 */
+	@Override
+	public List<Movies> selectMovies(Map<String, Object> map) {
+		List<Movies> movies = this.moviesMapper.selectMovies(map);
+		return movies;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.MoviesDao#selectFullMovies(java.util.Map)
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月24日 下午6:40:04
+	 */
+	@Override
+	public List<Movies> selectFullMovies(Map<String, Object> map) {
+		List<Movies> movies = this.moviesMapper.selectFullMovies(map);
+		
+		return movies;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.MoviesDao#selectCount()
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月24日 下午9:56:40
+	 */
+	@Override
+	public Long selectCount() {
+		Long count = this.moviesMapper.selectCount();
+		return count;
+	}
+	
+	
 
 }

@@ -68,4 +68,11 @@ public class IndexController {
         System.out.println("Str:" + str);  
 		return null;
 	}
+	
+	@RequestMapping("/")
+	@ResponseBody
+	public String test2(){
+		
+		return "works";
+	}
 }

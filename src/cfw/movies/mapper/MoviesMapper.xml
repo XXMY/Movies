@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				name,
 				type,
 				time,
-				description,
+				did,
 				pic,
 				score
 			) 
@@ -20,10 +20,72 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{type},
 			NOW(),
 			#{description.id},
-			#{pic}
+			#{pic},
 			#{score}
 		)
 	</insert>
 	
+	<select id="selectMovies" parameterType="Map" resultType="Movies">
+		SELECT
+			id,
+			name,
+			type,
+			score
+		FROM
+			movies
+		<choose>
+			<when test="start != null and length != null">
+				LIMIT #{start},#{length}
+			</when>
+			<otherwise>
+				LIMIT 0,20
+			</otherwise>
+		</choose>
+	</select>
 	
+	<!-- 2016.04.24 19:04 -->
+	<resultMap type="Movies" id="fullMovieMap">
+		<constructor>
+			<idArg column="id" javaType="Long"/>
+			<arg column="name" javaType="String"/>
+			<arg column="type" javaType="String"/>
+			<arg column="pic" javaType="String"/> 
+			<arg column="score" javaType="Float"/>
+		</constructor>
+		<association property="description" javaType="Descriptions">
+			<id property="id" column="did"/>
+			<result property="description" column="description"/>
+		</association>
+	</resultMap>
+	<select id="selectFullMovies" parameterType="Map" resultMap="fullMovieMap">
+		SELECT
+			m.id,
+			m.name,
+			m.type,
+			m.pic,
+			m.score,
+			d.id as did,
+			d.description
+		FROM
+			movies m,
+			descriptions d
+		WHERE
+			d.id = m.did
+		<choose>
+			<when test="start != null and length != null">
+				LIMIT #{start},#{length}
+			</when>
+			<otherwise>
+				LIMIT 0,20
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 2016.04.24 21:54 -->
+	<select id="selectCount" resultType="Long">
+		SELECT
+			count(id)
+		FROM 
+			movies
+	</select>
 </mapper>

@@ -30,9 +30,9 @@ public class CatchController {
 	public String movieCatch() throws Exception{
 		
 		String urlHead = "http://cfw.movies.com/dy2018/i/";
-		int number = 94002;
+		int number = 95369;
 		int times = 1;
-		for(int i=number;i<96000;i++){
+		for(int i=number;i<96769;i++){
 			System.out.println("~~~~~~~~~ " + i +" ~~~~~~~~~~");
 			String url = urlHead + i + ".html";
 			String html = sendGet(url, "");
@@ -116,18 +116,18 @@ public class CatchController {
 	private boolean getScore(String html, Movies movie) {
 		boolean result = false;
 		// Get score.
-		String scoreRegex = "<strong class=\"rank\">[0-9]\\.[0-9]</strong>";
+		String scoreRegex = "<strong class=\"rank\">[0-9](|\\.[0-9])</strong>";
 		Pattern scorePattern = Pattern.compile(scoreRegex);
 		Matcher scoreMatcher = scorePattern.matcher(html);
 		if(scoreMatcher.find()){
 			String scoreString = scoreMatcher.group();
-			scoreRegex = "[0-9]\\.[0-9]";
+			scoreRegex = "(([0-9]\\.[0-9])|[0-9])";
 			scorePattern = Pattern.compile(scoreRegex);
 			scoreMatcher = scorePattern.matcher(scoreString);
 			float score;
 			if(scoreMatcher.find()){
 				scoreString = scoreMatcher.group();
-				score = Float.parseFloat(scoreString);
+				score = Float.valueOf(scoreString);
 				movie.setScore(score);
 				result = true;
 			}
@@ -138,12 +138,18 @@ public class CatchController {
 
 	private boolean getPicture(String html, Movies movie) {
 		// Get main picture.
-		String picRegex = "src=\"http:.*\\.jpg\" style";
+		String picRegex = "src=\"http:.*\\.jpg\" (style|borde|targe|alt=\"|heigh)";
 		Pattern picPattern = Pattern.compile(picRegex);
 		Matcher picMatcher = picPattern.matcher(html);
 		boolean result = false;
 		if(picMatcher.find()){
 			String picPathHtml = picMatcher.group();
+			picMatcher = picPattern.matcher(picPathHtml);
+			while(picMatcher.find()){
+				picPathHtml = picMatcher.group();
+				picMatcher = picPattern.matcher(picPathHtml.substring(0,picPathHtml.length()-7));
+			}
+			
 			String picPath = picPathHtml.substring(5, picPathHtml.length()-7);
 			result = checkUrlAccess(picPath);
 			movie.setPic(picPath);

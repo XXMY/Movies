@@ -18,7 +18,7 @@
     
     <!-- 当使用 JUnit 测试时，只扫描下面包 -->
     <!-- <context:component-scan base-package="cfw.movies"  /> -->
-    
+     
 	
 	<!-- it seems useless -->
 	<!-- <mvc:default-servlet-handler/> -->

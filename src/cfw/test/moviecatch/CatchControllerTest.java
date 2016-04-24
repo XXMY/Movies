@@ -18,8 +18,11 @@ public class CatchControllerTest {
 	@Test
 	public void testPackMovie(){
 		
+		float f = Float.valueOf("11.2");
+		System.out.println(f);
+		
 		Date start = new Date();
-		String urlHead = "http://cfw.test.com:83/dy2018/i/94001.html";
+		String urlHead = "http://cfw.movies.com/dy2018/i/96544.html";
 		String html = sendGet(urlHead, "");
 		
 		CatchController catchC = new CatchController();
@@ -27,5 +30,6 @@ public class CatchControllerTest {
 		Movies movie = catchC.packMovie(html);
 		System.out.println(new Date().getTime() - start.getTime());
 		System.out.println(movie);
+		System.out.println(movie.getScore());
 	}
 }

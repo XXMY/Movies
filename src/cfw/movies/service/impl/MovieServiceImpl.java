@@ -1,13 +1,17 @@
 package cfw.movies.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cfw.common.reflect.SimpleAssign;
 import cfw.movies.dao.AbstractsDao;
 import cfw.movies.dao.MoviesDao;
 import cfw.movies.dao.TypesDao;
+import cfw.movies.dto.Page;
 import cfw.movies.model.Descriptions;
 import cfw.movies.model.Movies;
 import cfw.movies.model.Types;
@@ -83,11 +87,42 @@ public class MovieServiceImpl implements MovieService {
 		return insertAbstractResult>0 ? true : false;
 	}
 
-	/*
-	 * Setters and Getters
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.service.MovieService#getMovies(cfw.movies.dto.Page)
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月24日 下午3:24:39
 	 */
-	public void setTypesDao(TypesDao typesDao) {
-		this.typesDaoImpl = typesDao;
+	@Override
+	public List<Movies> getMovies(Page page, int flag) {
+		List<Movies> movies = null;
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		
+		boolean result = SimpleAssign.assignValueToMap(paramMap, page);
+		if(result){
+			switch(flag){
+			case 1:
+				movies = moviesDaoImpl.selectMovies(paramMap);
+				break;
+			case 2:
+				movies = moviesDaoImpl.selectFullMovies(paramMap);
+				break;
+			}
+		}
+		
+		return movies;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.service.MovieService#countMovies()
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月24日 下午9:58:14
+	 */
+	@Override
+	public Long countMovies() {
+		Long count = moviesDaoImpl.selectCount();
+		return count;
 	}
 
 }

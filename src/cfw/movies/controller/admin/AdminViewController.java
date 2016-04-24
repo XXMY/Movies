@@ -2,6 +2,7 @@ package cfw.movies.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * This controller is used to display the views,
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping(value="/admin",method=RequestMethod.GET)
 public class AdminViewController {
 	
 	/**
@@ -39,7 +40,7 @@ public class AdminViewController {
 	 * @author Fangwei_Cai
 	 * @time since 2016年3月24日 下午7:34:18
 	 */
-	@RequestMapping("/movies")
+	@RequestMapping("/movies_page")
 	public String moviesView(){
 		return "/movies";
 	}
@@ -66,6 +67,7 @@ public class AdminViewController {
 	
 	/**
 	 * Show the movies types page.
+	 * Not going to use for now.
 	 * @author Fangwei_Cai
 	 * @time since 2016年3月29日 上午9:53:08
 	 */
