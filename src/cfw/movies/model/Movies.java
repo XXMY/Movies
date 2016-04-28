@@ -20,6 +20,8 @@ public class Movies {
 	
 	private float score;
 	
+	private Date record_time;
+
 	public Movies() {
 		super();
 	}
@@ -99,13 +101,21 @@ public class Movies {
 	public void setScore(float score) {
 		this.score = score;
 	}
+	
+	public Date getRecord_time() {
+		return record_time;
+	}
+
+	public void setRecord_time(Date record_time) {
+		this.record_time = record_time;
+	}
 
 	@Override
 	public String toString() {
-		return "Movies [id=" + id + ", name=" + name + ", type=" + type
-				+ ", time=" + time + ", description=" + description
-				+ ", score=" + score + ", pic=" + pic + "]";
+		return "Movies [id=" + id + ", name=" + name + ", type=" + type + ", time=" + time + ", description="
+				+ description + ", score=" + score + ", record_time=" + record_time + ", pic=" + pic + "]";
 	}
 
+	
 
 }

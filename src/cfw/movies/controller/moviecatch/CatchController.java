@@ -30,9 +30,9 @@ public class CatchController {
 	public String movieCatch() throws Exception{
 		
 		String urlHead = "http://cfw.movies.com/dy2018/i/";
-		int number = 95369;
+		int number = 96772;
 		int times = 1;
-		for(int i=number;i<96769;i++){
+		for(int i=number;i<=96772;i++){
 			System.out.println("~~~~~~~~~ " + i +" ~~~~~~~~~~");
 			String url = urlHead + i + ".html";
 			String html = sendGet(url, "");

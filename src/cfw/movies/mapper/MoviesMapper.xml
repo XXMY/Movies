@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			movies(
 				name,
 				type,
-				time,
+				record_time,
 				did,
 				pic,
 				score

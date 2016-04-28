@@ -22,7 +22,7 @@ public class CatchControllerTest {
 		System.out.println(f);
 		
 		Date start = new Date();
-		String urlHead = "http://cfw.movies.com/dy2018/i/96544.html";
+		String urlHead = "http://cfw.movies.com/dy2018/i/96623.html";
 		String html = sendGet(urlHead, "");
 		
 		CatchController catchC = new CatchController();

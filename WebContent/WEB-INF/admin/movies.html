@@ -36,9 +36,9 @@
 											</span>
 									    </div>
 										<table class="table table-hover">
-											<tr>
+											<tr class="warning">
 												<td style="width:10%">编号</td>
-												<td style="width:20%" >类型</td>
+												<td style="width:30%" >类型</td>
 												<td>名称</td>
 												<td style="width:10%">评分</td>
 												<td style="width:20%">操作</td>
@@ -57,19 +57,19 @@
 												</td>
 											</tr>
 										</table>
-										<nav class="text-right">
+										<nav class="text-right" >
 											<ul class="pagination">
-												<li>
+												<li id="previouseLi" class="previous" ng-init="finish()">
 													<a href="" aria-label="Previous">
 														<span aria-hidden="true">上一页</span>
 													</a>
 												</li>
-												<li ng-repeat="num in pageList">
-													<span>{{num}}</span>
+												<li id="page{{num}}" ng-repeat="num in pageList" >
+													<a href="" ng-click="thisPage(num)"><span>{{num}}</span></a>
 												</li>
-												<li>
+												<li id="nextLi" class="next">
 													<a href="" aria-label="Next">
-														<span aria-hidden="true">下一页</span>
+														<span id="nextPageBtn" aria-hidden="true" ng-click="nextPage()">下一页</span>
 													</a>
 												</li>
 											</ul>
@@ -84,52 +84,107 @@
 		</div>
 	</div>
 	<script>
+	$(document).ready(function(){
+		
+	});
+	
 	var typesApp = angular.module("typesApp",[]);
 	typesApp.controller("typesController",function($scope,$http){
 		$scope.currentPage = 0;
 		$scope.moviesCount = 0;
 		$scope.movies;
 		$scope.pageList = new Array();
+		$scope.totalPageNum;
 		
 		$scope.page = {
-				start : 1,
+				start : 0,
 				length : 20,
 				flag : 1
 		};
 		
-		$scope.getMovies = function(){
-			$scope.currentPage ++;
-			/* $http({
-				url : "/admin/movies_count",
-				method : "GET"
-			}).success(function(count){
-				$scope.moviesCount = count;
-				var pages = count / $scope.page.length;
-				// 页数减一
-				var　pagesCutOne = pages>parseInt(pages) ? parseInt(pages) : pages;
-				if(pagesCutOne > $scope.currentPage){
-					for(var i=0;i<)
+		$scope.finish = function(){
+			$("#previouseLi").addClass("disabled");
+		};
+		
+		$scope.pageAcitive = function(pageNum){
+			$scope.currentPage = pageNum;
+			for(var i=0;i<$scope.pageList.length;i++){
+				if($scope.pageList[i] == $scope.currentPage){
+					$("#page"+$scope.currentPage).addClass("active");
+				}else{
+					$("#page"+$scope.pageList[i]).removeClass("active");
 				}
-			}); */
-			
+			}
+		};
+		
+		$scope.nextPage = function(){
+			$scope.page.start = ($scope.currentPage) * $scope.page.length;
+			var url = "/admin/movies?flag="+$scope.page.flag+"&start="+$scope.page.start+"&length="+$scope.page.length;
+			$scope.currentPage ++;
+			$http({
+				url : url,
+				method : "GET",
+				headers :{
+					'Content-Type':'application/x-www-form-urlencoded'
+				}
+				
+			}).success(function(data){
+				$scope.movies = data;
+				// 当查询到的数量小于每页最大数时，禁用下一页按钮
+				// While the munber of queried movies is smaller than $scope.page.length,
+				// then disable the next page button.
+				$("#previousLi").removeClass("disabled");
+				if(data.length < $scope.page.length){
+					$("#nextPageBtn").addClass("disabled");
+				}else{
+					$("#nextPageBtn").removeClass("disabled");
+				}
+				
+				// 初始化分页按钮
+				// Initialize the pagination button.
+				console.log($scope.pageList);
+				var length = $scope.currentPage + 10;
+				if(length > $scope.totalPageNum) length = $scope.totalPageNum;
+				$scope.pageList = new Array();
+				for(var i=$scope.currentPage;i<length;i++){
+					$scope.pageList.push(i);
+				}
+				
+			});
+		};
+		
+		$scope.thisPage = function(pageNum){
+			$scope.pageAcitive(pageNum);
+			$scope.page.start = (pageNum-1) * $scope.page.length;
 			var url = "/admin/movies?flag="+$scope.page.flag+"&start="+$scope.page.start+"&length="+$scope.page.length;
 			
 			$http({
 				url : url,
 				method : "GET",
-				data : {
-					start : $scope.page.start,
-					length : $scope.page.length,
-					flag : $scope.page.flag
+				headers :{
+					'Content-Type':'application/x-www-form-urlencoded'
 				}
 				
 			}).success(function(data){
 				$scope.movies = data;
-				for(var i=0;i<(data.length/2);i++){
-					$scope.pageList.push(i+1);
-				}
 			});
 		};
+		
+		$scope.getMovies = function(){
+			$("#previousLi").addClass("disabled");
+			$http({
+				url : "/admin/movies_count",
+				method : "GET"
+			}).success(function(count){
+				var pages = count / $scope.page.length;
+				
+				$scope.totalPageNum = pages>parseInt(pages) ? parseInt(pages)+1 : pages;
+				
+			});
+			
+			$scope.nextPage();
+		};
+		
 		$scope.getMovies();
 	});
 	

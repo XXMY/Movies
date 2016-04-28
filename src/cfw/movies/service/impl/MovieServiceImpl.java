@@ -110,6 +110,23 @@ public class MovieServiceImpl implements MovieService {
 			}
 		}
 		
+		if(movies == null || movies.size() == 0) return movies;
+		
+		List<Types> types = this.getAllTypes();
+		for(Movies movie : movies){
+			String movieTypeStr = movie.getType();
+			String [] typeStrArr = movieTypeStr.split("_");
+			String typeName = "";
+			for(String typeStr : typeStrArr){
+				for(Types type : types){
+					if(type.getId() == Integer.parseInt(typeStr)){
+						typeName += type.getType_name() + "/";
+					}
+				}
+			}
+			movie.setType(typeName.substring(0, typeName.length()-1));
+		}
+		
 		return movies;
 	}
 

@@ -37,4 +37,13 @@ public interface MoviesMapper extends Mapper<Movies> {
 	 * @return
 	 */
 	Long selectCount();
+	
+	/**
+	 * Delete movies specified by id array.
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月26日 下午3:03:08
+	 * @param ids
+	 * @return
+	 */
+	int deleteMovies(Long [] ids);
 }
