@@ -52,6 +52,18 @@ public class UsersDaoImpl implements UsersDao {
 		
 		return result;
 	}
+	
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.UsersDao#selectUserByName(java.lang.String)
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月1日 下午2:16:42
+	 */
+	@Override
+	public Users selectUserByName(String username) {
+		Users user = usersMapper.selectUserByName(username);
+		return user;
+	}
 
 
 }

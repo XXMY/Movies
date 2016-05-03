@@ -10,6 +10,8 @@ public class AjaxRequestResult {
 	
 	private String message;
 	
+	private Object object;
+	
 	public AjaxRequestResult() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -36,4 +38,18 @@ public class AjaxRequestResult {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+	public Object getObject() {
+		return object;
+	}
+
+	public void setObject(Object object) {
+		this.object = object;
+	}
+
+	@Override
+	public String toString() {
+		return "AjaxRequestResult [code=" + code + ", message=" + message + ", object=" + object + "]";
+	}
+	
 }

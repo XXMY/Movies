@@ -11,4 +11,11 @@ import cfw.movies.model.Users;
 @Component("usersMapper")
 public interface UsersMapper extends Mapper<Users> {
 	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月1日 下午2:17:30
+	 * @param username
+	 * @return
+	 */
+	Users selectUserByName(String username);
 }

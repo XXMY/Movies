@@ -60,12 +60,11 @@ public class UsersMapperTest {
 	@Test
 	public void testFindOne() throws SQLException {
 		Users user = new Users();
-		user.setUsername("CaiFagnwei44");
+		user.setUsername("cc");
 		user.setPassword("123");
 		
 		int result = userMapper.findOne(user);
 		System.out.println(result);
-		assertThat(result, is(0));
 	}
 	
 }

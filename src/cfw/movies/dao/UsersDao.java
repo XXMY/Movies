@@ -29,4 +29,12 @@ public interface UsersDao {
 	 */
 	int addUser(Users user);
 	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月1日 下午2:16:26
+	 * @param username
+	 * @return
+	 */
+	Users selectUserByName(String username);
+	
 }

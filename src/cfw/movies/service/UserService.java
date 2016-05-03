@@ -7,7 +7,7 @@ import cfw.movies.model.Users;
  * @author Fangwei_Cai
  * @time since 2016年3月26日 下午4:38:30
  */
-public interface RegisterService {
+public interface UserService {
 	
 	/**
 	 * Check whether user exists.

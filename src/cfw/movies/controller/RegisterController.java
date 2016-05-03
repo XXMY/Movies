@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cfw.movies.model.Users;
-import cfw.movies.service.RegisterService;
+import cfw.movies.service.UserService;
 
 /**
  * @author Fangwei_Cai
@@ -18,7 +18,7 @@ import cfw.movies.service.RegisterService;
 public class RegisterController {
 
 	@Autowired
-	private RegisterService registerServiceImpl;
+	private UserService userServiceImpl;
 	
 	/**
 	 * @author Fangwei_Cai
@@ -30,7 +30,7 @@ public class RegisterController {
 		
 		if(user.getUsername() == null) return false;
 		
-		boolean result = registerServiceImpl.userExists(user);
+		boolean result = userServiceImpl.userExists(user);
 		
 		return result;
 	}
@@ -45,7 +45,7 @@ public class RegisterController {
 		if(user.getUsername().isEmpty() || user.getPassword().isEmpty())
 			return false;
 		
-		boolean result = registerServiceImpl.register(user);
+		boolean result = userServiceImpl.register(user);
 		
 		return result;
 		

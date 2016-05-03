@@ -2,6 +2,7 @@ package cfw.movies.service;
 
 import java.util.List;
 
+import cfw.movies.dto.MovieComment;
 import cfw.movies.dto.Page;
 import cfw.movies.model.Descriptions;
 import cfw.movies.model.Movies;
@@ -69,4 +70,13 @@ public interface MovieService {
 	 * @return
 	 */
 	Long countMovies();
+	
+	/**
+	 * Add a new comment.
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月1日 上午11:48:13
+	 * @param mComment
+	 * @return
+	 */
+	boolean addComment(MovieComment mComment);
 }

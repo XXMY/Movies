@@ -5,14 +5,14 @@ import org.springframework.stereotype.Service;
 
 import cfw.movies.dao.UsersDao;
 import cfw.movies.model.Users;
-import cfw.movies.service.RegisterService;
+import cfw.movies.service.UserService;
 
 /**
  * @author Fangwei_Cai
  * @time since 2016年3月26日 下午8:07:16
  */
 @Service("registerServiceImpl")
-public class RegisterServiceImpl implements RegisterService {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UsersDao usersDaoImpl;

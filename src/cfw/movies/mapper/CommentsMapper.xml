@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 指定的是映射接口的完整路劲名 -->
+<mapper namespace="cfw.movies.mapper.CommentsMapper">
+	<!-- Insert a movie must with its full information. -->
+	<insert id="insertOne" parameterType="Comments">
+		INSERT INTO 
+			comments(
+				comment,
+				score,
+				uid,
+				mid,
+				create_time
+			) 
+		VALUES(
+			#{comment},
+			#{score},
+			#{uid},
+			#{mid},
+			NOW()
+		)
+	</insert>
+	
+</mapper>

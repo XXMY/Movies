@@ -9,12 +9,17 @@ import org.springframework.stereotype.Service;
 
 import cfw.common.reflect.SimpleAssign;
 import cfw.movies.dao.AbstractsDao;
+import cfw.movies.dao.CommentsDao;
 import cfw.movies.dao.MoviesDao;
 import cfw.movies.dao.TypesDao;
+import cfw.movies.dao.UsersDao;
+import cfw.movies.dto.MovieComment;
 import cfw.movies.dto.Page;
+import cfw.movies.model.Comments;
 import cfw.movies.model.Descriptions;
 import cfw.movies.model.Movies;
 import cfw.movies.model.Types;
+import cfw.movies.model.Users;
 import cfw.movies.service.MovieService;
 
 /**
@@ -32,6 +37,12 @@ public class MovieServiceImpl implements MovieService {
 	
 	@Autowired
 	private AbstractsDao abstractsDaoImpl;
+	
+	@Autowired
+	private CommentsDao commentsDaoImpl;
+	
+	@Autowired
+	private UsersDao usersDaoImpl;
 	
 	/**
 	 * @see cfw.movies.service.MovieService#getAllTypes()
@@ -140,6 +151,33 @@ public class MovieServiceImpl implements MovieService {
 	public Long countMovies() {
 		Long count = moviesDaoImpl.selectCount();
 		return count;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.service.MovieService#addComment(cfw.movies.dto.MovieComment)
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月1日 上午11:49:06
+	 */
+	@Override
+	public boolean addComment(MovieComment mComment) {
+		Comments comment = new Comments();
+		
+		Users user = usersDaoImpl.selectUserByName(mComment.getUsername());
+		
+		if(user == null) return false;
+		
+		comment.setUid(user.getId());
+		comment.setComment(mComment.getComment());
+		comment.setMid(mComment.getMid());
+		comment.setScore(mComment.getScore());
+		
+		int insertCommentResult = commentsDaoImpl.insertComment(comment);
+		
+		if(insertCommentResult > 0)
+			return true;
+		
+		return false;
 	}
 
 }

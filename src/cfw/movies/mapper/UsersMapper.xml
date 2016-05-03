@@ -16,9 +16,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
-	<select id="findOne" parameterType="Users" resultType="Long">
+	<select id="findOne" parameterType="Users" resultType="Integer">
 		SELECT 
-			COUNT(username)
+			COUNT(*)
 		FROM
 			users
 		<where>
@@ -31,4 +31,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 	</select>
+	
+	<!-- 2016.05.01 14:32 -->
+	<select id="selectUserByName" parameterType="String" resultType="Users">
+		SELECT
+			id
+		FROM
+			users
+		WHERE
+			username = #{username}
+	</select>
+	
+	
 </mapper>

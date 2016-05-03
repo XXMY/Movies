@@ -3,6 +3,7 @@ package cfw.test.service;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import cfw.movies.dto.MovieComment;
 import cfw.movies.dto.Page;
 import cfw.movies.model.Descriptions;
 import cfw.movies.model.Movies;
@@ -56,7 +57,7 @@ public class MovieServiceImplTest extends AbstractTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testGetMovies(){
 		Page page = new Page();
 		page.setStart(10L);
@@ -64,5 +65,19 @@ public class MovieServiceImplTest extends AbstractTest {
 		
 		List<Movies> movies = movieServiceImpl.getMovies(page,1);
 		System.out.println(movies);
+	}
+	
+	@Test
+	public void testAddComment(){
+		MovieComment mComment = new MovieComment();
+		mComment.setMid(456L);
+		mComment.setScore(5.6f);
+		mComment.setUsername("cfw");
+		mComment.setComment("lallademaxiya");
+		
+		boolean result = movieServiceImpl.addComment(mComment);
+		
+		System.out.println(result);
+		
 	}
 }

@@ -59,7 +59,7 @@
 										</table>
 										<nav class="text-right" >
 											<ul class="pagination">
-												<li id="previouseLi" class="previous" ng-init="finish()">
+												<li id="previouseLi" class="previous">
 													<a href="" aria-label="Previous">
 														<span aria-hidden="true">上一页</span>
 													</a>
@@ -85,7 +85,7 @@
 	</div>
 	<script>
 	$(document).ready(function(){
-		
+		$("#previouseLi").addClass("disabled");
 	});
 	
 	var typesApp = angular.module("typesApp",[]);
