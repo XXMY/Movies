@@ -40,12 +40,22 @@ public class FrontMoviesController extends BaseController{
 	 */
 	@RequestMapping(value="/movies",method=RequestMethod.GET)
 	@ResponseBody
-	public List<Movies> movieGet(Page page,@RequestParam(defaultValue="1")int flag){
+	public AjaxRequestResult movieGet(Page page,@RequestParam(defaultValue="1")int flag){
+		AjaxRequestResult ajaxResult = null;
+		
 		List<Movies> movies = null;
 		
 		movies = movieService.getMovies(page,flag);
 		
-		return movies;
+		if(movies.size()>0){
+			ajaxResult = buildAjaxResult(1, "查询成功");
+			ajaxResult.setObject(movies);
+			return ajaxResult;
+		}
+		
+		ajaxResult = buildAjaxResult(0, "查询失败");
+		
+		return ajaxResult;
 	}
 	
 	@RequestMapping(value="/movies_count",method=RequestMethod.GET)

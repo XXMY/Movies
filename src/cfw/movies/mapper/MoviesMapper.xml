@@ -72,12 +72,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM
 			movies m,
 			descriptions d
-		WHERE
-			d.id = m.did
+		<where>
+			<choose>
+				<when test="keyword != null">
+					<!-- For movie search through movie's name -->
+						m.name like CONCAT('%','${keyword}','%' ) 
+					AND
+						d.id = m.did
+				</when>
+				<otherwise>
+					d.id = m.id
+				</otherwise>
+			</choose>
 		AND
 			m.isdeleted=0
 		AND 
 			d.isdeleted=0
+		</where>
 		<choose>
 			<when test="start != null and length != null">
 				LIMIT #{start},#{length}

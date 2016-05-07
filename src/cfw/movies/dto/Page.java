@@ -6,9 +6,19 @@ package cfw.movies.dto;
  */
 public class Page {
 	
+	private String keyword;
+	
 	private Long start;
 	
 	private int length;
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 
 	public Long getStart() {
 		return start;
