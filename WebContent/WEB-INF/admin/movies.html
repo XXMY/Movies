@@ -43,7 +43,7 @@
 												<td style="width:10%">评分</td>
 												<td style="width:20%">操作</td>
 											</tr>
-											<tr ng-repeat="movie in movies">
+											<tr ng-repeat="movie in movies track by movie.id">
 												<td>{{movie.id}}</td>
 												<td>{{movie.type}}</td>
 												<td>

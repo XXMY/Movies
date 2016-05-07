@@ -68,6 +68,18 @@ public class MoviesDaoImpl implements MoviesDao {
 		Long count = this.moviesMapper.selectCount();
 		return count;
 	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.MoviesDao#selectOne(java.lang.Long)
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月7日 上午12:26:14
+	 */
+	@Override
+	public Movies selectOne(Long id) {
+		Movies movie = this.moviesMapper.selectOne(id);
+		return movie;
+	}
 	
 	
 

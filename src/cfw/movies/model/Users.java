@@ -9,6 +9,7 @@ public class Users {
 	private Long id;
 	private String username;
 	private String password;
+	private String head_pic;
 	
 	public Long getId() {
 		return id;
@@ -28,9 +29,15 @@ public class Users {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getHead_pic() {
+		return head_pic;
+	}
+	public void setHead_pic(String head_pic) {
+		this.head_pic = head_pic;
+	}
 	@Override
 	public String toString() {
-		return "Users [id=" + id + ", username=" + username + ", password=" + password + "]";
+		return "Users [id=" + id + ", username=" + username + ", password=" + password + ", head_pic=" + head_pic + "]";
 	}
 	
 	

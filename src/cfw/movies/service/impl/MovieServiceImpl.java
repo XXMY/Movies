@@ -74,8 +74,9 @@ public class MovieServiceImpl implements MovieService {
 	 */
 	@Override
 	public boolean addMovie(Movies movies) {
+		
 		// Persist movie's abstract first.
-		boolean addAbstractResult = addAbstract(movies.getDescription());
+		boolean addAbstractResult = addDescription(movies.getDescription());
 		
 		// Movie's abstract persist succeed then persist the movie.
 		int insertMovieResult = 0;
@@ -87,13 +88,13 @@ public class MovieServiceImpl implements MovieService {
 	}
 	
 	/**
-	 * @see cfw.movies.service.MovieService#addAbstract(cfw.movies.model.Descriptions)
+	 * @see cfw.movies.service.MovieService#addDescription(cfw.movies.model.Descriptions)
 	 * @author Fangwei_Cai
 	 * @time since 2016年4月8日 下午4:45:40
 	 */
 	@Override
-	public boolean addAbstract(Descriptions abstracts) {
-		int insertAbstractResult = abstractsDaoImpl.insertAbstract(abstracts);
+	public boolean addDescription(Descriptions abstracts) {
+		int insertAbstractResult = abstractsDaoImpl.insertDescription(abstracts);
 		
 		return insertAbstractResult>0 ? true : false;
 	}
@@ -167,7 +168,7 @@ public class MovieServiceImpl implements MovieService {
 		
 		if(user == null) return false;
 		
-		comment.setUid(user.getId());
+		comment.setUser(user);
 		comment.setComment(mComment.getComment());
 		comment.setMid(mComment.getMid());
 		comment.setScore(mComment.getScore());
@@ -178,6 +179,32 @@ public class MovieServiceImpl implements MovieService {
 			return true;
 		
 		return false;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.service.MovieService#getOneMovie(java.lang.Long)
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月7日 上午12:28:07
+	 */
+	@Override
+	public Movies getOneMovie(Long id) {
+		Movies movie = this.moviesDaoImpl.selectOne(id);
+		
+		return movie;
+	}
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月7日 上午11:03:36
+	 * @param mid
+	 * @return
+	 */
+	@Override
+	public List<Comments> getCommentsOfMovie(Long mid) {
+		List<Comments> comments = this.commentsDaoImpl.selectCommentsOfMovie(mid);
+		
+		return comments;
 	}
 
 }

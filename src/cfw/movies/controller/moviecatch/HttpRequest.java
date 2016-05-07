@@ -131,7 +131,7 @@ public class HttpRequest {
     		connection.connect();
     		String contentType = connection.getContentType();
     		System.out.println(contentType);
-    		if(contentType == null) 
+    		if(contentType == null || contentType=="text/html") 
     			return false;
     	}catch(IOException e){
     		return false;

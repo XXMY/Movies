@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import cfw.movies.dto.MovieComment;
 import cfw.movies.dto.Page;
+import cfw.movies.model.Comments;
 import cfw.movies.model.Descriptions;
 import cfw.movies.model.Movies;
 import cfw.movies.model.Types;
@@ -43,17 +44,19 @@ public class MovieServiceImplTest extends AbstractTest {
 
 	//@Test
 	public void testAddMovie(){
-		Descriptions abstracts = new Descriptions();
-		abstracts.setDescription("<p>123</p>");
+		Descriptions description = new Descriptions();
+		description.setDescription("<p>123</p>");
+		description.setAbstract_("abstract");
 		
 		Movies movies = new Movies();
-		movies.setDescription(abstracts);
+		movies.setDescription(description);
 		movies.setName("叶问2");
 		movies.setPic("http://www.baidu.com");
 		movies.setType("1_2");
 		movies.setScore(1.2f);
 		
 		boolean result = movieServiceImpl.addMovie(movies);
+		System.out.println(result);
 		
 	}
 	
@@ -67,7 +70,7 @@ public class MovieServiceImplTest extends AbstractTest {
 		System.out.println(movies);
 	}
 	
-	@Test
+	//@Test
 	public void testAddComment(){
 		MovieComment mComment = new MovieComment();
 		mComment.setMid(456L);
@@ -80,4 +83,14 @@ public class MovieServiceImplTest extends AbstractTest {
 		System.out.println(result);
 		
 	}
+	
+	@Test
+	public void testGetCommentsOfMovie(){
+		Long id = 1727L;
+		
+		List<Comments> comments = this.movieServiceImpl.getCommentsOfMovie(id);
+		
+		System.out.println(comments);
+	}
+	
 }

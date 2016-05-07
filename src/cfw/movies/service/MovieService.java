@@ -4,6 +4,7 @@ import java.util.List;
 
 import cfw.movies.dto.MovieComment;
 import cfw.movies.dto.Page;
+import cfw.movies.model.Comments;
 import cfw.movies.model.Descriptions;
 import cfw.movies.model.Movies;
 import cfw.movies.model.Types;
@@ -36,7 +37,7 @@ public interface MovieService {
 	 * @author Fangwei_Cai
 	 * @time since 2016年4月8日 下午4:44:47
 	 */
-	boolean addAbstract(Descriptions abstracts);
+	boolean addDescription(Descriptions abstracts);
 	
 	/**
 	 * <b>Get movies in list.</b><p>
@@ -79,4 +80,21 @@ public interface MovieService {
 	 * @return
 	 */
 	boolean addComment(MovieComment mComment);
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月7日 上午12:27:18
+	 * @param id
+	 * @return
+	 */
+	Movies getOneMovie(Long id);
+	
+	/**
+	 * 
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月7日 上午11:08:55
+	 * @param mid
+	 * @return
+	 */
+	List<Comments> getCommentsOfMovie(Long mid);
 }

@@ -30,9 +30,9 @@ public class CatchController {
 	public String movieCatch() throws Exception{
 		
 		String urlHead = "http://cfw.movies.com/dy2018/i/";
-		int number = 96772;
+		int number = 92010;
 		int times = 1;
-		for(int i=number;i<=96772;i++){
+		for(int i=number;i<=93000;i++){
 			System.out.println("~~~~~~~~~ " + i +" ~~~~~~~~~~");
 			String url = urlHead + i + ".html";
 			String html = sendGet(url, "");
@@ -76,14 +76,41 @@ public class CatchController {
 	private boolean getDescript(String html, Movies movie) {
 		boolean result = false;
 		
-		String descriptRegex = "<td colspan=\"2\" align=\"center\" valign=\"top\">.*</tr><SCRIPT";
+		//String descriptRegex = "<td colspan=\"2\" align=\"center\" valign=\"top\">.*</tr><SCRIPT";
+		String descriptRegex = "<p>◎.*</table></td>";
 		Pattern descriptPattern = Pattern.compile(descriptRegex);
+		//System.out.println(html);
 		Matcher descriptMatcher = descriptPattern.matcher(html);
+		String descriptHtml;
 		if(descriptMatcher.find()){
-			String descriptHtml = descriptMatcher.group();
-			String description = descriptHtml.substring(0,descriptHtml.length()-7);
+			descriptHtml = descriptMatcher.group();
+			System.out.println(descriptHtml);
+			String description = descriptHtml.substring(0,descriptHtml.length()-5);
 			Descriptions descript = new Descriptions(description);
 			movie.setDescription(descript);
+			result = getAbstract(descriptHtml,movie);
+		}
+		
+		return result;
+	}
+	
+	private boolean getAbstract(String html, Movies movie) {
+		boolean result = false;
+		
+		String abstractRegex = "<p>◎简　　介</p><p>&nbsp;</p><p>.*</p><p>&nbsp;</p>";
+		Pattern abstractPattern = Pattern.compile(abstractRegex);
+		Matcher abstractMatcher = abstractPattern.matcher(html);
+		String abstractHtml = "";
+		while(abstractMatcher.find()){
+			String temp = abstractMatcher.group();
+			abstractHtml = temp.substring(0, temp.length()-17);
+			abstractMatcher = abstractPattern.matcher(abstractHtml);	
+		}
+		
+		if(abstractHtml != ""){
+			abstractHtml = abstractHtml.substring(28, abstractHtml.length());
+			//System.out.println(abstractHtml);
+			movie.getDescription().setAbstract_(abstractHtml);
 			result = true;
 		}
 		

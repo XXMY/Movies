@@ -39,4 +39,12 @@ public interface MoviesDao {
 	 * @return
 	 */
 	Long selectCount();
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月7日 上午12:25:57
+	 * @param id
+	 * @return
+	 */
+	Movies selectOne(Long id);
 }

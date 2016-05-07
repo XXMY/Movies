@@ -15,15 +15,21 @@ public class Movies {
 	private String type;
 	
 	private Date time;
+
+	// Main picture.
+	private String pic;
 	
 	private Descriptions description;
 	
 	private float score;
 	
 	private Date record_time;
+	
+	private boolean isdeleted = false;
 
 	public Movies() {
 		super();
+		this.description = new Descriptions();
 	}
 
 	public Movies(Long id,String name,String type, String pic,Float score){
@@ -43,9 +49,6 @@ public class Movies {
 		this.pic = pic;
 	}
 
-	// Main picture.
-	private String pic;
-	
 	public Long getId() {
 		return id;
 	}
@@ -53,45 +56,45 @@ public class Movies {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getType() {
 		return type;
 	}
-	
+
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
 	public Date getTime() {
 		return time;
 	}
-	
+
 	public void setTime(Date time) {
 		this.time = time;
 	}
-	
-	public Descriptions getDescription() {
-		return description;
-	}
-	
-	public void setDescription(Descriptions description) {
-		this.description = description;
-	}
-	
+
 	public String getPic() {
 		return pic;
 	}
-	
+
 	public void setPic(String pic) {
 		this.pic = pic;
+	}
+
+	public Descriptions getDescription() {
+		return description;
+	}
+
+	public void setDescription(Descriptions description) {
+		this.description = description;
 	}
 
 	public float getScore() {
@@ -101,7 +104,7 @@ public class Movies {
 	public void setScore(float score) {
 		this.score = score;
 	}
-	
+
 	public Date getRecord_time() {
 		return record_time;
 	}
@@ -110,12 +113,20 @@ public class Movies {
 		this.record_time = record_time;
 	}
 
+	public boolean isIsdeleted() {
+		return isdeleted;
+	}
+
+	public void setIsdeleted(boolean isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
 	@Override
 	public String toString() {
-		return "Movies [id=" + id + ", name=" + name + ", type=" + type + ", time=" + time + ", description="
-				+ description + ", score=" + score + ", record_time=" + record_time + ", pic=" + pic + "]";
+		return "Movies [id=" + id + ", name=" + name + ", type=" + type + ", time=" + time + ", pic=" + pic
+				+ ", description=" + description + ", score=" + score + ", record_time=" + record_time + ", isdeleted="
+				+ isdeleted + "]";
 	}
 
 	
-
 }

@@ -9,6 +9,8 @@ public class Descriptions {
 	
 	private Long id;
 	
+	private String abstract_;
+	
 	private String description;
 	
 	private boolean isdeleted;
@@ -21,30 +23,43 @@ public class Descriptions {
 		this.description = description;
 		this.isdeleted = false;
 	}
-	
-	public boolean isIsdeleted() {
-		return isdeleted;
-	}
-	public void setIsdeleted(boolean isdeleted) {
-		this.isdeleted = isdeleted;
-	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public String getAbstract_() {
+		return abstract_;
+	}
+
+	public void setAbstract_(String abstract_) {
+		this.abstract_ = abstract_;
+	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	public boolean isIsdeleted() {
+		return isdeleted;
+	}
+
+	public void setIsdeleted(boolean isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
 	@Override
 	public String toString() {
-		return "Descriptions [id=" + id + ", description=" + description
-				+ ", isdeleted=" + isdeleted + "]";
+		return "Descriptions [id=" + id + ", abstract_=" + abstract_ + ", description=" + description + ", isdeleted="
+				+ isdeleted + "]";
 	}
 	
 	

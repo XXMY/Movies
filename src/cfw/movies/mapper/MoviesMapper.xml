@@ -13,7 +13,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				record_time,
 				did,
 				pic,
-				score
+				score,
+				isdeleted
 			) 
 		VALUES(
 			#{name},
@@ -21,7 +22,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			NOW(),
 			#{description.id},
 			#{pic},
-			#{score}
+			#{score},
+			#{isdeleted}
 		)
 	</insert>
 	
@@ -54,6 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</constructor>
 		<association property="description" javaType="Descriptions">
 			<id property="id" column="did"/>
+			<result property="abstract_" column="abstract_"/>
 			<result property="description" column="description"/>
 		</association>
 	</resultMap>
@@ -65,12 +68,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			m.pic,
 			m.score,
 			d.id as did,
-			d.description
+			d.abstract_
 		FROM
 			movies m,
 			descriptions d
 		WHERE
 			d.id = m.did
+		AND
+			m.isdeleted=0
+		AND 
+			d.isdeleted=0
 		<choose>
 			<when test="start != null and length != null">
 				LIMIT #{start},#{length}
@@ -79,6 +86,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				LIMIT 0,20
 			</otherwise>
 		</choose>
+	</select>
+	
+	<!-- 2016.05.07 00:21 -->
+	<select id="selectOne" parameterType="Long" resultMap="fullMovieMap">
+		SELECT
+			m.id,
+			m.name,
+			m.type,
+			m.pic,
+			m.score,
+			d.id as did,
+			d.abstract_,
+			d.description
+		FROM
+			movies m,
+			descriptions d
+		WHERE
+			m.id = #{id}
+		AND
+			d.id = m.did
+		AND
+			m.isdeleted=0
+		AND 
+			d.isdeleted=0	
 	</select>
 	
 	<!-- 2016.04.24 21:54 -->

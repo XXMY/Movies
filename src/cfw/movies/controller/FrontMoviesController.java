@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cfw.movies.controller.BaseController;
 import cfw.movies.dto.AjaxRequestResult;
 import cfw.movies.dto.MovieComment;
+import cfw.movies.dto.MovieDetails;
 import cfw.movies.dto.Page;
+import cfw.movies.model.Comments;
 import cfw.movies.model.Movies;
 import cfw.movies.service.MovieService;
 import cfw.util.CodeHelper;
@@ -73,8 +75,42 @@ public class FrontMoviesController extends BaseController{
 		
 		boolean addCommentResult = movieService.addComment(movieComment);
 		
+		//boolean addCommentResult = false;
+		
 		if(addCommentResult)
 			return buildAjaxResult(1,"评论成功");
+		
+		return ajaxResult;
+	}
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月7日 上午12:37:39
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/one")
+	@ResponseBody
+	public AjaxRequestResult getOneMovie(Long id){
+		AjaxRequestResult ajaxResult = null;
+		
+		if(id <= 0){
+			ajaxResult = buildAjaxResult(0,"参数不正确");
+			return ajaxResult;
+		}
+		
+		Movies movie = this.movieService.getOneMovie(id);
+		if(movie == null){
+			ajaxResult = buildAjaxResult(0, "查询失败");
+			return ajaxResult;
+		}
+		
+		List<Comments> comments = this.movieService.getCommentsOfMovie(id);
+	
+		MovieDetails movieDetails = new MovieDetails(movie, comments);
+		
+		ajaxResult = buildAjaxResult(1,"查询成功");
+		ajaxResult.setObject(movieDetails);
 		
 		return ajaxResult;
 	}

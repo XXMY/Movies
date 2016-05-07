@@ -13,5 +13,5 @@ public interface AbstractsDao {
 	 * @author Fangwei_Cai
 	 * @time since 2016年4月8日 下午4:19:41
 	 */
-	int insertAbstract(Descriptions abstracts);
+	int insertDescription(Descriptions abstracts);
 }

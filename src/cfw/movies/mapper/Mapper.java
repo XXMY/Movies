@@ -21,4 +21,6 @@ public interface Mapper<Template> {
 	 * @time since 2016年3月26日 下午4:59:00
 	 */
 	public int findOne(Template t);
+	public Template selectOne(Long id);
+
 }

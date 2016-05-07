@@ -18,13 +18,13 @@ public class AbstractsDaoImpl implements AbstractsDao {
 	private DescriptionsMapper abstractsMapper;
 	
 	/**
-	 * @see cfw.movies.dao.AbstractsDao#insertAbstract(cfw.movies.model.Descriptions)
+	 * @see cfw.movies.dao.AbstractsDao#insertDescription(cfw.movies.model.Descriptions)
 	 * @author Fangwei_Cai
 	 * @time since 2016年4月8日 下午4:32:37
 	 */
 	@Override
-	public int insertAbstract(Descriptions abstracts) {
-		int result = this.abstractsMapper.insertOne(abstracts);
+	public int insertDescription(Descriptions description) {
+		int result = this.abstractsMapper.insertOne(description);
 		
 		return result;
 	}
