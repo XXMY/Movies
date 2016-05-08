@@ -1,6 +1,7 @@
 package cfw.movies.service;
 
 import java.util.List;
+import java.util.Map;
 
 import cfw.movies.dto.MovieComment;
 import cfw.movies.dto.Page;
@@ -97,4 +98,28 @@ public interface MovieService {
 	 * @return
 	 */
 	List<Comments> getCommentsOfMovie(Long mid);
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月8日 下午3:02:43
+	 * @param map
+	 * @return
+	 */
+	List<Movies> findPic(Map<String,Object> map);
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月8日 下午3:03:02
+	 * @param map
+	 * @return
+	 */
+	boolean modifyPic(Map<String,Object> map);
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月8日 下午10:07:56
+	 * @param mids
+	 * @return
+	 */
+	boolean deleteMovie(Long [] mids);
 }

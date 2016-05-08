@@ -80,6 +80,45 @@ public class MoviesDaoImpl implements MoviesDao {
 		Movies movie = this.moviesMapper.selectOne(id);
 		return movie;
 	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.MoviesDao#selectPic(java.util.Map)
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月8日 下午3:03:48
+	 */
+	@Override
+	public List<Movies> selectPic(Map<String, Object> map) {
+		List<Movies> movies = this.moviesMapper.selectPic(map);
+		
+		return movies;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.MoviesDao#updatePic(java.util.Map)
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月8日 下午3:03:53
+	 */
+	@Override
+	public int updatePic(Map<String, Object> map) {
+		int result = this.moviesMapper.updatePic(map);
+		
+		return result;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.MoviesDao#updateMovie(cfw.movies.model.Movies)
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月8日 下午10:05:57
+	 */
+	@Override
+	public int updateMovie(Movies movie) {
+		int result = this.moviesMapper.updateOne(movie);
+		
+		return result;
+	}
 	
 	
 

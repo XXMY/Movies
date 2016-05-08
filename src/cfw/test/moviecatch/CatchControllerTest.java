@@ -20,10 +20,10 @@ public class CatchControllerTest {
 		
 		Date start = new Date();
 		String urlHead = "http://cfw.movies.com/dy2018/i/";
-		int number = 92000;
+		int number = 92006;
 		int times = 1;
 		CatchController catchC = new CatchController();
-		for(int i=number;i<=92010;i++){
+		for(int i=number;i<=92006;i++){
 			System.out.println("~~~~~~~~~ " + i +" ~~~~~~~~~~");
 			String url = urlHead + i + ".html";
 			String html = sendGet(url, "");

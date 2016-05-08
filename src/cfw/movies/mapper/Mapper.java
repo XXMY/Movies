@@ -12,7 +12,7 @@ package cfw.movies.mapper;
  */
 public interface Mapper<Template> {
 	public int insertOne(Template t);
-	public int deleteOne(Template t);
+	public int deleteOne(Long id);
 	public int updateOne(Template t);
 	
 	/**

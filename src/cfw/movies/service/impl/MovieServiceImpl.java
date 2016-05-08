@@ -207,4 +207,54 @@ public class MovieServiceImpl implements MovieService {
 		return comments;
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.service.MovieService#findPic(java.util.Map)
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月8日 下午3:06:18
+	 */
+	@Override
+	public List<Movies> findPic(Map<String, Object> map) {
+		List<Movies> movies = this.moviesDaoImpl.selectPic(map);
+		
+		return movies;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.service.MovieService#modifyPic(java.util.Map)
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月8日 下午3:06:21
+	 */
+	@Override
+	public boolean modifyPic(Map<String, Object> map) {
+		int result = this.moviesDaoImpl.updatePic(map);
+		
+		if(result>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.service.MovieService#deleteMovie(java.lang.Long[])
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月8日 下午10:08:14
+	 */
+	@Override
+	public boolean deleteMovie(Long[] mids) {
+		for(Long mid : mids){
+			Movies movie = new Movies();
+			movie.setId(mid);
+			movie.setIsdeleted(true);
+			
+			int deleteResult = this.moviesDaoImpl.updateMovie(movie);
+			if(deleteResult <= 0) return false;
+		}
+		
+		return true;
+	}
+
 }

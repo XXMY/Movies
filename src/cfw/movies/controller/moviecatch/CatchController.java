@@ -30,9 +30,9 @@ public class CatchController {
 	public String movieCatch() throws Exception{
 		
 		String urlHead = "http://cfw.movies.com/dy2018/i/";
-		int number = 92010;
+		int number = 93001;
 		int times = 1;
-		for(int i=number;i<=93000;i++){
+		for(int i=number;i<=96854;i++){
 			System.out.println("~~~~~~~~~ " + i +" ~~~~~~~~~~");
 			String url = urlHead + i + ".html";
 			String html = sendGet(url, "");
@@ -165,7 +165,7 @@ public class CatchController {
 
 	private boolean getPicture(String html, Movies movie) {
 		// Get main picture.
-		String picRegex = "src=\"http:.*\\.jpg\" (style|borde|targe|alt=\"|heigh)";
+		String picRegex = "src=\"http:.*\\.((jpg)|(png))\" (style|borde|targe|alt=\"|heigh)";
 		Pattern picPattern = Pattern.compile(picRegex);
 		Matcher picMatcher = picPattern.matcher(html);
 		boolean result = false;

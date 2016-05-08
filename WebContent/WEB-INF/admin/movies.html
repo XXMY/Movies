@@ -10,6 +10,7 @@
 <link href="/plugins/bootstrap-3.3.5/css/bootstrap-theme.css" rel="stylesheet" />
 <link href="/plugins/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="/css/sidebarPrev.css">
+<script type="text/javascript" src="/js/admin/movies.js"></script>
 </head>
 <body ng-app="typesApp" ng-controller="typesController" class="ly-bg">
 	<div id="cl-wrapper" class="animate-collapse">
@@ -51,9 +52,9 @@
 												</td>
 												<td>{{movie.score}}</td>
 												<td>
-													<a role="button" class="btn btn-default btn-xs" href="">编辑</a>
+													<button class="btn btn-default btn-xs">编辑</button>
 													&nbsp;&nbsp;&nbsp;
-													<a role="button" class="btn btn-danger btn-xs" href="">删除</a>
+													<button class="btn btn-danger btn-xs">删除</button>
 												</td>
 											</tr>
 										</table>
@@ -83,112 +84,6 @@
 			</div>
 		</div>
 	</div>
-	<script>
-	$(document).ready(function(){
-		$("#previouseLi").addClass("disabled");
-	});
-	
-	var typesApp = angular.module("typesApp",[]);
-	typesApp.controller("typesController",function($scope,$http){
-		$scope.currentPage = 0;
-		$scope.moviesCount = 0;
-		$scope.movies;
-		$scope.pageList = new Array();
-		$scope.totalPageNum;
-		
-		$scope.page = {
-				start : 0,
-				length : 20,
-				flag : 1
-		};
-		
-		$scope.finish = function(){
-			$("#previouseLi").addClass("disabled");
-		};
-		
-		$scope.pageAcitive = function(pageNum){
-			$scope.currentPage = pageNum;
-			for(var i=0;i<$scope.pageList.length;i++){
-				if($scope.pageList[i] == $scope.currentPage){
-					$("#page"+$scope.currentPage).addClass("active");
-				}else{
-					$("#page"+$scope.pageList[i]).removeClass("active");
-				}
-			}
-		};
-		
-		$scope.nextPage = function(){
-			$scope.page.start = ($scope.currentPage) * $scope.page.length;
-			var url = "/admin/movies?flag="+$scope.page.flag+"&start="+$scope.page.start+"&length="+$scope.page.length;
-			$scope.currentPage ++;
-			$http({
-				url : url,
-				method : "GET",
-				headers :{
-					'Content-Type':'application/x-www-form-urlencoded'
-				}
-				
-			}).success(function(data){
-				$scope.movies = data;
-				// 当查询到的数量小于每页最大数时，禁用下一页按钮
-				// While the munber of queried movies is smaller than $scope.page.length,
-				// then disable the next page button.
-				$("#previousLi").removeClass("disabled");
-				if(data.length < $scope.page.length){
-					$("#nextPageBtn").addClass("disabled");
-				}else{
-					$("#nextPageBtn").removeClass("disabled");
-				}
-				
-				// 初始化分页按钮
-				// Initialize the pagination button.
-				console.log($scope.pageList);
-				var length = $scope.currentPage + 10;
-				if(length > $scope.totalPageNum) length = $scope.totalPageNum;
-				$scope.pageList = new Array();
-				for(var i=$scope.currentPage;i<length;i++){
-					$scope.pageList.push(i);
-				}
-				
-			});
-		};
-		
-		$scope.thisPage = function(pageNum){
-			$scope.pageAcitive(pageNum);
-			$scope.page.start = (pageNum-1) * $scope.page.length;
-			var url = "/admin/movies?flag="+$scope.page.flag+"&start="+$scope.page.start+"&length="+$scope.page.length;
-			
-			$http({
-				url : url,
-				method : "GET",
-				headers :{
-					'Content-Type':'application/x-www-form-urlencoded'
-				}
-				
-			}).success(function(data){
-				$scope.movies = data;
-			});
-		};
-		
-		$scope.getMovies = function(){
-			$("#previousLi").addClass("disabled");
-			$http({
-				url : "/admin/movies_count",
-				method : "GET"
-			}).success(function(count){
-				var pages = count / $scope.page.length;
-				
-				$scope.totalPageNum = pages>parseInt(pages) ? parseInt(pages)+1 : pages;
-				
-			});
-			
-			$scope.nextPage();
-		};
-		
-		$scope.getMovies();
-	});
-	
-	</script>
 </body>
 
 </html>

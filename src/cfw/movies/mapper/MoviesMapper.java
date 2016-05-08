@@ -46,4 +46,20 @@ public interface MoviesMapper extends Mapper<Movies> {
 	 * @return
 	 */
 	int deleteMovies(Long [] ids);
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月8日 下午3:02:43
+	 * @param map
+	 * @return
+	 */
+	List<Movies> selectPic(Map<String,Object> map);
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月8日 下午3:03:02
+	 * @param map
+	 * @return
+	 */
+	int updatePic(Map<String,Object> map);
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cfw.movies.mapper.ProblemsMapper;
@@ -31,7 +32,7 @@ public class IndexController {
 	private ProblemsMapper problemsMapper;
 	
 	
-	@RequestMapping("/index")
+	@RequestMapping(value="/index",method=RequestMethod.GET)
 	@ResponseBody
 	public String index(){
 		Problems problems = new Problems("蔡方伟");
@@ -42,7 +43,7 @@ public class IndexController {
 		return "Hello Movies";
 	}
 	
-	@RequestMapping("/test")
+	@RequestMapping(value="/test",method=RequestMethod.GET)
 	@ResponseBody
 	public String test(HttpServletResponse response,HttpServletRequest request) throws Exception {
 		/*StringBuilder stb = new StringBuilder();
@@ -69,7 +70,7 @@ public class IndexController {
 		return null;
 	}
 	
-	@RequestMapping("/")
+	@RequestMapping(value="/index",method=RequestMethod.POST)
 	@ResponseBody
 	public String test2(){
 		
