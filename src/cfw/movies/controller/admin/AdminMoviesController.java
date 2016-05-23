@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cfw.movies.controller.BaseController;
+import cfw.movies.controller.admin.recommend.RecommendStatus;
 import cfw.movies.dto.AjaxRequestResult;
 import cfw.movies.dto.MovieComment;
 import cfw.movies.dto.MovieSubmit;
@@ -30,6 +31,7 @@ import cfw.movies.model.Descriptions;
 import cfw.movies.model.Movies;
 import cfw.movies.model.Types;
 import cfw.movies.service.MovieService;
+import cfw.movies.service.RecommendService;
 import cfw.util.CodeHelper;
 
 /**
@@ -43,6 +45,9 @@ public class AdminMoviesController extends BaseController{
 	
 	@Autowired
 	private MovieService movieService;
+	
+	@Autowired
+	private RecommendService recommendService;
 	
 	/**
 	 * Finish the movie submit operation.
@@ -97,6 +102,28 @@ public class AdminMoviesController extends BaseController{
 		return ajaxResult;
 	}
 
+	/**
+	 * Recommend movies <p>
+	 * Client will send request in every five seconds
+	 * to fetch the latest state of recommend. 
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月15日 下午8:51:36
+	 * @return
+	 */
+	@RequestMapping("/recmd")
+	@ResponseBody
+	public AjaxRequestResult movieRecommend(){
+		AjaxRequestResult ajaxResult = null;
+		
+		if(!RecommendStatus.inProcessing){
+			this.recommendService.startRecommend();
+		}
+		
+		ajaxResult = this.recommendService.getRecommendStaus();
+		
+		return ajaxResult;
+	}
+	
 	/**
 	 * @author Fangwei_Cai
 	 * @time since 2016年5月8日 下午9:00:40

@@ -75,4 +75,14 @@ public class AdminViewController {
 	public String moviesTypeView(){
 		return "/types";
 	}
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月15日 下午8:16:28
+	 * @return
+	 */
+	@RequestMapping("/recommend")
+	public String recommendView(){
+		return "/recommend";
+	}
 }
