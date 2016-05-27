@@ -35,6 +35,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			score
 		FROM
 			movies
+		<where>
+			<if test="keyword != null || keyword != ''">
+				<!-- For movie search through movie's name -->
+				movies.name like CONCAT('%','${keyword}','%' ) 
+			</if>
+		</where>
 		<choose>
 			<when test="start != null and length != null">
 				LIMIT #{start},#{length}
@@ -74,7 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			descriptions d
 		<where>
 			<choose>
-				<when test="keyword != null">
+				<when test="keyword != null || keyword != ''">
 					<!-- For movie search through movie's name -->
 						m.name like CONCAT('%','${keyword}','%' ) 
 					AND

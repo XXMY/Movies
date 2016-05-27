@@ -28,9 +28,9 @@
 								<div class="block-flat">
 									<div>
 										<div class="input-group has-success">
-											<input type="text" class="form-control" placeholder="Search for...">
+											<input type="text" class="form-control" ng-model="page.keyword" placeholder="Search for...">
 											<span class="input-group-btn">
-												<button class="btn btn-success" type="button">
+												<button class="btn btn-success" type="button" ng-click="search()">
 												<i class="fa fa-search" aria-hidden="true"></i>
 												搜索
 												</button>
