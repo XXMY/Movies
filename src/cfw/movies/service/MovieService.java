@@ -121,5 +121,5 @@ public interface MovieService {
 	 * @param mids
 	 * @return
 	 */
-	boolean deleteMovie(Long [] mids);
+	boolean deleteMovie(Long ... mids);
 }

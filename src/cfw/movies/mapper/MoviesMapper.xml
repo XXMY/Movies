@@ -36,9 +36,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM
 			movies
 		<where>
+			movies.isdeleted = 0
 			<if test="keyword != null || keyword != ''">
 				<!-- For movie search through movie's name -->
-				movies.name like CONCAT('%','${keyword}','%' ) 
+				AND movies.name like CONCAT('%','${keyword}','%' ) 
 			</if>
 		</where>
 		<choose>
@@ -166,7 +167,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="name != null">,name = #{name}</if>
 			<if test="type != null">,type = #{type}</if>
 			<if test="pic != null">,pic = #{pic}</if>
-			<if test="description != null">,did = #{description.id}</if>
+			<if test="description.id != null">,did = #{description.id}</if>
 			<if test="score > 0">,score = #{score}</if>
 		WHERE
 			id = #{id}

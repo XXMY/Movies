@@ -54,7 +54,7 @@ public class AdminMoviesController extends BaseController{
 	 * @author Fangwei_Cai
 	 * @time since 2016年4月11日 上午10:45:52
 	 */
-	@RequestMapping(value="/movie",method=RequestMethod.PUT)
+	@RequestMapping(value="/movie/submit",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxRequestResult movieSubmit(HttpServletRequest request,String type){
 		MovieSubmit movieSubmit = (MovieSubmit) request.getAttribute("movieSubmit");
@@ -80,7 +80,7 @@ public class AdminMoviesController extends BaseController{
 	 * @param mid
 	 * @return
 	 */
-	@RequestMapping(value="/movie",method=RequestMethod.GET)
+	@RequestMapping(value="/movie/delete",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxRequestResult movieDelete(Long mid){
 		AjaxRequestResult ajaxResult = null;
@@ -91,7 +91,7 @@ public class AdminMoviesController extends BaseController{
 		}
 		
 		boolean deleteResult = false;
-		//boolean deleteResult = this.movieService.deleteMovie(mid);
+		deleteResult = this.movieService.deleteMovie(mid);
 		
 		if(deleteResult){
 			ajaxResult = buildAjaxResult(1, "删除成功");

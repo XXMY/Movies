@@ -244,7 +244,7 @@ public class MovieServiceImpl implements MovieService {
 	 * @time since 2016年5月8日 下午10:08:14
 	 */
 	@Override
-	public boolean deleteMovie(Long[] mids) {
+	public boolean deleteMovie(Long... mids) {
 		for(Long mid : mids){
 			Movies movie = new Movies();
 			movie.setId(mid);
