@@ -26,4 +26,12 @@ public interface RecommendService {
 	 * @return
 	 */
 	AjaxRequestResult getRecommendStaus();
+	
+	/**
+	 * Save recommended movies that are not watched.
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月29日 下午1:18:13
+	 * @return
+	 */
+	boolean processRecommendData();
 }

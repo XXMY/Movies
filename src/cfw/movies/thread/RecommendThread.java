@@ -2,6 +2,8 @@ package cfw.movies.thread;
 
 import cfw.movies.controller.admin.recommend.RecommendStatus;
 import cfw.movies.r.R;
+import cfw.movies.service.RecommendService;
+import cfw.test.utils.SpringUtils;
 
 /** 
  * @author Fangwei_Cai
@@ -21,9 +23,7 @@ public class RecommendThread extends Thread {
 	}
 	
 	private synchronized void doRecommend(){
-		synchronized (RecommendStatus.class){
-			RecommendStatus.inProcessing = true;
-		}
+		RecommendStatus.inProcessing = true;
 		
 		// R connect to MySQL.
 		boolean connectToMysqlResult = this.r.connectToMysql();
@@ -48,12 +48,22 @@ public class RecommendThread extends Thread {
 		
 		boolean putRecommendDataToMysqlResult = this.r.putRecommendDataToMysql();
 		if(putRecommendDataToMysqlResult){
-			String message = "推荐数据存入 MySQL 完成，计算结束";
+			String message = "推荐数据存入 MySQL完成，正在生成结果";
+			this.setRecommendStatus(90, message);
+		}
+		
+		RecommendService recommendService = (RecommendService) SpringUtils.getBean("recommendServiceImpl");
+		if(recommendService == null || !recommendService.processRecommendData()){
+			String message = "生成推荐结果失败";
+			this.setRecommendStatus(0, message);
+		}else{
+			String message = "生成推荐结果完成，推荐结束";
 			this.setRecommendStatus(100, message);
 		}
 		
-		this.r.destroy();
 		
+		this.r.destroy();
+		RecommendStatus.inProcessing = false;
 	}
 	
 	/**

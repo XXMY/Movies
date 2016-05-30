@@ -48,7 +48,7 @@
 												<td>{{movie.id}}</td>
 												<td>{{movie.type}}</td>
 												<td>
-													<a href="">{{movie.name}}</a>
+													<a target="_blank" href="/details.html?m={{movie.id}}">{{movie.name}}</a>
 												</td>
 												<td>{{movie.score}}</td>
 												<td>
@@ -59,18 +59,15 @@
 											</tr>
 										</table>
 										<nav class="text-right" >
-											<ul class="pagination">
-												<li id="previouseLi" class="previous">
-													<a href="" aria-label="Previous">
-														<span aria-hidden="true">上一页</span>
+											<ul class="pager">
+												<li id="previousLi" class="previous" ng-click="previousPage()">
+													<a href="" aria-label="Previous" >
+														<span aria-hidden="true" aria-hidden="true" >上一页</span>
 													</a>
 												</li>
-												<li id="page{{num}}" ng-repeat="num in pageList" >
-													<a href="" ng-click="thisPage(num)"><span>{{num}}</span></a>
-												</li>
-												<li id="nextLi" class="next">
-													<a href="" aria-label="Next">
-														<span id="nextPageBtn" aria-hidden="true" ng-click="nextPage()">下一页</span>
+												<li id="nextLi" class="next" ng-click="nextPage()">
+													<a href="" aria-label="Next" >
+														<span aria-hidden="true" aria-hidden="true">下一页</span>
 													</a>
 												</li>
 											</ul>

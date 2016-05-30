@@ -84,7 +84,7 @@ public class MovieServiceImplTest extends AbstractTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testGetCommentsOfMovie(){
 		Long id = 1727L;
 		
@@ -92,5 +92,6 @@ public class MovieServiceImplTest extends AbstractTest {
 		
 		System.out.println(comments);
 	}
+	
 	
 }
