@@ -2,16 +2,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>MANAGE | DEALS</title>
+<title>个人中心-M1212</title>
+<link rel="shortcut icon" href="/plugins/iheima/static/ihm/images/dog.png"/>
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
 <link href="http://libs.baidu.com/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="/css/sidebarPrev.css">
+<script src="/plugins/angular-1.4.9/angular.min.js"></script>
+<script src="/js/admin/userCenter.js"></script>
 </head>
-<body class="ly-bg">
+<body class="ly-bg" ng-app="userCenterApp" ng-controller="userCenterController">
 	<div id="cl-wrapper" class="animate-collapse">
-
 		<div id="pcont" class="cl-main">
 			<div class="main">
 				<div class="container-row" style="width:80%">
@@ -36,7 +38,7 @@
 												style="width: 128px; height: 128px;" />
 											</a>
 											<div class="media-body">
-												<h3 class="media-heading">xxmy</h3>
+												<h3 class="media-heading">{{account.username}}</h3>
 												<!-- <a href="/UserCenter/Profile/UpdatePass">修改密码</a> -->
 											</div>
 										</div>
@@ -49,7 +51,6 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 
 </html>

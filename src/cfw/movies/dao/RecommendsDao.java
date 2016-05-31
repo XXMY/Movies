@@ -1,6 +1,7 @@
 package cfw.movies.dao;
 
 import cfw.movies.model.Recommends;
+import cfw.movies.model.Users;
 
 /**
  * @author Fangwei_Cai
@@ -15,4 +16,13 @@ public interface RecommendsDao {
 	 * @return
 	 */
 	int insertOne(Recommends recommend);
+	
+	/**
+	 * While the number of recommended movies larger than zero,then select movies.
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月31日 下午6:59:15
+	 * @param user
+	 * @return
+	 */
+	int selectRecommendedMoviesCount(Users user);
 }

@@ -1,6 +1,9 @@
 package cfw.movies.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,8 @@ import cfw.movies.dto.MovieDetails;
 import cfw.movies.dto.Page;
 import cfw.movies.model.Comments;
 import cfw.movies.model.Movies;
+import cfw.movies.model.Types;
+import cfw.movies.model.Users;
 import cfw.movies.service.MovieService;
 import cfw.util.CodeHelper;
 
@@ -121,6 +126,45 @@ public class FrontMoviesController extends BaseController{
 		
 		ajaxResult = buildAjaxResult(1,"查询成功");
 		ajaxResult.setObject(movieDetails);
+		
+		return ajaxResult;
+	}
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月31日 下午8:02:19
+	 * @return
+	 */
+	@RequestMapping(value="/movieTypes",method=RequestMethod.GET)
+	@ResponseBody
+	public List<Types> movieTypes(){
+		List<Types> movieTypes = this.movieService.getAllTypes();
+		
+		return movieTypes;
+	}
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月31日 下午8:03:37
+	 * @return
+	 */
+	@RequestMapping("/recommended")
+	@ResponseBody
+	public AjaxRequestResult recommendedMovies(HttpSession session){
+		AjaxRequestResult ajaxResult = null;
+		List<Movies> recommendMovies = null;
+		Map<String,Object> map = (Map<String,Object>)session.getAttribute(session.getId());
+		if(map != null){
+			Long userId = (Long) map.get("id");
+			Users user = new Users();
+			user.setId(userId);
+			recommendMovies = this.movieService.getRecommendMovies(user);
+		}else{
+			recommendMovies = this.movieService.getRecommendMovies(null);
+		}
+		
+		ajaxResult = buildAjaxResult(1, "获取推荐影片");
+		ajaxResult.setObject(recommendMovies);
 		
 		return ajaxResult;
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import cfw.movies.model.Movies;
+import cfw.movies.model.Users;
 
 /**
  * @author Fangwei_Cai
@@ -71,4 +72,20 @@ public interface MoviesDao {
 	 * @return
 	 */
 	int updateMovie(Movies movie);
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月31日 下午6:58:16
+	 * @param user
+	 * @return
+	 */
+	List<Movies> selectRecommendedMovies(Users user);
+	
+	/**
+	 * Select five movies which score is in top list. 
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月31日 下午7:51:40
+	 * @return
+	 */
+	List<Movies> selectTopScoreMoviesToRecommend();
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import cfw.movies.dao.MoviesDao;
 import cfw.movies.mapper.MoviesMapper;
 import cfw.movies.model.Movies;
+import cfw.movies.model.Users;
 
 /**
  * @author Fangwei_Cai
@@ -118,6 +119,32 @@ public class MoviesDaoImpl implements MoviesDao {
 		int result = this.moviesMapper.updateOne(movie);
 		
 		return result;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.MoviesDao#selectRecommendedMovies(cfw.movies.model.Users)
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月31日 下午7:44:12
+	 */
+	@Override
+	public List<Movies> selectRecommendedMovies(Users user) {
+		List<Movies> recommendMovies = this.moviesMapper.selectRecommendedMovies(user);
+		
+		return recommendMovies;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.MoviesDao#selectTopScoreMoviesToRecommend()
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月31日 下午8:00:43
+	 */
+	@Override
+	public List<Movies> selectTopScoreMoviesToRecommend() {
+		List<Movies> recommendMovies = this.moviesMapper.selectTopScoreMoviesToRecommend();
+		
+		return recommendMovies;
 	}
 	
 	

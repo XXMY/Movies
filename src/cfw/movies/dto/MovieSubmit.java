@@ -1,5 +1,7 @@
 package cfw.movies.dto;
 
+import java.util.Arrays;
+
 /**
  * The DTO in submitting movies.
  * @author Fangwei_Cai
@@ -16,7 +18,9 @@ public class MovieSubmit {
 	//Array of movie types. 
 	private int[] typesArray;
 	
-	//Abstracts of moives.
+	private String abstract_;
+	
+	//Description of movies.
 	private String description;
 
 	public String getMainPicture() {
@@ -43,6 +47,14 @@ public class MovieSubmit {
 		this.typesArray = typesArray;
 	}
 
+	public String getAbstract_() {
+		return abstract_;
+	}
+
+	public void setAbstract_(String abstract_) {
+		this.abstract_ = abstract_;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -50,6 +62,12 @@ public class MovieSubmit {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "MovieSubmit [mainPicture=" + mainPicture + ", name=" + name + ", typesArray="
+				+ Arrays.toString(typesArray) + ", abstract_=" + abstract_ + ", description=" + description + "]";
+	}
+
 	
 }

@@ -24,15 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cfw.movies.controller.BaseController;
 import cfw.movies.controller.admin.recommend.RecommendStatus;
 import cfw.movies.dto.AjaxRequestResult;
-import cfw.movies.dto.MovieComment;
 import cfw.movies.dto.MovieSubmit;
-import cfw.movies.dto.Page;
 import cfw.movies.model.Descriptions;
 import cfw.movies.model.Movies;
-import cfw.movies.model.Types;
 import cfw.movies.service.MovieService;
 import cfw.movies.service.RecommendService;
-import cfw.util.CodeHelper;
 
 /**
  * The controller contains movies' operations.
@@ -56,16 +52,25 @@ public class AdminMoviesController extends BaseController{
 	 */
 	@RequestMapping(value="/movie/submit",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxRequestResult movieSubmit(HttpServletRequest request,String type){
+	public AjaxRequestResult movieSubmit(HttpServletRequest request,String type,@RequestParam(required=false,defaultValue="0")Long id){
 		MovieSubmit movieSubmit = (MovieSubmit) request.getAttribute("movieSubmit");
 		
 		Descriptions description = new Descriptions(movieSubmit.getDescription());
+		description.setAbstract_(movieSubmit.getAbstract_());
 		
 		Movies movie = new Movies(movieSubmit.getName(), type, description, movieSubmit.getMainPicture());
+		movie.setId(id);
+		boolean result = false;
 		
-		boolean addMovieResult = this.movieService.addMovie(movie);
+		// id not exists means it's a new commit.
+		if(id == 0l){
+			result = this.movieService.addMovie(movie);
+		}else{
+			// modification commit.
+			
+		}
 		
-		if(addMovieResult){
+		if(result){
 			return buildAjaxResult(1, "添加成功");
 		}
 		

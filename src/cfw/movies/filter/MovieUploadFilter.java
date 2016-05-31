@@ -12,6 +12,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
+
 import cfw.common.UploadService;
 import cfw.exception.ServiceException;
 import cfw.movies.dto.MovieSubmit;
@@ -50,9 +52,11 @@ public class MovieUploadFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) arg0;
 		String[] result = this.persistAndReplace(request);
 		String name = request.getParameter("name");
+		String abstract_ = request.getParameter("abstract_");
 		
 		MovieSubmit movieSubmit = new MovieSubmit();
 		movieSubmit.setMainPicture(result[0]);
+		movieSubmit.setAbstract_(abstract_);
 		movieSubmit.setDescription(result[1]);
 		movieSubmit.setName(name);
 		
@@ -89,7 +93,9 @@ public class MovieUploadFilter implements Filter {
 		
 		String mainPicture = "";
 		try{
-			mainPicture = uploadService.persistTempFile(tempFileName, "movie.upload.movie.path");
+			
+			if(StringUtils.isNotEmpty(tempFileName))
+				mainPicture = uploadService.persistTempFile(tempFileName, "movie.upload.movie.path");
 			
 			while(matcher.find()){
 				tempFileName = matcher.group().substring(36);

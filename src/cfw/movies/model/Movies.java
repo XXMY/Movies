@@ -31,6 +31,12 @@ public class Movies {
 		super();
 		this.description = new Descriptions();
 	}
+	
+	public Movies(Long id, String name, Float score){
+		this.id = id;
+		this.name = name;
+		this.score = score;
+	}
 
 	public Movies(Long id,String name,String type, String pic,Float score){
 		super();

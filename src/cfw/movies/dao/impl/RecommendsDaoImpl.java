@@ -6,7 +6,12 @@ import org.springframework.stereotype.Repository;
 import cfw.movies.dao.RecommendsDao;
 import cfw.movies.mapper.RecommendsMapper;
 import cfw.movies.model.Recommends;
+import cfw.movies.model.Users;
 
+/**
+ * @author Fangwei_Cai
+ * @time since 2016年5月31日 下午7:04:41
+ */
 @Repository
 public class RecommendsDaoImpl implements RecommendsDao {
 
@@ -25,6 +30,18 @@ public class RecommendsDaoImpl implements RecommendsDao {
 		int result = this.recommendsMapper.insertOne(recommend);
 		
 		return result;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.RecommendsDao#selectRecommendedMoviesCount(cfw.movies.model.Users)
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月31日 下午7:04:48
+	 */
+	@Override
+	public int selectRecommendedMoviesCount(Users user) {
+		int count = this.recommendsMapper.selectRecommendedMoviesCount(user);
+		return count;
 	}
 
 }

@@ -11,6 +11,7 @@ import cfw.common.reflect.SimpleAssign;
 import cfw.movies.dao.AbstractsDao;
 import cfw.movies.dao.CommentsDao;
 import cfw.movies.dao.MoviesDao;
+import cfw.movies.dao.RecommendsDao;
 import cfw.movies.dao.TypesDao;
 import cfw.movies.dao.UsersDao;
 import cfw.movies.dto.MovieComment;
@@ -43,6 +44,9 @@ public class MovieServiceImpl implements MovieService {
 	
 	@Autowired
 	private UsersDao usersDaoImpl;
+	
+	@Autowired
+	private RecommendsDao recommendsDao;
 	
 	/**
 	 * @see cfw.movies.service.MovieService#getAllTypes()
@@ -255,6 +259,32 @@ public class MovieServiceImpl implements MovieService {
 		}
 		
 		return true;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.service.MovieService#getRecommendMovies(cfw.movies.model.Users)
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月31日 下午7:47:48
+	 */
+	@Override
+	public List<Movies> getRecommendMovies(Users user) {
+		List<Movies> recommendMovies = null;
+		// While user is not logined.
+		if(user == null){
+			recommendMovies = this.moviesDaoImpl.selectTopScoreMoviesToRecommend();
+			
+			return recommendMovies;
+		}
+		
+		int recommendCount = this.recommendsDao.selectRecommendedMoviesCount(user);
+		if(recommendCount>0)
+			recommendMovies = this.moviesDaoImpl.selectRecommendedMovies(user);
+		else
+			recommendMovies = this.moviesDaoImpl.selectTopScoreMoviesToRecommend();
+			
+		
+		return recommendMovies;
 	}
 
 }

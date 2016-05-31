@@ -29,4 +29,5 @@ public interface UserService {
 	 * @time since 2016年3月27日 上午10:05:11
 	 */
 	boolean register(Users user);
+
 }

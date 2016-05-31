@@ -14,4 +14,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{uid},#{mid},#{pref}
 		)
 	</insert>
+	
+	<!-- 2015.05.31 19:03 -->
+	<select id="selectRecommendedMoviesCount" parameterType="Users" resultType="Integer">
+		SELECT 
+			count(id)
+		FROM
+			recommends
+		WHERE
+			uid = #{id}
+	</select>
+	
 </mapper>

@@ -172,4 +172,64 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE
 			id = #{id}
 	</update>
+	
+	<!-- 2016.05.31 19:43 -->
+	<resultMap type="Movies" id="recommendMovieMap">
+		<constructor>
+			<idArg column="id" javaType="Long"/>
+			<arg column="name" javaType="String"/>
+			<arg column="score" javaType="Float"/>
+		</constructor>
+		<association property="description" javaType="Descriptions">
+			<id property="id" column="did"/>
+			<result property="abstract_" column="abstract_"/>
+		</association>
+	</resultMap>
+	<select id="selectRecommendedMovies" parameterType="Users" resultMap="recommendMovieMap">
+		SELECT
+			m.id as id,
+			m.name as name,
+			m.score as score,
+			d.id as did,
+			d.abstract_ as abstract_
+		FROM
+			movies m,
+			descriptions d
+		<where>
+				m.id 
+			IN (
+				SELECT 
+					mid
+				FROM
+					recommends
+				WHERE
+					uid = #{id}
+			)
+			AND 
+				m.isdeleted = 0
+		</where>
+	</select>
+	
+	<!-- 2016.05.31 19:59 -->
+	<select id="selectTopScoreMoviesToRecommend" resultMap="recommendMovieMap">
+		SELECT
+			m.id as id,
+			m.name as name,
+			m.score as score,
+			d.id as did,
+			d.abstract_ as abstract_
+		FROM
+			movies m,
+			descriptions d
+		<where>
+				m.did = d.id
+			AND
+				m.isdeleted = 0
+		</where>
+		ORDER BY
+			m.score
+		DESC
+		LIMIT 5;
+			
+	</select>
 </mapper>

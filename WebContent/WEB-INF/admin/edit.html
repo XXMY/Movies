@@ -64,9 +64,10 @@
 												<button id="chooseFile" class="btn btn-info">选择图片</button>
 											</div><br/>
 											<div class="text-center">
-												<img id="fileImg" class="img-rounded" style="width:80%" src="/images/1.jpg"><br/>
+												<img id="fileImg" class="img-rounded" style="width:80%" ng-src="{{movie.pic}}"><br/>
 											</div><br/>
-											<input id="movieName" name="name" class="form-control" placeholder="影片名称..."/><br/>
+											<input id="movieName" name="name" class="form-control" placeholder="影片名称..." ng-model="movie.name"/><br/>
+											
 											<ul class="nav nav-tabs nav-justified">
 												<li ng-repeat="type in movieType">
 													<label>
@@ -76,7 +77,7 @@
 												</li>
 											</ul><br />
 											
-											
+											<textarea id="abstract_" class="form-control" name="abstract_" placeholder="请输入影片摘要..." ng-model="movie.description.abstract_"></textarea><br/>
 										    <textarea id="edit" name="description" style="margin-top: 30px;"></textarea>
 										    <button id="sub" ng-click="submit()" class="btn btn-default" type="submit">提交</button>
 									  	</div>
@@ -134,19 +135,43 @@
 	uploadFiles.ajaxAutoUpload("#chooseFile","#fileImg");
 	
 	var moviesApp = angular.module("moviesApp",[]);
-	moviesApp.controller("moviesController", function($scope,$http){
+	moviesApp.controller("moviesController", function($scope,$http,$sce){
+		$scope.mid = "";
+		$scope.movie = "";
+		$scope.movieType = "";
 		
-		$http({
-			url : "/admin/movieTypes",
-			method : "get"
-		}).success(function(result){
-			$scope.movieType = result;
-		});
-		
-		$scope.selectType = function(){
+		$scope.init = function(){
+			$http({
+				url : "/Movie/movieTypes",
+				method : "get"
+			}).success(function(result){
+				$scope.movieType = result;
+			});
+			
+			var url = window.location.href;
+			var mid = url.split("?m=")[1];
+			if("undefined" != typeof(mid)){
+				$scope.mid = mid;
+				$http({
+					url : "/Movie/one?id="+mid,
+					method : "GET"
+				}).success(function(data){
+					if(data.code>0){
+						$scope.movie = data.object.movie;
+						$("#edit").val(1);
+						//$scope.movie.description.abstract_ = $sce.trustAsHtml($scope.movie.description.abstract_.substr(0,200));
+						//$scope.movie.description.description = $sce.trustAsHtml($scope.movie.description.description);
+						//console.log($scope.movie);
+						
+					}else{
+						document.write("数据不存在");
+					}
+				});
+			}
 			
 		};
 		
+		$scope.init();
 		$scope.chooseFile = function(){
 			$("#fileInput").click();
 		};
@@ -154,29 +179,23 @@
 		// Upload Movies Informations. 
 		$scope.submit = function(){
 			var checkBoxType = {paramName:"typesArray",type:0}
-			var paramNames = ["tempFilePath","name","description"];
-			var paramValues = [$("#tempFilePath").val(),$("#movieName").val(),$('#edit').val()];
 			
 			var checkBoxParam = commFun.packCheckBoxParameters({name:"type",type:0});
-			var nameParam = commFun.packNameParameters(["tempFilePath","movieName","edit"]);
+			var nameParam = commFun.packNameParameters(["tempFilePath","movieName","abstract_","edit"]);
 			var parameterStr = commFun.packParameters([checkBoxParam,nameParam]);
 			console.log(parameterStr);
 			var parameter = JSON.parse(parameterStr);
 			
-			 commFun.sendAjaxRequest({
+			commFun.sendAjaxRequest({
 				method:"post",
 				url:"/admin/movie/submit",
 				data:parameter
 			},function(result){
-				console.log(result);
+				if(result.code>0){
+					window.location.reload();
+				}
 			});
-			 /* $http({
-				url:"/admin/movie/submit",
-				method:"post",
-				data:parameter
-			}).success(function(result){
-				console.log(result);
-			}); */
+		
 		};
 		
 		

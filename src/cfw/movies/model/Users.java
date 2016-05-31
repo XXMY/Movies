@@ -10,7 +10,7 @@ public class Users {
 	private String username;
 	private String password;
 	private String head_pic;
-	
+	private boolean type;
 	public Long getId() {
 		return id;
 	}
@@ -35,9 +35,16 @@ public class Users {
 	public void setHead_pic(String head_pic) {
 		this.head_pic = head_pic;
 	}
+	public boolean isType() {
+		return type;
+	}
+	public void setType(boolean type) {
+		this.type = type;
+	}
 	@Override
 	public String toString() {
-		return "Users [id=" + id + ", username=" + username + ", password=" + password + ", head_pic=" + head_pic + "]";
+		return "Users [id=" + id + ", username=" + username + ", password=" + password + ", head_pic=" + head_pic
+				+ ", type=" + type + "]";
 	}
 	
 	

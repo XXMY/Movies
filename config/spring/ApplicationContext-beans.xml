@@ -13,4 +13,6 @@
 		<property name="uploadService" ref="uploadServiceImpl"></property>
 	</bean>
 	
+	<bean id="loginCheckFilter" class="cfw.movies.filter.LoginCheckFilter"></bean>
+	
 </beans>

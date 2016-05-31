@@ -9,6 +9,7 @@ import cfw.movies.model.Comments;
 import cfw.movies.model.Descriptions;
 import cfw.movies.model.Movies;
 import cfw.movies.model.Types;
+import cfw.movies.model.Users;
 
 /**
  * @author Fangwei_Cai
@@ -122,4 +123,12 @@ public interface MovieService {
 	 * @return
 	 */
 	boolean deleteMovie(Long ... mids);
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月31日 下午7:47:25
+	 * @param user
+	 * @return
+	 */
+	List<Movies> getRecommendMovies(Users user);
 }

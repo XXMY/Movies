@@ -17,78 +17,6 @@ public class SimpleAssign {
 			"float","Float","double"
 		};
 	
-	/**
-	 * @author Fangwei_Cai
-	 * @time since 2016年4月24日 下午4:24:49
-	 * @param simpleIdentiferName
-	 * @return
-	 */
-	private static boolean setterIdentiferHas(String simpleIdentiferName){
-		for(String identiferName : setterIdentiferNames){
-			if(simpleIdentiferName.equalsIgnoreCase(identiferName))
-				return true;
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * @author Fangwei_Cai
-	 * @time since 2016年4月24日 下午4:24:43
-	 * @param field
-	 * @return
-	 */
-	private static String createMethodName(Field field){
-		// Get the property type/identifier first then create the method name.
-		Class<?> identifer = field.getType();
-		String simpleIdentiferName = identifer.getSimpleName();
-		
-		String attributeName = field.getName();
-		
-		String methodName = null;
-		char [] attributeNameChar = attributeName.toCharArray();
-		attributeNameChar[0] = attributeName.toUpperCase().charAt(0);
-		
-		String upperAttributeName = new String(attributeNameChar);
-		
-		if(setterIdentiferHas(simpleIdentiferName)){
-			methodName = "set"+upperAttributeName;
-		}
-		
-		return methodName;
-	}
-	
-	/**
-	 * @author Fangwei_Cai
-	 * @time since 2016年4月24日 下午4:24:38
-	 * @param paramList
-	 * @param clazz
-	 * @return
-	 */
-	public static <T> Field[] getFields(String [] paramList, Class<T> clazz ){
-		Field [] fields = null;
-		if(paramList == null){
-			fields = clazz.getDeclaredFields();
-			
-		}else{				
-			try{
-				// Get the value out from given POJO parameter and store into map collection for further process.
-				fields = new Field[paramList.length];
-				for(int i=0;i<paramList.length;i++){
-					fields[i] = clazz.getDeclaredField(paramList[i]);
-				}
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-			
-		}
-		
-		if(fields != null){
-			Field.setAccessible(fields, true);
-		}
-		
-		return fields;
-	}
 	
 	/**
 	 * <b>Main method to assign</b>.<p>
@@ -159,4 +87,78 @@ public class SimpleAssign {
 		
 		return true;
 	}
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月24日 下午4:24:38
+	 * @param paramList
+	 * @param clazz
+	 * @return
+	 */
+	public static <T> Field[] getFields(String [] paramList, Class<T> clazz ){
+		Field [] fields = null;
+		if(paramList == null){
+			fields = clazz.getDeclaredFields();
+			
+		}else{				
+			try{
+				// Get the value out from given POJO parameter and store into map collection for further process.
+				fields = new Field[paramList.length];
+				for(int i=0;i<paramList.length;i++){
+					fields[i] = clazz.getDeclaredField(paramList[i]);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+		}
+		
+		if(fields != null){
+			Field.setAccessible(fields, true);
+		}
+		
+		return fields;
+	}
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月24日 下午4:24:49
+	 * @param simpleIdentiferName
+	 * @return
+	 */
+	private static boolean setterIdentiferHas(String simpleIdentiferName){
+		for(String identiferName : setterIdentiferNames){
+			if(simpleIdentiferName.equalsIgnoreCase(identiferName))
+				return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年4月24日 下午4:24:43
+	 * @param field
+	 * @return
+	 */
+	private static String createMethodName(Field field){
+		// Get the property type/identifier first then create the method name.
+		Class<?> identifer = field.getType();
+		String simpleIdentiferName = identifer.getSimpleName();
+		
+		String attributeName = field.getName();
+		
+		String methodName = null;
+		char [] attributeNameChar = attributeName.toCharArray();
+		attributeNameChar[0] = attributeName.toUpperCase().charAt(0);
+		
+		String upperAttributeName = new String(attributeNameChar);
+		
+		if(setterIdentiferHas(simpleIdentiferName)){
+			methodName = "set"+upperAttributeName;
+		}
+		
+		return methodName;
+	}
+	
 }

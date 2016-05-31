@@ -67,7 +67,9 @@ public class LoginController extends BaseController{
 		boolean userExists = userService.userExists(user);
 		if(userExists){
 			Map<String,Object> map = new HashMap<String, Object>();
+			map.put("id", user.getId());
 			map.put("username", user.getUsername());
+			map.put("type", user.isType());
 			
 			session.setAttribute(session.getId(), map);
 			
@@ -76,6 +78,24 @@ public class LoginController extends BaseController{
 			result = buildAjaxResult(0,"用户不存在");
 		}
 		
+		
+		return result;
+	}
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年5月31日 下午3:13:36
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/logout")
+	@ResponseBody
+	public AjaxRequestResult userLogout(HttpSession session){
+		AjaxRequestResult result = null;
+		
+		session.removeAttribute(session.getId());
+		
+		result = buildAjaxResult(1,"注销成功");
 		
 		return result;
 	}
