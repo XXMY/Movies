@@ -287,4 +287,31 @@ public class MovieServiceImpl implements MovieService {
 		return recommendMovies;
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.service.MovieService#modifyMoive(cfw.movies.model.Movies)
+	 * @author Fangwei_Cai
+	 * @time since 2016年6月1日 下午4:52:32
+	 */
+	@Override
+	public boolean modifyMoive(Movies movie) {
+		
+		if(movie.getId() == null || movie.getId()<=0) return false;
+		
+		Long descriptionId = this.moviesDaoImpl.selectDesciptionId(movie.getId());
+		if(descriptionId == null ) return false;
+		
+		Descriptions description = movie.getDescription();
+		description.setId(descriptionId);
+		int updateDescriptionResult = this.abstractsDaoImpl.updateOne(description);
+		
+		if(updateDescriptionResult <= 0) return false;
+		
+		int updateMovieResult = this.moviesDaoImpl.updateMovie(movie);
+		
+		if(updateMovieResult > 0) return true;
+		
+		return false;
+	}
+
 }

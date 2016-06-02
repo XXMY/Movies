@@ -9,7 +9,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.matchers.JUnitMatchers.*;
 import cfw.movies.mapper.UsersMapper;
 import cfw.movies.model.Users;
-import cfw.test.utils.SpringUtils;
+import cfw.test.utils.SpringUtil;
 
 /**
  * @author Fangwei_Cai
@@ -20,7 +20,7 @@ public class TestSpringUtils {
 	@Test
 	public void getBeanTest(){
 		
-		SqlSessionFactory sqlSessionFactory = (SqlSessionFactory)SpringUtils.getBean("sqlSessionFactory");
+		SqlSessionFactory sqlSessionFactory = (SqlSessionFactory)SpringUtil.getBean("sqlSessionFactory");
 		
 		//assertThat(sqlSessionFactory, not(null));
 		System.out.println(sqlSessionFactory);

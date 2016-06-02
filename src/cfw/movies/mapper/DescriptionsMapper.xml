@@ -23,5 +23,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
+	<!-- 2016.06.01 16:41 -->
+	<update id="updateOne" parameterType="Descriptions">
+		UPDATE
+			descriptions
+		<set>
+			isdeleted = #{isdeleted}
+			<if test="abstract_ != '' and abstract_ != null">
+				,abstract_ = #{abstract_}
+			</if>
+			<if test="description != '' and description != null">
+				,description = #{description}
+			</if>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
 	
 </mapper>

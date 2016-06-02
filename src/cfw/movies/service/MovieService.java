@@ -131,4 +131,12 @@ public interface MovieService {
 	 * @return
 	 */
 	List<Movies> getRecommendMovies(Users user);
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年6月1日 下午4:52:17
+	 * @param movie
+	 * @return
+	 */
+	boolean modifyMoive(Movies movie);
 }

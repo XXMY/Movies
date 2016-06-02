@@ -153,10 +153,13 @@ public class R {
 	 * @return
 	 */
 	public boolean putRecommendDataToMysql(){
-		
-		String cmd = "dbWriteTable("+ this.DB_Connection +",'recommends',recommends,append=TRUE)";
+		String removeTempRecommends = "DELETE FROM temp_recommends";
+		String removeRecommends = "DELETE FROM recommends";
+		String cmd = "dbWriteTable("+ this.DB_Connection +",'temp_recommends',recommends,append=TRUE)";
 		
 		try {
+			this.dbSendQuery(null,removeRecommends);
+			this.dbSendQuery(null,removeTempRecommends);
 			REXP result = this.eval(cmd);
 			if(result.asString().equals("TRUE")){
 				return true;

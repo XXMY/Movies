@@ -7,7 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author Fangwei_Cai
  * @time since 2016年3月26日 上午11:57:31
  */
-public class SpringUtils {
+public class SpringUtil {
 
 	private static ApplicationContext applicationContext;
 	

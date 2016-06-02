@@ -6,7 +6,7 @@ import org.junit.Test;
 import cfw.movies.service.MovieService;
 import cfw.movies.service.RecommendService;
 import cfw.test.AbstractTest;
-import cfw.test.utils.SpringUtils;
+import cfw.test.utils.SpringUtil;
 
 /**
  * @author Fangwei_Cai
@@ -18,7 +18,7 @@ public class RecommendServiceTest extends AbstractTest{
 	
 	@BeforeClass
 	public static void before(){
-		recommendService = (RecommendService)SpringUtils.getBean("recommendService");
+		recommendService = (RecommendService)SpringUtil.getBean("recommendService");
 	}
 	
 	@Test

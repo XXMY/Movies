@@ -29,6 +29,7 @@ import cfw.movies.model.Descriptions;
 import cfw.movies.model.Movies;
 import cfw.movies.service.MovieService;
 import cfw.movies.service.RecommendService;
+import cfw.test.utils.SpringUtil;
 
 /**
  * The controller contains movies' operations.
@@ -67,7 +68,7 @@ public class AdminMoviesController extends BaseController{
 			result = this.movieService.addMovie(movie);
 		}else{
 			// modification commit.
-			
+			result = this.movieService.modifyMoive(movie);
 		}
 		
 		if(result){
@@ -125,6 +126,18 @@ public class AdminMoviesController extends BaseController{
 		}
 		
 		ajaxResult = this.recommendService.getRecommendStaus();
+		
+		if(ajaxResult.getCode() == 90){
+			boolean result = recommendService.processRecommendData();
+			if(result){
+				ajaxResult.setCode(100);
+				ajaxResult.setMessage("生成推荐结果完成，推荐结束");
+			}else{
+				ajaxResult.setCode(0);
+				ajaxResult.setMessage("生成推荐结果失败");
+			}
+			
+		}
 		
 		return ajaxResult;
 	}

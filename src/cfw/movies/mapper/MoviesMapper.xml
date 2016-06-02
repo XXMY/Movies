@@ -75,7 +75,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			m.pic,
 			m.score,
 			d.id as did,
-			d.abstract_
+			d.abstract_,
+			d.description
 		FROM
 			movies m,
 			descriptions d
@@ -164,9 +165,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			movies
 		SET
 			isdeleted = #{isdeleted}
-			<if test="name != null">,name = #{name}</if>
-			<if test="type != null">,type = #{type}</if>
-			<if test="pic != null">,pic = #{pic}</if>
+			<if test="name != null and name != ''">,name = #{name}</if>
+			<if test="type != null and type != ''">,type = #{type}</if>
+			<if test="pic != null and pic !=''">,pic = #{pic}</if>
 			<if test="description.id != null">,did = #{description.id}</if>
 			<if test="score > 0">,score = #{score}</if>
 		WHERE
@@ -231,5 +232,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DESC
 		LIMIT 5;
 			
+	</select>
+	
+	<!-- 2016.06.01 17:11 -->
+	<select id="selectDesciptionId" parameterType="Long" resultType="Long">
+		SELECT
+			did
+		FROM 
+			movies
+		WHERE
+			id = #{id}
 	</select>
 </mapper>

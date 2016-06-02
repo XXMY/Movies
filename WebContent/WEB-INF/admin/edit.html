@@ -30,9 +30,7 @@
 	<!-- 图片上传 -->
 	<script type="text/javascript" src="/js/upload/fileupload.js"></script>
 	<script type="text/javascript" src="/js/upload/jquery.upload.js"></script>
-	
 	<style>
-
         #editor {
             width: 100%;
             margin: auto;
@@ -55,16 +53,17 @@
 							<div class="span12">
 								<div class="block-flat">
 									<div class="header">
-										<h3>添加影片</h3>
+										<h3>{{movieOperationName}}</h3>
 									</div>
 									<div class="content">
 										<div id="editor">
 											<input id="tempFilePath" name="tempFilePath" style="display:none;"/>
+											<input id="id" name="id" style="display:none;"  ng-model="movie.id"/>
 											<div class="text-right">
 												<button id="chooseFile" class="btn btn-info">选择图片</button>
 											</div><br/>
 											<div class="text-center">
-												<img id="fileImg" class="img-rounded" style="width:80%" ng-src="{{movie.pic}}"><br/>
+												<img id="fileImg" class="img-rounded" style="width:80%" ng-src="{{movie.pic}}" src="/images/1.jpg"><br/>
 											</div><br/>
 											<input id="movieName" name="name" class="form-control" placeholder="影片名称..." ng-model="movie.name"/><br/>
 											
@@ -80,6 +79,7 @@
 											<textarea id="abstract_" class="form-control" name="abstract_" placeholder="请输入影片摘要..." ng-model="movie.description.abstract_"></textarea><br/>
 										    <textarea id="edit" name="description" style="margin-top: 30px;"></textarea>
 										    <button id="sub" ng-click="submit()" class="btn btn-default" type="submit">提交</button>
+										    
 									  	</div>
 									</div>
 								</div>
@@ -90,12 +90,8 @@
 			</div>
 		</div>
 	</div>
-  <!-- 
-  <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/codemirror.min.js"></script>
-  <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js//xml.min.js"></script> -->
 
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/froala_editor.min.js" ></script>
-
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/align.min.js"></script>
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/code_beautifier.min.js"></script>
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/code_view.min.js"></script>
@@ -106,7 +102,6 @@
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/font_size.min.js"></script>
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/font_family.min.js"></script>
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/image.min.js"></script>
-  <!-- <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/image_manager.min.js"></script> -->
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/line_breaker.min.js"></script>
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/link.min.js"></script>
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/lists.min.js"></script>
@@ -122,84 +117,6 @@
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/quote.min.js"></script>
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/plugins/quick_insert.min.js"></script>
   <script type="text/javascript" src="/plugins/froala_editor_2.2.1/js/languages/zh_cn.js"></script>
-
-	<script>
-	$('#edit').froalaEditor({placeholderText: "影片简介内容...", height:"400px",language:"zh_cn"});
-	
-	function show(){
-	 alert("外部alert"+$('#edit').val());
-	}
-	</script>
-	<script type="text/javascript">
-	// 初始化图片上传组件
-	uploadFiles.ajaxAutoUpload("#chooseFile","#fileImg");
-	
-	var moviesApp = angular.module("moviesApp",[]);
-	moviesApp.controller("moviesController", function($scope,$http,$sce){
-		$scope.mid = "";
-		$scope.movie = "";
-		$scope.movieType = "";
-		
-		$scope.init = function(){
-			$http({
-				url : "/Movie/movieTypes",
-				method : "get"
-			}).success(function(result){
-				$scope.movieType = result;
-			});
-			
-			var url = window.location.href;
-			var mid = url.split("?m=")[1];
-			if("undefined" != typeof(mid)){
-				$scope.mid = mid;
-				$http({
-					url : "/Movie/one?id="+mid,
-					method : "GET"
-				}).success(function(data){
-					if(data.code>0){
-						$scope.movie = data.object.movie;
-						$("#edit").val(1);
-						//$scope.movie.description.abstract_ = $sce.trustAsHtml($scope.movie.description.abstract_.substr(0,200));
-						//$scope.movie.description.description = $sce.trustAsHtml($scope.movie.description.description);
-						//console.log($scope.movie);
-						
-					}else{
-						document.write("数据不存在");
-					}
-				});
-			}
-			
-		};
-		
-		$scope.init();
-		$scope.chooseFile = function(){
-			$("#fileInput").click();
-		};
-		
-		// Upload Movies Informations. 
-		$scope.submit = function(){
-			var checkBoxType = {paramName:"typesArray",type:0}
-			
-			var checkBoxParam = commFun.packCheckBoxParameters({name:"type",type:0});
-			var nameParam = commFun.packNameParameters(["tempFilePath","movieName","abstract_","edit"]);
-			var parameterStr = commFun.packParameters([checkBoxParam,nameParam]);
-			console.log(parameterStr);
-			var parameter = JSON.parse(parameterStr);
-			
-			commFun.sendAjaxRequest({
-				method:"post",
-				url:"/admin/movie/submit",
-				data:parameter
-			},function(result){
-				if(result.code>0){
-					window.location.reload();
-				}
-			});
-		
-		};
-		
-		
-	});
-	</script>
+  <script src="/js/admin/edit.js"></script>
 </body>
 </html>

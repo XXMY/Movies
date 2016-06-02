@@ -146,6 +146,18 @@ public class MoviesDaoImpl implements MoviesDao {
 		
 		return recommendMovies;
 	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.MoviesDao#selectDesciptionId(java.lang.Long)
+	 * @author Fangwei_Cai
+	 * @time since 2016年6月1日 下午5:13:29
+	 */
+	@Override
+	public Long selectDesciptionId(Long mid) {
+		Long result = this.moviesMapper.selectDesciptionId(mid);
+		return result;
+	}
 	
 	
 

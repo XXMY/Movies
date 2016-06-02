@@ -16,7 +16,7 @@ import static org.junit.matchers.JUnitMatchers.*;
 import cfw.movies.mapper.UsersMapper;
 import cfw.movies.model.Users;
 import cfw.test.utils.MybatisUtil;
-import cfw.test.utils.SpringUtils;
+import cfw.test.utils.SpringUtil;
 
 
 /**
@@ -32,7 +32,7 @@ public class UsersMapperTest {
 	public void before(){
 		//sqlSessionFactory = MybatisUtil.getSqlSessionFactory();
 		
-		sqlSessionFactory = (SqlSessionFactory) SpringUtils.getBean("sqlSessionFactory");
+		sqlSessionFactory = (SqlSessionFactory) SpringUtil.getBean("sqlSessionFactory");
 		
 		sqlSession = sqlSessionFactory.openSession();
 		userMapper = sqlSession.getMapper(UsersMapper.class);

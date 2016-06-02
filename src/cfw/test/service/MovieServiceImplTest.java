@@ -11,7 +11,7 @@ import cfw.movies.model.Movies;
 import cfw.movies.model.Types;
 import cfw.movies.service.MovieService;
 import cfw.test.AbstractTest;
-import cfw.test.utils.SpringUtils;
+import cfw.test.utils.SpringUtil;
 import static org.junit.Assert.*;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class MovieServiceImplTest extends AbstractTest {
 	
 	@BeforeClass
 	public static void before(){
-		movieServiceImpl = (MovieService)SpringUtils.getBean("movieServiceImpl");
+		movieServiceImpl = (MovieService)SpringUtil.getBean("movieServiceImpl");
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class MovieServiceImplTest extends AbstractTest {
 	 */
 	//@Test
 	public void testConsturct(){
-		movieServiceImpl = (MovieService)SpringUtils.getBean("movieServiceImpl");
+		movieServiceImpl = (MovieService)SpringUtil.getBean("movieServiceImpl");
 		assertThat(movieServiceImpl, notNullValue());
 	}
 
@@ -84,7 +84,7 @@ public class MovieServiceImplTest extends AbstractTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void testGetCommentsOfMovie(){
 		Long id = 1727L;
 		
@@ -93,5 +93,11 @@ public class MovieServiceImplTest extends AbstractTest {
 		System.out.println(comments);
 	}
 	
+	//@Test
+	public void testModifyMovies(){
+		Movies movie = new Movies();
+		movie.setId(2594L);
+		this.movieServiceImpl.modifyMoive(movie);
+	}
 	
 }

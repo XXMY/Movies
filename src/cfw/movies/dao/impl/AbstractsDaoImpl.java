@@ -15,7 +15,7 @@ import cfw.movies.model.Descriptions;
 public class AbstractsDaoImpl implements AbstractsDao {
 
 	@Autowired
-	private DescriptionsMapper abstractsMapper;
+	private DescriptionsMapper descriptionsMapper;
 	
 	/**
 	 * @see cfw.movies.dao.AbstractsDao#insertDescription(cfw.movies.model.Descriptions)
@@ -24,8 +24,21 @@ public class AbstractsDaoImpl implements AbstractsDao {
 	 */
 	@Override
 	public int insertDescription(Descriptions description) {
-		int result = this.abstractsMapper.insertOne(description);
+		int result = this.descriptionsMapper.insertOne(description);
 		
 		return result;
 	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see cfw.movies.dao.AbstractsDao#updateOne(cfw.movies.model.Descriptions)
+	 * @author Fangwei_Cai
+	 * @time since 2016年6月1日 下午4:43:05
+	 */
+	@Override
+	public int updateOne(Descriptions descritpion) {
+		int result = this.descriptionsMapper.updateOne(descritpion);
+		return result;
+	}
+
 }

@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import cfw.movies.controller.admin.recommend.RecommendStatus;
+
 /**
  * This controller is used to display the views,
  * due to the AngularJs and AJAX request method.
@@ -83,6 +85,9 @@ public class AdminViewController {
 	 */
 	@RequestMapping("/recommend")
 	public String recommendView(){
+		RecommendStatus.inProcessing = false;
+		RecommendStatus.statusMessage.setCode(0);
+		RecommendStatus.statusMessage.setMessage("");
 		return "/recommend";
 	}
 }

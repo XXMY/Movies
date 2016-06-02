@@ -5,7 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import cfw.test.utils.SpringUtils;
+import cfw.test.utils.SpringUtil;
 
 /**
  * @author Fangwei_Cai
@@ -18,7 +18,7 @@ public class AbstractTest {
 	@BeforeClass
 	public static void beforeClass(){
 		
-		sqlSessionFactory = (SqlSessionFactory) SpringUtils.getBean("sqlSessionFactory");
+		sqlSessionFactory = (SqlSessionFactory) SpringUtil.getBean("sqlSessionFactory");
 		
 		sqlSession = sqlSessionFactory.openSession();
 		

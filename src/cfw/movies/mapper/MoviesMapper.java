@@ -79,4 +79,12 @@ public interface MoviesMapper extends Mapper<Movies> {
 	 * @return
 	 */
 	List<Movies> selectTopScoreMoviesToRecommend();
+	
+	/**
+	 * @author Fangwei_Cai
+	 * @time since 2016年6月1日 下午5:10:20
+	 * @param mid
+	 * @return
+	 */
+	Long selectDesciptionId(Long mid);
 }

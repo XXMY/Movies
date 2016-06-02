@@ -28,6 +28,7 @@ public class RecommendServiceImpl implements RecommendService {
 	@Autowired
 	private RecommendsDao recommendsDao;
 	
+	
 	/**
 	 * (non-Javadoc)
 	 * @see cfw.movies.service.RecommendService#startRecommend()
@@ -70,7 +71,7 @@ public class RecommendServiceImpl implements RecommendService {
 		for(Users user : recommendUsers){
 			recommends = this.tempRecommendsDao.selectRecommends(user);
 			for(Recommends recommend : recommends){
-				if(recommend == null || recommend.getPref() < 1000) continue;
+				if(recommend == null || recommend.getPref() < 1500) continue;
 				
 				int result = this.recommendsDao.insertOne(recommend);
 				if(result <= 0){

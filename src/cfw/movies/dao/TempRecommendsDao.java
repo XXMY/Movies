@@ -11,7 +11,6 @@ import cfw.movies.model.Users;
  * @author Fangwei_Cai
  * @time since 2016年5月29日 上午11:29:10
  */
-@Repository
 public interface TempRecommendsDao {
 	
 	/**
