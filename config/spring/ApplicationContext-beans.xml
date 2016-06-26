@@ -9,10 +9,10 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<bean id="movieUploadFilter" class="cfw.movies.filter.MovieUploadFilter">
+	<!-- <bean id="movieUploadFilter" class="cfw.movies.filter.MovieUploadFilter">
 		<property name="uploadService" ref="uploadServiceImpl"></property>
-	</bean>
+	</bean> -->
 	
-	<bean id="loginCheckFilter" class="cfw.movies.filter.LoginCheckFilter"></bean>
+	<!-- <bean id="loginCheckFilter" class="cfw.movies.filter.LoginCheckFilter"></bean> -->
 	
 </beans>

@@ -1,4 +1,4 @@
-package cfw.common.filehouse.core.upload;
+package cfw.movies.file.core;
 
 import java.io.File;  
 import java.io.IOException;

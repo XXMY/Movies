@@ -8,7 +8,6 @@ import cfw.movies.dto.Page;
 import cfw.movies.model.Comments;
 import cfw.movies.model.Descriptions;
 import cfw.movies.model.Movies;
-import cfw.movies.model.Types;
 import cfw.movies.service.MovieService;
 import cfw.test.AbstractTest;
 import cfw.test.utils.SpringUtil;
@@ -84,7 +83,7 @@ public class MovieServiceImplTest extends AbstractTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testGetCommentsOfMovie(){
 		Long id = 1727L;
 		
@@ -99,5 +98,6 @@ public class MovieServiceImplTest extends AbstractTest {
 		movie.setId(2594L);
 		this.movieServiceImpl.modifyMoive(movie);
 	}
+	
 	
 }

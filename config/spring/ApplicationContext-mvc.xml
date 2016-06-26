@@ -13,10 +13,12 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<!-- 使用注解的包，包括子集 -->    
-    <context:component-scan base-package="cfw.movies,cfw.common"></context:component-scan>
+    <!-- <context:component-scan base-package="cfw"></context:component-scan> -->
     
-    <!-- 当使用 JUnit 测试时，只扫描下面包 -->
-    <!-- <context:component-scan base-package="cfw.movies"></context:component-scan> -->
+    <!-- 当使用 JUnit 测试时，不扫描common包下的内容 -->
+    <context:component-scan base-package="cfw">
+    	<context:exclude-filter type="regex" expression="cfw\.common\.*.*"/>
+    </context:component-scan>
      
 	
 	<!-- it seems useless -->

@@ -3,7 +3,6 @@ package cfw.common.upload;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import cfw.common.UploadService;
 import cfw.exception.ServiceException;
 import cfw.movies.dto.UploadResult;
-import cfw.util.CodeHelper;
 import cfw.util.Folder;
 
 /**

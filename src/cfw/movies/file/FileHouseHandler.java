@@ -1,4 +1,4 @@
-package cfw.common.filehouse.core;
+package cfw.movies.file;
 
 public interface FileHouseHandler {
 

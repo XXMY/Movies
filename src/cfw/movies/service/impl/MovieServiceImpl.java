@@ -22,6 +22,9 @@ import cfw.movies.model.Movies;
 import cfw.movies.model.Types;
 import cfw.movies.model.Users;
 import cfw.movies.service.MovieService;
+import cfw.redis.annotation.RedisCacheable;
+import cfw.redis.annotation.RedisCacheable.KeyType;
+import cfw.redis.annotation.RedisID;
 
 /**
  * @author Fangwei_Cai
@@ -205,7 +208,8 @@ public class MovieServiceImpl implements MovieService {
 	 * @return
 	 */
 	@Override
-	public List<Comments> getCommentsOfMovie(Long mid) {
+	@RedisCacheable(key="cfw:name",keyType=KeyType.STRING)
+	public List<Comments> getCommentsOfMovie(@RedisID Long mid) {
 		List<Comments> comments = this.commentsDaoImpl.selectCommentsOfMovie(mid);
 		
 		return comments;

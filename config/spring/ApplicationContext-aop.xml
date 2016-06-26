@@ -12,10 +12,20 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-<!-- 	<aop:config>
-		<aop:aspect id="userAuthenticateAspect" ref="userAuthenticateAspect">
-			<aop:pointcut id="userAuthenticate" expression="execution(* com.cfw.controller.manage.*.*(..))"/>
-			<aop:before method="authenticateUser"/>			
+	<!-- 启用切面注解 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<!-- 手动配置切面 -->
+	<!-- Redis 缓存切面 -->
+	<!-- <bean id="redisCacheAspect" class="cfw.aop.RedisCacheAspect">
+		<property name="myJedis" ref="myJedis"></property>
+	</bean>
+	<aop:config>
+		<aop:aspect id="redisCache" ref="redisCacheAspect">
+			<aop:pointcut id="redisCachePointcut" expression="@annotation(cfw.annotation.RedisCacheable)" />
+			<aop:around method="cachedData" pointcut-ref="redisCachePointcut"/>
 		</aop:aspect>
 	</aop:config> -->
+
+	
 </beans>
