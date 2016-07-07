@@ -47,3 +47,12 @@ Temporary Items
 *.class
 /target/
 /.svn/
+/.settings/
+.classpath
+.project
+.iml
+/*.iml
+/*.classpath
+/.settings
+/.idea/*
+/.idea
