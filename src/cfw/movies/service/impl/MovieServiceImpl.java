@@ -107,12 +107,21 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	/**
-	 * (non-Javadoc)
-	 * @see cfw.movies.service.MovieService#getMovies(cfw.movies.dto.Page)
-	 * @author Fangwei_Cai
-	 * @time since 2016年4月24日 下午3:24:39
-	 */
+	 *
+	 * @param page<Page>
+	 * @param flag <br>
+	 * 	Use flag to identify the different usage
+	 * of this method.<br>
+	 * 	1: Get movie list for management page in table.<br>
+	 * 	In this case, we just need id, name, type, score of
+	 * movie.<br>
+	 *  2: Get movie list for visitors, in index page and
+	 *  search page and others.<br>
+	 *  We need to get full information of movies.
+     * @return
+     */
 	@Override
+	//@RedisCacheable(key = "movies")
 	public List<Movies> getMovies(Page page, int flag) {
 		List<Movies> movies = null;
 		Map<String,Object> paramMap = new HashMap<String,Object>();

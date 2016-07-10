@@ -57,3 +57,5 @@ Temporary Items
 /.idea/*
 /.idea
 /bin/
+/out
+/WebContent/WEB-INF/classes

@@ -59,7 +59,7 @@ public class MovieServiceImplTest extends AbstractTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void testGetMovies(){
 		Page page = new Page();
 		page.setStart(10L);

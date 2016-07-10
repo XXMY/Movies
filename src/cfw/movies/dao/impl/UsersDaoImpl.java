@@ -1,5 +1,7 @@
 package cfw.movies.dao.impl;
 
+import cfw.redis.annotation.RedisCacheable;
+import cfw.redis.annotation.RedisID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,16 +18,16 @@ public class UsersDaoImpl implements UsersDao {
 
 	@Autowired
 	private UsersMapper usersMapper;
-	
+
 	/**
 	 * @author fwCai.
 	 * @since 2016.03.26 17:00
 	 */
 	@Override
 	public int checkUser(Users user) {
-		
+
 		int count = usersMapper.findOne(user);
-		
+
 		return count;
 	}
 
@@ -60,7 +62,7 @@ public class UsersDaoImpl implements UsersDao {
 	 * @time since 2016年5月1日 下午2:16:42
 	 */
 	@Override
-	public Users selectUserByName(String username) {
+	public Users selectUserByName(@RedisID String username) {
 		Users user = usersMapper.selectUserByName(username);
 		return user;
 	}

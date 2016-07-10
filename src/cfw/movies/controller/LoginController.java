@@ -53,6 +53,7 @@ public class LoginController extends BaseController{
 	}
 	
 	/**
+	 * 处理用户登录请求
 	 * @author Fangwei_Cai
 	 * @time since 2016年5月1日 下午11:03:04
 	 * @param session

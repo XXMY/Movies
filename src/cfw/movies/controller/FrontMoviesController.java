@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cfw.movies.controller.BaseController;
 import cfw.movies.dto.AjaxRequestResult;
 import cfw.movies.dto.MovieComment;
 import cfw.movies.dto.MovieDetails;

@@ -3,6 +3,7 @@ package cfw.movies.dao.impl;
 import java.util.List;
 import java.util.Map;
 
+import cfw.redis.annotation.RedisCacheable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -52,6 +53,7 @@ public class MoviesDaoImpl implements MoviesDao {
 	 * @time since 2016年4月24日 下午6:40:04
 	 */
 	@Override
+	@RedisCacheable(key = "movies")
 	public List<Movies> selectFullMovies(Map<String, Object> map) {
 		List<Movies> movies = this.moviesMapper.selectFullMovies(map);
 		

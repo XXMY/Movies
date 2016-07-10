@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 	 * @since 2016.03.26 20:12
 	 */
 	@Override
-	public boolean userExists(Users user) {
+    public boolean userExists(Users user) {
 		int result = usersDaoImpl.checkUser(user);
 		
 		if(result>0){

@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:context="http://www.springframework.org/schema/context"
     xmlns:aop="http://www.springframework.org/schema/aop"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
+
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+	<!--
+		配置在这里的注解切面，不能成功，但是配置到ApplicationContext-mvc.xml文件中后就能正常工作
+		考虑是Spring配置文件加载顺序的问题。 -cfw 2016年7月10日19:59:33
+	 -->
 	<!-- 启用切面注解 -->
-	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
 	
 	<!-- 手动配置切面 -->
 	<!-- Redis 缓存切面 -->
-	<!-- <bean id="redisCacheAspect" class="cfw.aop.RedisCacheAspect">
+	<!--<bean id="redisCacheAspect" class="cfw.aop.RedisCacheAspect">
 		<property name="myJedis" ref="myJedis"></property>
-	</bean>
+	</bean>-->
+<!--
 	<aop:config>
 		<aop:aspect id="redisCache" ref="redisCacheAspect">
-			<aop:pointcut id="redisCachePointcut" expression="@annotation(cfw.annotation.RedisCacheable)" />
-			<aop:around method="cachedData" pointcut-ref="redisCachePointcut"/>
+			<aop:pointcut id="redisCachePointcut" expression="@annotation( cfw.redis.annotation.RedisCacheable)" />
+			<aop:around method="process" pointcut-ref="redisCachePointcut"/>
 		</aop:aspect>
-	</aop:config> -->
+	</aop:config>
+-->
 
 	
 </beans>

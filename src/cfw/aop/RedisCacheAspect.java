@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +30,8 @@ import cfw.redis.annotation.RedisField;
 @Aspect
 @Component
 public class RedisCacheAspect {
-	
+
+
 	private final String cache = "@annotation(cfw.redis.annotation.RedisCacheable)";
 	
 	@Resource(name="myJedis")
@@ -42,7 +44,13 @@ public class RedisCacheAspect {
 	public void setMyJedis(MyJedis myJedis) {
 		this.myJedis = myJedis;
 	}
-	
+
+/*
+
+    @Pointcut(value = cache)
+    public void joinPointExpression(){}
+*/
+
 	/**
 	 * @author Fangwei_Cai
 	 * @time since 2016年6月26日 下午3:12:34
@@ -50,7 +58,7 @@ public class RedisCacheAspect {
 	 * @return
 	 * @throws Throwable
 	 */
-	@Around(cache)
+	@Around(value = cache)
 	public Object process(ProceedingJoinPoint pjp) throws Throwable{
 		
 		Method method = ((MethodSignature) pjp.getSignature()).getMethod();
@@ -73,6 +81,7 @@ public class RedisCacheAspect {
 	}
 	
 	/**
+	 * Get property map that annotated on method and parameters.
 	 * @author Fangwei_Cai
 	 * @time since 2016年6月26日 下午3:12:39
 	 * @param method
@@ -84,6 +93,7 @@ public class RedisCacheAspect {
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		RedisCacheable redisCacheable = method.getAnnotation(RedisCacheable.class);
+		// Method is annotated by RedisCacheable annotation.
 		if(redisCacheable != null){
 			buffer.append(redisCacheable.key());
 			
@@ -94,7 +104,7 @@ public class RedisCacheAspect {
 						buffer.append(":");
 						buffer.append(args[i]);
 					}else if(an instanceof RedisField){
-						map.put("field", args[i]);
+                            map.put("field", args[i]);
 					}else if(an instanceof RedisStart){
 						map.put("start", args[i]);
 					}else if(an instanceof RedisEnd){
@@ -146,9 +156,11 @@ public class RedisCacheAspect {
 			}
 		}
 		
-		String typeName = method.getGenericReturnType().toString();
-		Object value = this.convertToRealType(typeName, result);
-		
+		String returnTypeName = method.getGenericReturnType().toString();
+
+        if(result == null) return null;
+		Object value = this.convertToRealType(returnTypeName, result);
+
 		return value;
 	}
 	
@@ -157,23 +169,26 @@ public class RedisCacheAspect {
 	 * There have many imperfections.
 	 * @author Fangwei_Cai
 	 * @time since 2016年6月26日 下午3:11:29
-	 * @param typeName
-	 * @param result
+	 * @param returnTypeName  method return type in string
+	 * @param result redis data result
 	 * @return
 	 */
-	private Object convertToRealType(String typeName,Object result){
-		
+	private Object convertToRealType(String returnTypeName,Object result){
+
 		String resultTypeName = result.getClass().getName();
-		if(typeName.equalsIgnoreCase(resultTypeName))
+		// While return type equals result data type, return result directly.
+        // Generally is String type.
+        if(returnTypeName.equalsIgnoreCase(resultTypeName))
 			return result;
 		
 		String parentTypeName = "";
 		String sonTypeName = "";
-		if(typeName.matches(".*<.*>")){
-			parentTypeName = typeName.substring(0, typeName.indexOf("<"));
-			sonTypeName = typeName.substring(typeName.indexOf("<")+1, typeName.indexOf(">"));
+		if(returnTypeName.matches(".*<.*>")){
+			parentTypeName = returnTypeName.substring(0, returnTypeName.indexOf("<"));
+			sonTypeName = returnTypeName.substring(returnTypeName.indexOf("<")+1, returnTypeName.indexOf(">"));
 		}else{
-			parentTypeName = typeName;
+            // Simple Object.
+			parentTypeName = returnTypeName;
 			sonTypeName = null;
 		}
 		
