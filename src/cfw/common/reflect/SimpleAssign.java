@@ -11,11 +11,14 @@ import java.util.Map;
  * @time since Dec 4, 2015 3:09:53 PM
  */
 public class SimpleAssign {
-	private static final String [] setterIdentiferNames = {
+	// Seems useless.
+	private static final String [] setterIdentifierNames = {
 			"Short","int","Integer","Long",
 			"String","Boolean","Date","Double",
 			"float","Float","double"
 		};
+	// Get method identifier.
+	private static final String [] isIdentifierNames = {"Boolean"};
 	
 	
 	/**
@@ -50,7 +53,7 @@ public class SimpleAssign {
 				
 				if(value==null) continue;
 				
-				String methodName = createMethodName(field);
+				String methodName = createMethodName(field,false);
 				//if(methodName==null) continue;
 				method = clazz.getDeclaredMethod(methodName, field.getType());
 				if(!Modifier.isPublic(method.getModifiers())) continue;
@@ -126,22 +129,41 @@ public class SimpleAssign {
 	 * @param simpleIdentiferName
 	 * @return
 	 */
+	@Deprecated
 	private static boolean setterIdentiferHas(String simpleIdentiferName){
-		for(String identiferName : setterIdentiferNames){
+		for(String identiferName : setterIdentifierNames){
 			if(simpleIdentiferName.equalsIgnoreCase(identiferName))
 				return true;
 		}
 		
 		return false;
 	}
-	
+
 	/**
 	 * @author Fangwei_Cai
-	 * @time since 2016年4月24日 下午4:24:43
-	 * @param field
+	 * @create 2016年7月11日14:36:59
+	 * @param isIdentifierName
 	 * @return
-	 */
-	private static String createMethodName(Field field){
+     */
+	private static boolean isIdentifierHas(String isIdentifierName){
+		for(String identifierName : isIdentifierNames){
+			if(identifierName.equalsIgnoreCase(isIdentifierName))
+				return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Use visible field to create corresponding setter method.
+	 * @author Fangwei_Cai
+	 * @create 2016年4月24日 下午4:24:43
+	 * @modified 2016年7月11日14:24:34
+	 * @param field
+	 * @param isGet False in default to create Setter method.
+     * @return
+     */
+	public static String createMethodName(Field field, boolean isGet){
 		// Get the property type/identifier first then create the method name.
 		Class<?> identifer = field.getType();
 		String simpleIdentiferName = identifer.getSimpleName();
@@ -154,7 +176,16 @@ public class SimpleAssign {
 		
 		String upperAttributeName = new String(attributeNameChar);
 		
-		if(setterIdentiferHas(simpleIdentiferName)){
+		if(isGet){
+			// To create Getter method.
+			if(isIdentifierHas(simpleIdentiferName)){
+				methodName = "is";
+			}else{
+				methodName = "get";
+			}
+			methodName += upperAttributeName;
+		}else{
+			// To create Setter method
 			methodName = "set"+upperAttributeName;
 		}
 		

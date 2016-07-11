@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import cfw.redis.annotation.RedisCacheable;
+import cfw.redis.annotation.RedisID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -79,8 +80,13 @@ public class MoviesDaoImpl implements MoviesDao {
 	 * @time since 2016年5月7日 上午12:26:14
 	 */
 	@Override
-	public Movies selectOne(Long id) {
-		Movies movie = this.moviesMapper.selectOne(id);
+	@RedisCacheable(key = "movie",keyType = RedisCacheable.KeyType.HASH)
+	public Movies selectOne(@RedisID Long id) {
+		//Movies movie = this.moviesMapper.selectOne(id);
+		Movies movie = new Movies();
+		movie.setId(id);
+		movie.setName("Test movie");
+
 		return movie;
 	}
 

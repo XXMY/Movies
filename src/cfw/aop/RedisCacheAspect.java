@@ -45,12 +45,6 @@ public class RedisCacheAspect {
 		this.myJedis = myJedis;
 	}
 
-/*
-
-    @Pointcut(value = cache)
-    public void joinPointExpression(){}
-*/
-
 	/**
 	 * @author Fangwei_Cai
 	 * @time since 2016年6月26日 下午3:12:34
@@ -68,12 +62,12 @@ public class RedisCacheAspect {
 		
 		
 		Object value = null;
-		value = this.getRedisValue(method, map);
+		value = this.myJedis.getRedisValue(method, map);
 		
 		if(value == null){
 			value = pjp.proceed();
 			if(value != null){
-				this.myJedis.jedis.set((String)map.get("key"), value.toString());
+				this.myJedis.saveRedisValue(map,value);
 			}
 		}
 		
@@ -86,7 +80,8 @@ public class RedisCacheAspect {
 	 * @time since 2016年6月26日 下午3:12:39
 	 * @param method
 	 * @param args
-	 * @return
+	 * @return Map<br>
+	 *     Keys: key, keyType, field, start ,end
 	 */
 	private Map<String,Object> getAnnotationProperties(Method method,Object[] args){
 		StringBuffer buffer = new StringBuffer();
@@ -119,80 +114,6 @@ public class RedisCacheAspect {
 		
 		return map;
 	}
-	
-	/**
-	 * @author Fangwei_Cai
-	 * @time since 2016年6月26日 下午3:09:53
-	 * @param method
-	 * @param redisPropertyMap
-	 * @return
-	 */
-	private Object getRedisValue(Method method,Map<String,Object> redisPropertyMap){
-				
-		String key = (String)redisPropertyMap.get("key");
-		
-		Object result = null;
-		
-		if(StringUtils.isNotEmpty(key)){
-			KeyType keyType = (KeyType)redisPropertyMap.get("keyType");  
-			switch(keyType){
-			case STRING:
-				result = this.myJedis.jedis.get(key);
-				break;
-			case LIST:
-				long start = (long) redisPropertyMap.get("start");
-				long end = (long) redisPropertyMap.get("end");
-				result = this.myJedis.jedis.lrange(key, start, end);
-				break;
-			case SET:
-				
-				break;
-			case HASH:
-				String field = (String) redisPropertyMap.get("field");
-				result = this.myJedis.jedis.hget(key, field);
-				break;
-			default:
-				break;
-			}
-		}
-		
-		String returnTypeName = method.getGenericReturnType().toString();
 
-        if(result == null) return null;
-		Object value = this.convertToRealType(returnTypeName, result);
-
-		return value;
-	}
-	
-	/**
-	 * Convert result from redis into annotated method's return type.<br>
-	 * There have many imperfections.
-	 * @author Fangwei_Cai
-	 * @time since 2016年6月26日 下午3:11:29
-	 * @param returnTypeName  method return type in string
-	 * @param result redis data result
-	 * @return
-	 */
-	private Object convertToRealType(String returnTypeName,Object result){
-
-		String resultTypeName = result.getClass().getName();
-		// While return type equals result data type, return result directly.
-        // Generally is String type.
-        if(returnTypeName.equalsIgnoreCase(resultTypeName))
-			return result;
-		
-		String parentTypeName = "";
-		String sonTypeName = "";
-		if(returnTypeName.matches(".*<.*>")){
-			parentTypeName = returnTypeName.substring(0, returnTypeName.indexOf("<"));
-			sonTypeName = returnTypeName.substring(returnTypeName.indexOf("<")+1, returnTypeName.indexOf(">"));
-		}else{
-            // Simple Object.
-			parentTypeName = returnTypeName;
-			sonTypeName = null;
-		}
-		
-		return null;
-	}
 	
 }
