@@ -56,7 +56,7 @@
 
 	<!-- 手动配置切面 -->
 	<!-- Redis 缓存切面 -->
-	<!--<bean id="redisCacheAspect" class="cfw.aop.RedisCacheAspect">
+	<!--<bean id="redisCacheAspect" class="cfw.redis.aspect.RedisCacheAspect">
 		<property name="myJedis" ref="myJedis"></property>
 	</bean>-->
 </beans>

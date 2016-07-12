@@ -9,6 +9,7 @@ import redis.clients.jedis.JedisPool;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -63,8 +64,11 @@ public class MyJedis {
 
 					break;
 				case HASH:
-					//String field = (String) redisPropertyMap.get("field");
-					//result = this.jedis.hget(key, field);
+					/*String field = (String) redisPropertyMap.get("field");
+					result = this.jedis.hget(key, field);*/
+					String [] fields = (String []) redisPropertyMap.get("fields");
+					Map<String,String> hashValue = this.getHashData(key,fields);
+					result = this.convertToRealType(method,hashValue);
 					break;
 				default:
 					break;
@@ -117,7 +121,7 @@ public class MyJedis {
 	 * @param value
      * @return
      */
-	private boolean saveHashData(String key,Object value){
+	public boolean saveHashData(String key,Object value){
 
 		Class clazz = value.getClass();
 		Field[] fields = SimpleAssign.getFields(null,clazz);
@@ -134,6 +138,30 @@ public class MyJedis {
 		}
 
 		return false;
+	}
+
+	/**
+	 * @author Fangwei_Cai
+	 * @create 2016年7月12日11:13:35
+	 * @param key
+	 * @param fields
+     * @return
+     */
+	public Map<String,String> getHashData(String key, String [] fields){
+		if(StringUtils.isEmpty(key)) return null;
+
+		Map<String,String> hashResult = new HashMap<String,String>();
+
+		if(fields != null){
+			for(String field : fields){
+				String value = this.jedis.hget(key,field);
+				hashResult.put(field,value);
+			}
+		}else{
+			hashResult = this.jedis.hgetAll(key);
+		}
+
+		return hashResult;
 	}
 
 	/**
@@ -164,6 +192,21 @@ public class MyJedis {
 			sonTypeName = null;
 		}
 
+		return null;
+	}
+
+	/**
+	 * @author Fangwei_Cai
+	 * @create 2016年7月12日11:29:36
+	 * @param method
+	 * @param result
+     * @return
+     */
+	private Object convertToRealType(Method method, Map<String,String> result){
+		String returnTypeName = method.getGenericReturnType().toString();
+
+		if(result == null) return null;
+		Object value = this.convertToRealType(returnTypeName, result);
 		return null;
 	}
 }

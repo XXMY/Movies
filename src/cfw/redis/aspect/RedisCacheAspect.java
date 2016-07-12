@@ -1,27 +1,20 @@
-package cfw.aop;
+package cfw.redis.aspect;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.apache.commons.lang.StringUtils;
+import cfw.redis.MyJedis;
+import cfw.redis.annotation.*;
+import com.mchange.lang.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import cfw.redis.MyJedis;
-import cfw.redis.annotation.RedisID;
-import cfw.redis.annotation.RedisStart;
-import cfw.redis.annotation.RedisCacheable;
-import cfw.redis.annotation.RedisCacheable.KeyType;
-import cfw.redis.annotation.RedisEnd;
-import cfw.redis.annotation.RedisField;
+import javax.annotation.Resource;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Fangwei_Cai
@@ -93,13 +86,14 @@ public class RedisCacheAspect {
 			buffer.append(redisCacheable.key());
 			
 			Annotation [][] annotation = method.getParameterAnnotations();
+			ArrayList<String> fields = new ArrayList<String>();
 			for(int i=0;i<args.length;i++){
 				for(Annotation an : annotation[i]){
 					if(an instanceof RedisID){
 						buffer.append(":");
 						buffer.append(args[i]);
 					}else if(an instanceof RedisField){
-                            map.put("field", args[i]);
+                            fields.add(args[i].toString());
 					}else if(an instanceof RedisStart){
 						map.put("start", args[i]);
 					}else if(an instanceof RedisEnd){
@@ -108,6 +102,7 @@ public class RedisCacheAspect {
 					
 				}
 			}
+			if(fields.size()>0) map.put("fields",fields.toArray(new String[]{}));
 			map.put("key", buffer.toString());
 			map.put("keyType", redisCacheable.keyType());
 		}
