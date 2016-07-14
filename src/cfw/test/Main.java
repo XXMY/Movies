@@ -36,6 +36,13 @@ public class Main {
 	public static void main(String[] args) throws ParseException, ClassNotFoundException{
 		Class moviesClass = Class.forName("cfw.movies.model.Movies");
 		try {
+			Object object = moviesClass.newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		try {
 			Field [] fields = moviesClass.getFields();
 			for(Field field : fields){
 				System.out.println(field.getType().getName());

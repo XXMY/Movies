@@ -224,15 +224,21 @@ public class MyJedis {
 
 		if(StringUtils.isEmpty(returnTypeName) || result == null) return null;
 
-		Class<?> clazz = null;
+		Class returnClass = null;
+		Object returnObject = null;
 		try {
-			clazz = Class.forName(returnTypeName);
+			returnClass = Class.forName(returnTypeName);
+			returnObject = returnClass.newInstance();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
 
-		if(clazz == null) return null;
+		if(returnObject == null) return null;
 		BeanUtilsBean beanUtilsBean = BeanUtilsBean.getInstance();
 
 		try{
@@ -244,18 +250,19 @@ public class MyJedis {
 				}
 
 				String entryValue = (String)entry.getValue();
+				Object entryValueObejct = entryValue;
 				if(entryValue.startsWith("REDIS_HASH_KEY.")){
 					String propertyRedisKey = entryValue.split("REDIS_HASH_KEY.")[1];
 					Map<String,String> hashData = this.getHashData(propertyRedisKey,null);
-					Field sonPropertyField = clazz.getDeclaredField(name);
+					Field sonPropertyField = returnClass.getDeclaredField(name);
 					String sonPropertyClassTypeName = sonPropertyField.getType().getName();
 
 					// Recursive.
-					this.convertHashToRealType(sonPropertyClassTypeName,hashData);
+					entryValueObejct = this.convertHashToRealType(sonPropertyClassTypeName,hashData);
 
 				}
 				// Perform the assignment for this property
-				beanUtilsBean.setProperty(clazz, name, entry.getValue());
+				beanUtilsBean.setProperty(returnObject, name, entryValueObejct);
 
 			}
 		}catch(Exception e){
@@ -263,6 +270,6 @@ public class MyJedis {
 			return null;
 		}
 
-		return clazz;
+		return returnObject;
 	}
 }
