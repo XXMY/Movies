@@ -1,27 +1,47 @@
 package cfw.test;
 
-import java.text.DateFormat;
+
+import cfw.movies.model.Movies;
+import cfw.movies.model.Users;
+import org.apache.commons.beanutils.BeanUtils;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
-	
+
+	private String name;
+
+	private Users user;
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public static void main(String[] args) throws ParseException, ClassNotFoundException{
-		String typeName = "java.lang.util.List<cfw.movies.model.Movies>";
-		if(typeName.matches(".*<.*>")){
-			String parentTypeName = typeName.substring(0, typeName.indexOf("<"));
-			String sonTypeName = typeName.substring(typeName.indexOf("<")+1, typeName.indexOf(">"));
-			System.out.println(parentTypeName);
-			System.out.println(sonTypeName);
-			
-			
-		}else{
-			System.out.print("false");
+		Class moviesClass = Class.forName("cfw.movies.model.Movies");
+		try {
+			Field [] fields = moviesClass.getFields();
+			for(Field field : fields){
+				System.out.println(field.getType().getName());
+			}
+		} catch (Exception e ) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -64,7 +64,8 @@ public class MovieServiceImplTest extends AbstractTest {
 		Page page = new Page();
 		page.setStart(10L);
 		page.setLength(10);
-		movieServiceImpl.getOneMovie(10L);
+		Movies movie = movieServiceImpl.getOneMovie(10L);
+		System.out.println(movie);
 		//List<Movies> movies = movieServiceImpl.getMovies(page,1);
 		//System.out.println(movies);
 	}

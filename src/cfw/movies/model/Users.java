@@ -1,5 +1,7 @@
 package cfw.movies.model;
 
+import com.google.gson.Gson;
+
 /**
  * @author Fangwei_Cai
  * @time since 2016年3月4日 下午9:34:30
@@ -43,8 +45,10 @@ public class Users {
 	}
 	@Override
 	public String toString() {
-		return "Users [id=" + id + ", username=" + username + ", password=" + password + ", head_pic=" + head_pic
-				+ ", type=" + type + "]";
+		/*return "Users [id=" + id + ", username=" + username + ", password=" + password + ", head_pic=" + head_pic
+				+ ", type=" + type + "]";*/
+		Gson gson = new Gson();
+		return gson.toJson(this);
 	}
 	
 	

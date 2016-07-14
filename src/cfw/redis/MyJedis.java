@@ -1,7 +1,9 @@
 package cfw.redis;
 
 import cfw.common.reflect.SimpleAssign;
+import cfw.movies.model.Movies;
 import cfw.redis.annotation.RedisCacheable;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.StringUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -11,6 +13,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.lang.Class.forName;
 
 /**
  * Customize jedis bean, encapsulate methods to simplify redis operation.<br>
@@ -68,7 +72,7 @@ public class MyJedis {
 					result = this.jedis.hget(key, field);*/
 					String [] fields = (String []) redisPropertyMap.get("fields");
 					Map<String,String> hashValue = this.getHashData(key,fields);
-					result = this.convertToRealType(method,hashValue);
+					result = this.convertHashToRealType(method.getReturnType().getName(),hashValue);
 					break;
 				default:
 					break;
@@ -78,9 +82,9 @@ public class MyJedis {
 		String returnTypeName = method.getGenericReturnType().toString();
 
 		if(result == null) return null;
-		Object value = this.convertToRealType(returnTypeName, result);
+		//Object value = this.convertToRealType(returnTypeName, result);
 
-		return value;
+		return result;
 	}
 
 	/**
@@ -208,5 +212,57 @@ public class MyJedis {
 		if(result == null) return null;
 		Object value = this.convertToRealType(returnTypeName, result);
 		return null;
+	}
+
+	/**
+	 * Convert redis hash data to Object.
+	 * @param returnTypeName
+	 * @param result
+     * @return
+     */
+	private Object convertHashToRealType(String returnTypeName,Map<String,String> result){
+
+		if(StringUtils.isEmpty(returnTypeName) || result == null) return null;
+
+		Class<?> clazz = null;
+		try {
+			clazz = Class.forName(returnTypeName);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		if(clazz == null) return null;
+		BeanUtilsBean beanUtilsBean = BeanUtilsBean.getInstance();
+
+		try{
+			for(Map.Entry<String, ? extends Object> entry : result.entrySet()) {
+				// Identify the property name and value(s) to be assigned
+				String name = entry.getKey();
+				if (name == null) {
+					continue;
+				}
+
+				String entryValue = (String)entry.getValue();
+				if(entryValue.startsWith("REDIS_HASH_KEY.")){
+					String propertyRedisKey = entryValue.split("REDIS_HASH_KEY.")[1];
+					Map<String,String> hashData = this.getHashData(propertyRedisKey,null);
+					Field sonPropertyField = clazz.getDeclaredField(name);
+					String sonPropertyClassTypeName = sonPropertyField.getType().getName();
+
+					// Recursive.
+					this.convertHashToRealType(sonPropertyClassTypeName,hashData);
+
+				}
+				// Perform the assignment for this property
+				beanUtilsBean.setProperty(clazz, name, entry.getValue());
+
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+
+		return clazz;
 	}
 }
