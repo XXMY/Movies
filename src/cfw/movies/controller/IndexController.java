@@ -1,12 +1,12 @@
 package cfw.movies.controller;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cfw.redis.annotation.RedisCacheable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cfw.movies.mapper.ProblemsMapper;
-import cfw.movies.model.Descriptions;
-import cfw.movies.model.Movies;
-import cfw.movies.model.Problems;
-import cfw.movies.model.Types;
-import cfw.movies.service.MovieService;
 
 /**
  * @author Fangwei_Cai
@@ -35,13 +30,13 @@ public class IndexController {
 	@RequestMapping(value="/index",method=RequestMethod.GET)
 	@ResponseBody
 	public String index(){
-		Problems problems = new Problems("蔡方伟");
-		//this.problemsMapper.updateOne(problems);
-		
-		System.err.println(problems.toString());
-		
-		return "Hello Movies";
+		return this.test();
 	}
+
+    @RedisCacheable(key = "test")
+	private String test(){
+        return "fangwei";
+    }
 	
 	@RequestMapping(value="/test",method=RequestMethod.GET)
 	@ResponseBody

@@ -2,6 +2,9 @@ package cfw.movies.dao.impl;
 
 import java.util.List;
 
+import cfw.redis.annotation.RedisCacheable;
+import cfw.redis.annotation.RedisID;
+import cfw.redis.util.KeyType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -40,7 +43,8 @@ public class CommentsDaoImpl implements CommentsDao {
 	 * @time since 2016年5月7日 上午11:02:05
 	 */
 	@Override
-	public List<Comments> selectCommentsOfMovie(Long mid) {
+	@RedisCacheable(key = "movie:comment",keyType = KeyType.LIST,expire = 20)
+	public List<Comments> selectCommentsOfMovie(@RedisID Long mid) {
 		List<Comments> comments = this.commentsMapper.selectComments(mid);
 		
 		return comments;

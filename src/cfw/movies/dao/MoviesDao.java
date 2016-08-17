@@ -56,6 +56,8 @@ public interface MoviesDao {
 	 * @return
 	 */
 	List<Movies> selectPic(Map<String,Object> map);
+
+	List<Movies> selectPic(Long start, int length);
 	
 	/**
 	 * @author Fangwei_Cai

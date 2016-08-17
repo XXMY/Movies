@@ -1,10 +1,14 @@
 package cfw.movies.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cfw.redis.annotation.RedisCacheable;
+import cfw.redis.annotation.RedisEnd;
 import cfw.redis.annotation.RedisID;
+import cfw.redis.annotation.RedisStart;
+import cfw.redis.util.KeyType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -54,7 +58,7 @@ public class MoviesDaoImpl implements MoviesDao {
 	 * @time since 2016年4月24日 下午6:40:04
 	 */
 	@Override
-	@RedisCacheable(key = "movies")
+	//@RedisCacheable(key = "movies")
 	public List<Movies> selectFullMovies(Map<String, Object> map) {
 		List<Movies> movies = this.moviesMapper.selectFullMovies(map);
 		
@@ -68,6 +72,7 @@ public class MoviesDaoImpl implements MoviesDao {
 	 * @time since 2016年4月24日 下午9:56:40
 	 */
 	@Override
+	@RedisCacheable(key = "movie:count")
 	public Long selectCount() {
 		Long count = this.moviesMapper.selectCount();
 		return count;
@@ -80,12 +85,9 @@ public class MoviesDaoImpl implements MoviesDao {
 	 * @time since 2016年5月7日 上午12:26:14
 	 */
 	@Override
-	@RedisCacheable(key = "movie",keyType = RedisCacheable.KeyType.HASH)
+	@RedisCacheable(key = "movie",keyType = KeyType.HASH,expire = 20)
 	public Movies selectOne(@RedisID Long id) {
-		//Movies movie = this.moviesMapper.selectOne(id);
-		Movies movie = new Movies();
-		movie.setId(id);
-		movie.setName("Test movie");
+		Movies movie = this.moviesMapper.selectOne(id);
 
 		return movie;
 	}
@@ -101,6 +103,17 @@ public class MoviesDaoImpl implements MoviesDao {
 		List<Movies> movies = this.moviesMapper.selectPic(map);
 		
 		return movies;
+	}
+
+	@Override
+	@RedisCacheable(key = "movie:pic",keyType = KeyType.LIST)
+	public List<Movies> selectPic(@RedisStart Long start, @RedisEnd int length) {
+		if(start == null || start < 0 || length < 0) return null;
+		Map<String,Object> map = new HashMap<>();
+		map.put("start",start);
+		map.put("length",length);
+
+		return this.selectPic(map);
 	}
 
 	/**

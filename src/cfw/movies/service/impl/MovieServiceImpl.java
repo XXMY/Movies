@@ -22,9 +22,6 @@ import cfw.movies.model.Movies;
 import cfw.movies.model.Types;
 import cfw.movies.model.Users;
 import cfw.movies.service.MovieService;
-import cfw.redis.annotation.RedisCacheable;
-import cfw.redis.annotation.RedisCacheable.KeyType;
-import cfw.redis.annotation.RedisID;
 
 /**
  * @author Fangwei_Cai
@@ -121,7 +118,6 @@ public class MovieServiceImpl implements MovieService {
      * @return
      */
 	@Override
-	//@RedisCacheable(key = "movies")
 	public List<Movies> getMovies(Page page, int flag) {
 		List<Movies> movies = null;
 		Map<String,Object> paramMap = new HashMap<String,Object>();
@@ -166,8 +162,16 @@ public class MovieServiceImpl implements MovieService {
 	 */
 	@Override
 	public Long countMovies() {
-		Long count = moviesDaoImpl.selectCount();
-		return count;
+		try{
+			Long count = moviesDaoImpl.selectCount();
+			return count;
+		}catch(Exception e){
+			System.out.println("countMovie exception");
+			e.printStackTrace();
+		}
+
+		return null;
+
 	}
 
 	/**
@@ -205,9 +209,16 @@ public class MovieServiceImpl implements MovieService {
 	 */
 	@Override
 	public Movies getOneMovie(Long id) {
-		Movies movie = this.moviesDaoImpl.selectOne(id);
-		
-		return movie;
+		try{
+			Movies movie = this.moviesDaoImpl.selectOne(id);
+
+			return movie;
+		}catch (Exception e){
+			System.out.println("getOneMovie exception");
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 	
 	/**
@@ -217,11 +228,17 @@ public class MovieServiceImpl implements MovieService {
 	 * @return
 	 */
 	@Override
-	@RedisCacheable(key="cfw:name",keyType=KeyType.STRING)
-	public List<Comments> getCommentsOfMovie(@RedisID Long mid) {
-		List<Comments> comments = this.commentsDaoImpl.selectCommentsOfMovie(mid);
-		
-		return comments;
+	public List<Comments> getCommentsOfMovie(Long mid) {
+		try{
+			List<Comments> comments = this.commentsDaoImpl.selectCommentsOfMovie(mid);
+
+			return comments;
+		}catch(Exception e){
+			System.out.println("getCommentsOfMovie exception");
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	/**
@@ -232,9 +249,17 @@ public class MovieServiceImpl implements MovieService {
 	 */
 	@Override
 	public List<Movies> findPic(Map<String, Object> map) {
-		List<Movies> movies = this.moviesDaoImpl.selectPic(map);
-		
-		return movies;
+		Long start = (Long) map.get("start");
+		int length = (Integer) map.get("length");
+		try{
+			List<Movies> movies = this.moviesDaoImpl.selectPic(start, length);
+
+			return movies;
+		}catch(Exception e){
+			System.out.println("findPic exception");
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**

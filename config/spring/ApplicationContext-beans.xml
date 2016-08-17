@@ -5,10 +5,10 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!--<bean id="movieUploadFilter" class="cfw.movies.filter.MovieUploadFilter">
+	<bean id="movieUploadFilter" class="cfw.movies.filter.MovieUploadFilter">
 		<property name="uploadService" ref="uploadServiceImpl"></property>
 	</bean>
 	
-	<bean id="loginCheckFilter" class="cfw.movies.filter.LoginCheckFilter"></bean>-->
+	<bean id="loginCheckFilter" class="cfw.movies.filter.LoginCheckFilter"></bean>
 
 </beans>
