@@ -7,8 +7,8 @@
 		 version="3.0">
 	<display-name>DEALS</display-name>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<mime-mapping>
 		<extension>css</extension>
