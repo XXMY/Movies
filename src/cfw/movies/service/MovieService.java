@@ -81,7 +81,7 @@ public interface MovieService {
 	 * @param mComment
 	 * @return
 	 */
-	boolean addComment(MovieComment mComment);
+	boolean addComment(MovieComment mComment) throws Exception;
 	
 	/**
 	 * @author Fangwei_Cai

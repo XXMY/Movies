@@ -181,9 +181,9 @@ public class MovieServiceImpl implements MovieService {
 	 * @time since 2016年5月1日 上午11:49:06
 	 */
 	@Override
-	public boolean addComment(MovieComment mComment) {
+	public boolean addComment(MovieComment mComment) throws Exception {
 		Comments comment = new Comments();
-		
+
 		Users user = usersDaoImpl.selectUserByName(mComment.getUsername());
 		
 		if(user == null) return false;
@@ -196,6 +196,7 @@ public class MovieServiceImpl implements MovieService {
 		int insertCommentResult = commentsDaoImpl.insertComment(comment);
 		
 		if(insertCommentResult > 0)
+			//throw new RuntimeException("Add comment transaction test");
 			return true;
 		
 		return false;

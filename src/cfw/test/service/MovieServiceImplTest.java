@@ -77,9 +77,14 @@ public class MovieServiceImplTest extends AbstractTest {
 		mComment.setScore(5.6f);
 		mComment.setUsername("cfw");
 		mComment.setComment("lallademaxiya");
-		
-		boolean result = movieServiceImpl.addComment(mComment);
-		
+
+		boolean result = false;
+		try {
+			result = movieServiceImpl.addComment(mComment);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		System.out.println(result);
 		
 	}

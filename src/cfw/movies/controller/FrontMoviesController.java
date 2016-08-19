@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,9 +87,15 @@ public class FrontMoviesController extends BaseController{
 		if(CodeHelper.isNullOrEmpty(movieComment.getComment()) || CodeHelper.isNull(movieComment.getMid()) || CodeHelper.isNullOrEmpty(movieComment.getUsername())){
 			return ajaxResult;
 		}
-		
-		boolean addCommentResult = movieService.addComment(movieComment);
-		
+
+		boolean addCommentResult = false;
+		try {
+			boolean isProxy = AopUtils.isAopProxy(movieService);
+			addCommentResult = movieService.addComment(movieComment);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		//boolean addCommentResult = false;
 		
 		if(addCommentResult)

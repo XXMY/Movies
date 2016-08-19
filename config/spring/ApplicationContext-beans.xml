@@ -6,9 +6,9 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="movieUploadFilter" class="cfw.movies.filter.MovieUploadFilter">
-		<property name="uploadService" ref="uploadServiceImpl"></property>
+		<property name="uploadService" ref="uploadServiceImpl"/>
 	</bean>
 	
-	<bean id="loginCheckFilter" class="cfw.movies.filter.LoginCheckFilter"></bean>
+	<bean id="loginCheckFilter" class="cfw.movies.filter.LoginCheckFilter"/>
 
 </beans>
