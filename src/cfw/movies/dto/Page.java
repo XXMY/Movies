@@ -1,5 +1,7 @@
 package cfw.movies.dto;
 
+import cfw.redis.annotation.RedisStart;
+
 /**
  * @author Fangwei_Cai
  * @time since 2016年4月24日 上午11:13:47
@@ -7,9 +9,10 @@ package cfw.movies.dto;
 public class Page {
 	
 	private String keyword;
-	
+
+	@RedisStart
 	private Long start;
-	
+
 	private int length;
 
 	public String getKeyword() {

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cfw.common.reflect.SimpleAssign;
+import cfw.movies.dto.Page;
 import cfw.redis.annotation.RedisCacheable;
 import cfw.redis.annotation.RedisEnd;
 import cfw.redis.annotation.RedisID;
@@ -51,6 +53,18 @@ public class MoviesDaoImpl implements MoviesDao {
 		return movies;
 	}
 
+	@Override
+    @RedisCacheable
+	public List<Movies> selectMovies(Page page) {
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+
+		boolean result = SimpleAssign.assignValueToMap(paramMap, page);
+		if(result){
+			return this.moviesMapper.selectMovies(paramMap);
+		}
+        return null;
+	}
+
 	/**
 	 * (non-Javadoc)
 	 * @see cfw.movies.dao.MoviesDao#selectFullMovies(java.util.Map)
@@ -63,6 +77,18 @@ public class MoviesDaoImpl implements MoviesDao {
 		List<Movies> movies = this.moviesMapper.selectFullMovies(map);
 		
 		return movies;
+	}
+
+	@Override
+	public List<Movies> selectFullMovies(Page page) {
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+
+		boolean result = SimpleAssign.assignValueToMap(paramMap, page);
+		if(result){
+			return this.moviesMapper.selectMovies(paramMap);
+		}
+
+        return null;
 	}
 
 	/**

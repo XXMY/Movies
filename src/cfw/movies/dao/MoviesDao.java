@@ -3,6 +3,7 @@ package cfw.movies.dao;
 import java.util.List;
 import java.util.Map;
 
+import cfw.movies.dto.Page;
 import cfw.movies.model.Movies;
 import cfw.movies.model.Users;
 
@@ -25,6 +26,8 @@ public interface MoviesDao {
 	 * @return List<Movies>
 	 */
 	List<Movies> selectMovies(Map<String,Object> map);
+	List<Movies> selectMovies(Page page);
+
 	
 	/**
 	 * @author Fangwei_Cai
@@ -33,7 +36,8 @@ public interface MoviesDao {
 	 * @return
 	 */
 	List<Movies> selectFullMovies(Map<String,Object> map);
-	
+	List<Movies> selectFullMovies(Page page);
+
 	/**
 	 * @author Fangwei_Cai
 	 * @time since 2016年4月24日 下午9:56:23

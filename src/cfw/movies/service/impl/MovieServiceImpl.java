@@ -120,19 +120,17 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public List<Movies> getMovies(Page page, int flag) {
 		List<Movies> movies = null;
-		Map<String,Object> paramMap = new HashMap<String,Object>();
-		
-		boolean result = SimpleAssign.assignValueToMap(paramMap, page);
-		if(result){
-			switch(flag){
-			case 1:
-				movies = moviesDaoImpl.selectMovies(paramMap);
-				break;
-			case 2:
-				movies = moviesDaoImpl.selectFullMovies(paramMap);
-				break;
-			}
-		}
+
+        switch(flag){
+            case 1:
+                //movies = moviesDaoImpl.selectMovies(paramMap);
+                movies = moviesDaoImpl.selectMovies(page);
+                break;
+            case 2:
+                //movies = moviesDaoImpl.selectFullMovies(paramMap);
+                movies = moviesDaoImpl.selectFullMovies(page);
+                break;
+        }
 		
 		if(movies == null || movies.size() == 0) return movies;
 		
