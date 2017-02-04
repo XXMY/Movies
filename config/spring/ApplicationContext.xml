@@ -10,11 +10,11 @@
 
     <!-- 使用注解的包，包括子集 -->
     <context:component-scan base-package="cfw"/>
-
     <!-- 当使用 JUnit 测试时，不扫描common包下的内容 -->
     <!--<context:component-scan base-package="cfw">
     	<context:exclude-filter type="regex" expression="cfw\.common\.*.*"/>
     </context:component-scan>-->
+
 
     <!-- 该 BeanPostProcessor 将自动对标注 @Autowired 的 Bean 进行注入 -->
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
@@ -30,13 +30,5 @@
 
     <!-- 启用切面注解 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-
-    <!--<import resource="ApplicationContext-mvc.xml" />
-    <import resource="ApplicationContext-beans.xml"/>
-    <import resource="ApplicationContext-dao.xml"/>
-    <import resource="ApplicationContext-aop.xml"/>
-    <import resource="ApplicationContext-redis.xml"/>
-    <import resource="ApplicationContext-constant.xml"/>-->
-
 
 </beans>

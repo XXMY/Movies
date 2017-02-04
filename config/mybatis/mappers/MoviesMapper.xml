@@ -32,6 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			id,
 			name,
 			type,
+			pic,
 			score
 		FROM
 			movies

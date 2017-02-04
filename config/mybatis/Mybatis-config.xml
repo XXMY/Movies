@@ -15,24 +15,4 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<package name="cfw.movies.model"/>
 	</typeAliases>
 	
-	
-<!-- 	 <environments default="development">
-        <environment id="development">
-        <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-            <property name="driver" value="com.mysql.jdbc.Driver"/>
-            <property name="url" value="jdbc:mysql://127.0.0.1:3306/graduate_design" />
-            <property name="username" value="root"/>
-            <property name="password" value="admin"/>
-            </dataSource>
-        </environment>
-    </environments>
-    
-    <mappers>
-    	<package name="cfw.movies.mapper"/>
-    </mappers>
-	<mappers>
-		<mapper resource="cfw/movies/mapper/xml/UsersMapper.xml"/>
-	</mappers> -->
-	
 </configuration>
