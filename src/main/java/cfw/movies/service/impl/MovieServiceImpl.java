@@ -1,5 +1,6 @@
 package cfw.movies.service.impl;
 
+import cfw.common.reflect.SimpleAssign;
 import cfw.movies.dao.*;
 import cfw.movies.dto.MovieComment;
 import cfw.movies.dto.Page;
@@ -7,7 +8,9 @@ import cfw.movies.model.*;
 import cfw.movies.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -109,14 +112,15 @@ public class MovieServiceImpl implements MovieService {
 	public List<Movies> getMovies(Page page, int flag) {
 		List<Movies> movies = null;
 
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+
+		boolean result = SimpleAssign.assignValueToMap(paramMap, page);
         switch(flag){
             case 1:
-                //movies = moviesDaoImpl.selectMovies(paramMap);
-                movies = moviesDaoImpl.selectMovies(page);
+                movies = moviesDaoImpl.selectMovies(paramMap);
                 break;
             case 2:
-                //movies = moviesDaoImpl.selectFullMovies(paramMap);
-                movies = moviesDaoImpl.selectFullMovies(page);
+                movies = moviesDaoImpl.selectFullMovies(paramMap);
                 break;
         }
 		
@@ -134,7 +138,10 @@ public class MovieServiceImpl implements MovieService {
 					}
 				}
 			}
-			movie.setType(typeName.substring(0, typeName.length()-1));
+
+			if(!StringUtils.isEmpty(typeName))
+				movie.setType(typeName.substring(0, typeName.length()-1));
+
 		}
 		
 		return movies;
