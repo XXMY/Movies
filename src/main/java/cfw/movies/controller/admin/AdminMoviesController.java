@@ -61,7 +61,7 @@ public class AdminMoviesController extends BaseController{
 		boolean result = false;
 		
 		// id not exists means it's a new commit.
-		if(id == 0l){
+		if(id == 0L){
 			result = this.movieService.addMovie(movie);
 		}else{
 			// modification commit.
@@ -107,7 +107,7 @@ public class AdminMoviesController extends BaseController{
 
 	/**
 	 * Recommend movies <p>
-	 * Client will send request in every five seconds
+	 * Client will send request within five seconds
 	 * to fetch the latest state of recommend. 
 	 * @author Fangwei_Cai
 	 * @time since 2016年5月15日 下午8:51:36

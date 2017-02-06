@@ -203,7 +203,7 @@ public class R {
 	/**
 	 * @author Fangwei_Cai
 	 * @time since 2016年5月14日 下午11:12:01
-	 * @param resultName
+	 * @param queryResult
 	 * @param sql
 	 * @return
 	 */

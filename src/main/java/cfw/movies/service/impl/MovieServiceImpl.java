@@ -18,7 +18,7 @@ import java.util.Map;
  * @author Fangwei_Cai
  * @time since 2016年4月2日 下午5:55:41
  */
-@Service("movieServiceImpl")
+@Service("movieService")
 public class MovieServiceImpl implements MovieService {
 
 	@Autowired
